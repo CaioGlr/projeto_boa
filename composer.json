@@ -1,0 +1,24 @@
+{
+
+    "name": "caiogalera/projeto-boa",
+    "description": "Projeto desenvolvido na aula de Programaçao para Internet - Fatec Jahu",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Caio Candido Galera",
+            "email": "caio.candido.galera@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+
+    
+}
+
+
