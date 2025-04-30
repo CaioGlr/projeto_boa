@@ -1,3 +1,13 @@
+Abrir Código:
+
+cd \projetos 
+
+cd projeto_boa
+
+code .
+
+
+
 Começar Servidor:
 
 php -S localhost:8000 -t public 

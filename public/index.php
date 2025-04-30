@@ -34,7 +34,7 @@ if ($url == "/home"){
 } else if ($url == "/dashboard"){
     render('dashboard.php', ['title' => 'Dashboard - Comida Boa']);
 }  else if ($url == "/cardapio"){
-    render_sem_login('cardapio.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+    render_sem_login('cardapio.php', ['title' => 'Cardapio - Comida Boa']);
 }
 // Rotas de usuários
   else if ($url == "/usuarios"){
@@ -48,23 +48,23 @@ if ($url == "/home"){
 } 
 // Rotas de produtos
 else if ($url == "/produtos"){
-    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
 } else if ($url == "/produtos/novo"){
-    render('produtos/produtos.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
 } else if ($url == "/produtos/editar"){
-    render('produtos/produtos.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
 } else if ($url == "/produtos/deletar"){
-    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
 }
 // Rotas de vendas
 else if ($url == "/vendas"){
-    render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    render('vendas/listagemvendas.php', ['title' => 'Listagem de Vendas - Comida Boa']);
 } else if ($url == "/vendas/novo"){
-    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
 } else if ($url == "/vendas/editar"){
-    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
 } else if ($url == "/vendas/deletar"){
-    render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Vendas']);
 }
 
 
