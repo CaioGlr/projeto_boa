@@ -19,7 +19,8 @@ function render_sem_login($view, $data = []) {
     $content = ob_get_clean();
     // Carrega a página da rota
     require __DIR__ . '/../app/Views/' . $view;
-
+    // Carrega o template base.php
+    require __DIR__ . '/../app/Views/layouts/base.php';
 }
 
 // Obtem a URL da requisição da navegação
