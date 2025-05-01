@@ -1,3 +1,7 @@
+<pre>
+    <?php print_r($usuarios)?>
+</pre>    
+
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -6,6 +10,8 @@
 <div class="container mt-4 box">
     <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
     <button class="btn btn-primary mb-3">Adicionar Novo Usuário</button>
+
+
     
     <table class="table table-striped">
         <thead>

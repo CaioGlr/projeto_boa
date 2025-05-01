@@ -11,7 +11,7 @@ class Database{
     public static function conectar() {
         $host = 'localhost'; // Endereço do servidor BD
         $porta = '3306'; // Porta do servidor BD
-        $banco = 'comida_boa'; // Nome do banco de dados
+        $banco = 'projeto_boa'; // Nome do banco de dados
         $usuario = 'root'; // Usuário padrão XAMPP
         $senha = ''; // Senha padrão XAMPP (vazia)
 

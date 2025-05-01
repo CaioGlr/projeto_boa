@@ -2,6 +2,8 @@
 // Importa o autoload do Composer para carregar as rotas
 require __DIR__ . '/../vendor/autoload.php';
 
+use App\Models\Usuario;
+
 // Injeta o conteúdo das páginas de rota dentro do template base.php
 function render($view, $data = []) {
     extract($data);
@@ -38,8 +40,14 @@ if ($url == "/home"){
     render_sem_login('cardapio.php', ['title' => 'Cardapio - Comida Boa']);
 }
 // Rotas de usuários
+
   else if ($url == "/usuarios"){
-    render('usuarios/listagemusuarios.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    $usuarios = Usuario::buscarTodos();
+    render('usuarios/listagemusuarios.php', ['
+    title' => 'Listagem de Usuários - Comida Boa',
+    "usuarios" => $usuarios]);
+
+    
 } else if ($url == "/usuarios/novo"){
     render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
 } else if ($url == "/usuarios/editar"){
