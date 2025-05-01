@@ -1,7 +1,6 @@
 <pre>
     <?php print_r($usuarios)?>
 </pre>    
-
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -74,4 +73,6 @@
     <div class="d-flex justify-content-between">
         <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
+    </div>
+    </header>
 </div>

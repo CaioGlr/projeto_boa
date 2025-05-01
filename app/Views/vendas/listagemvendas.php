@@ -1,3 +1,6 @@
+<pre>
+    <?php print_r($vendas)?>
+</pre>    
 
   
 <div class="content-titulo">

@@ -40,11 +40,10 @@ if ($url == "/home"){
     render_sem_login('cardapio.php', ['title' => 'Cardapio - Comida Boa']);
 }
 // Rotas de usuários
-
   else if ($url == "/usuarios"){
     $usuarios = Usuario::buscarTodos();
-    render('usuarios/listagemusuarios.php', ['
-    title' => 'Listagem de Usuários - Comida Boa',
+    render('usuarios/listagemusuarios.php', [
+    'title' => 'Listagem de Usuários - Comida Boa',
     "usuarios" => $usuarios]);
 
     
@@ -57,7 +56,11 @@ if ($url == "/home"){
 } 
 // Rotas de produtos
 else if ($url == "/produtos"){
-    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
+    $produtos = Usuario::buscarTodos();
+    render('produtos/listagemprodutos.php', [
+    'title' => 'Listagem de Produtos - Comida Boa',
+    "produtos" => $produtos]);
+
 } else if ($url == "/produtos/novo"){
     render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
 } else if ($url == "/produtos/editar"){
@@ -67,7 +70,12 @@ else if ($url == "/produtos"){
 }
 // Rotas de vendas
 else if ($url == "/vendas"){
-    render('vendas/listagemvendas.php', ['title' => 'Listagem de Vendas - Comida Boa']);
+    $vendas = Usuario::buscarTodos();
+    render('vendas/listagemvendas.php', [
+    'title' => 'Listagem de Vendas - Comida Boa',
+    "vendas" => $vendas]);
+
+
 } else if ($url == "/vendas/novo"){
     render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
 } else if ($url == "/vendas/editar"){
