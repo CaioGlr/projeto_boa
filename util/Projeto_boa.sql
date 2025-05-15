@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   cep VARCHAR(10),
   email VARCHAR(255) NOT NULL UNIQUE,
   senha VARCHAR(255) NOT NULL,
-  tipo ENUM('Administrador', 'Funcionário', 'Cliente') NOT NULL,
+  tipo ENUM('Administrador', 'Funcionario', 'Cliente') NOT NULL,
   
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

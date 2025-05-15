@@ -1,0 +1,24 @@
+CRUD
+1 - CRIAR O MODEL
+2 - CRIAR O CONTROLLER
+3 - CRIAR A ROTA NO INDEX.PHP 
+4 - CRIAR A VIEW
+
+CREATE(INSERT)
+    |
+    --->NOVO() - GET
+           |
+           SAVE ($DADOS) - POST
+
+
+READ(SELECT)
+  |
+  ---> LISTAR TODOS
+  |                  ) GET
+  --->LISTAPORID($ID)
+
+UPDATE(UPDATE)
+  |
+  --->EDITAR - GET
+        |
+        ATUALIZAR($DADOS) - POST

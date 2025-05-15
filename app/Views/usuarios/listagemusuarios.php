@@ -1,5 +1,4 @@
 <pre>
-    <?php print_r($usuarios)?>
 </pre>    
 <div class="content-titulo">
     <header class="text-center">
@@ -22,51 +21,25 @@
             </tr>
         </thead>
         <tbody id="userTable">
+            <!-- foreach percorre a lista recebida e coloca
+             cada item da lista &usuarios que veio do controller na variavel $user -->
+           <?php foreach ($usuarios as $user): ?>
             <tr>
-                <td>João Silva</td>
-                <td>joao.silva@email.com</td>
-                <td>(11) 91234-5678</td>
+                
+                <td><?= $user['id_usuario']?></td>
+                <td><?= $user['nome']?></td>
+                <td><?= $user['email']?></td>
+                <td><?= $user['celular']?></td>
                 <td>
-                    <button class="btn btn-warning btn-sm">Editar</button>
-                    <button class="btn btn-danger btn-sm">Excluir</button>
+                    <a href="/usuarios/<?= $user['id_usuario'] ?>/editar"
+                     class="btn btn-warning btn-sm">Editar</button>
+                    </a>
+                    <a href
+                        class="btn btn-danger btn-sm">Excluir</button>
+                    </a>
                 </td>
             </tr>
-            <tr>
-                <td>Maria Souza</td>
-                <td>maria.souza@email.com</td>
-                <td>(21) 98765-4321</td>
-                <td>
-                    <button class="btn btn-warning btn-sm">Editar</button>
-                    <button class="btn btn-danger btn-sm">Excluir</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Carlos Pereira</td>
-                <td>carlos.pereira@email.com</td>
-                <td>(31) 99876-5432</td>
-                <td>
-                    <button class="btn btn-warning btn-sm">Editar</button>
-                    <button class="btn btn-danger btn-sm">Excluir</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Fernanda Lima</td>
-                <td>fernanda.lima@email.com</td>
-                <td>(41) 98765-1234</td>
-                <td>
-                    <button class="btn btn-warning btn-sm">Editar</button>
-                    <button class="btn btn-danger btn-sm">Excluir</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Bruno Almeida</td>
-                <td>bruno.almeida@email.com</td>
-                <td>(51) 91234-9876</td>
-                <td>
-                    <button class="btn btn-warning btn-sm">Editar</button>
-                    <button class="btn btn-danger btn-sm">Excluir</button>
-                </td>
-            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
     

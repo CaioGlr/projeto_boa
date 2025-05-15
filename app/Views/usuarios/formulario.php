@@ -1,4 +1,10 @@
-
+<?php 
+ if(isset($_SESSION['erros'])){
+    echo "<pre>";
+    print_r($_SESSION['erros']);
+    echo "</pre>";
+ }
+?>
     <!-- Conteúdo Principal -->
  <div class="content-titulo">
     <header class="text-center">
@@ -6,6 +12,7 @@
             <h1 class="display-3 fw-bold">Cadastro</h1>
         </div>
     </header>
+<form action="/usuarios/salvar" method="POST">    
 </div>
  <div class="row d-flex justify-content-evenly">
     <!-- Nome Completo -->
@@ -25,7 +32,7 @@
     <!-- Data de Nascimento -->
     <div class="col-md-5 mb-3">
         <label for="data-nascimento" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="data-nascimento" name="data-nascimento" required>
+        <input type="date" class="form-control" id="data-nascimento" name="data_nascimento" required>
     </div>
 
     <!-- Celular -->
@@ -46,6 +53,19 @@
     <div class="col-md-5 mb-3">
         <label for="bairro" class="form-label">Bairro</label>
         <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
+    </div>
+</div>
+<div class="row d-flex justify-content-evenly">
+ <!-- Número -->
+    <div class="col-md-5 mb-3">
+        <label for="complemento" class="form-label">Número</label>
+        <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite seu numero" required>
+    </div>
+
+    
+        <div class="col-md-5 mb-3">
+        <label for="complemento" class="form-label">Complemento</label>
+        <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Digite seu complemento" required>
     </div>
 </div>
 
@@ -116,7 +136,7 @@
     <!-- Confirmar Senha -->
     <div class="col-md-5 mb-3">
         <label for="confirmar-senha" class="form-label">Confirmar Senha</label>
-        <input type="password" class="form-control" id="confirmar-senha" name="confirmar-senha" placeholder="Confirme sua senha" required>
+        <input type="password" class="form-control" id="confirmar-senha" name="confirmar_senha" placeholder="Confirme sua senha" required>
     </div>
 </div>
 
@@ -125,9 +145,9 @@
     <div class="col-md-5 mb-3">
         <label for="tipo-usuario" class="form-label">Tipo de Usuário</label>
         <select class="form-select" id="tipo-usuario" name="tipo-usuario" required>
+            <option value="Cliente">Cliente</option>
             <option value="Administrador">Administrador</option>
             <option value="Funcionario">Funcionário</option>
-            <option value="Cliente">Cliente</option>
         </select>
     </div>
     <div class="cold-md-4 gap-2 mt-2 text-center ">
@@ -136,3 +156,4 @@
 
 </div>
 </div>
+</form>

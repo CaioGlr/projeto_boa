@@ -1,11 +1,20 @@
 <?php
+session_start();
 // Importa o autoload do Composer para carregar as rotas
 require __DIR__ . '/../vendor/autoload.php';
+use App\Controllers\ProdutoController;
+$produtosCtrl = new  ProdutoController();
 
-use App\Models\Usuario;
+use App\Controllers\UsuarioController;
+// Instacia o Controller de Usuário para ser utilizado (cria objeto)
+$usuarioCtrl = new UsuarioController();
+
+use App\Controllers\VendaController;
+$vendaCtrl = new VendaController();
 
 // Injeta o conteúdo das páginas de rota dentro do template base.php
-function render($view, $data = []) {
+function render($view, $data = [])
+{
     extract($data);
     ob_start();
     // Carrega a página da rota
@@ -15,7 +24,8 @@ function render($view, $data = []) {
     require __DIR__ . '/../app/Views/layouts/base.php';
 }
 
-function render_sem_login($view, $data = []) {
+function render_sem_login($view, $data = [])
+{
     extract($data);
     ob_start();
     $content = ob_get_clean();
@@ -38,50 +48,75 @@ if ($url == "/home"){
     render('dashboard.php', ['title' => 'Dashboard - Comida Boa']);
 }  else if ($url == "/cardapio"){
     render_sem_login('cardapio.php', ['title' => 'Cardapio - Comida Boa']);
+
+
 }
 // Rotas de usuários
   else if ($url == "/usuarios"){
-    $usuarios = Usuario::buscarTodos();
-    render('usuarios/listagemusuarios.php', [
-    'title' => 'Listagem de Usuários - Comida Boa',
-    "usuarios" => $usuarios]);
-
-    
-} else if ($url == "/usuarios/novo"){
+    $usuarios = $usuarioCtrl->listar();
+    render("usuarios/listagemusuarios.php", ['title' => 'Listagem de Usuários - Comida Boa']);
+}
+ else if ($url == "/usuarios/novo"){
+    $usuarios = $usuarioCtrl->novo();
     render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
-} else if ($url == "/usuarios/editar"){
+}
+ else if ($url == "/usuarios/editar"){
     render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
-} else if ($url == "/usuarios/deletar"){
-    render('usuarios/listagemusuarios.php', ['title' => 'Listagem de Usuários - Comida Boa']);
 } 
+
+else if ($url == "/usuarios/deletar")
+{ 
+    
+} else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $usuarios = $usuarioCtrl->salvar();
+}
+
+
 // Rotas de produtos
 else if ($url == "/produtos"){
-    $produtos = Usuario::buscarTodos();
-    render('produtos/listagemprodutos.php', [
-    'title' => 'Listagem de Produtos - Comida Boa',
-    "produtos" => $produtos]);
-
-} else if ($url == "/produtos/novo"){
-    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
-} else if ($url == "/produtos/editar"){
-    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
-} else if ($url == "/produtos/deletar"){
+    $produtos = $produtosCtrl->listar();
     render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
 }
+
+else if ($url == "/produtos/novo"){
+    $produto = $produtoCtrl->novo();
+    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
+} 
+
+else if ($url == "/produtos/editar"){
+    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
+} 
+
+else if ($url == "/produtos/deletar"){
+    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
+}
+
+else if ($url == "/produto/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $produto = $produtoCtrl->salvar();
+}
+
+
 // Rotas de vendas
 else if ($url == "/vendas"){
-    $vendas = Usuario::buscarTodos();
-    render('vendas/listagemvendas.php', [
-    'title' => 'Listagem de Vendas - Comida Boa',
-    "vendas" => $vendas]);
+    $vendas = $vendaCtrl->listar();
+    render('vendas/listagemvendas.php', ['title' => 'Listagem de Vendas - Comida Boa']);
+}
 
+else if ($url == "/vendas/novo"){
+    $vendas = $vendaCtrl->novo();
+    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
+} 
 
-} else if ($url == "/vendas/novo"){
+else if ($url == "/vendas/editar"){
     render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
-} else if ($url == "/vendas/editar"){
-    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
-} else if ($url == "/vendas/deletar"){
+} 
+
+else if ($url == "/vendas/deletar"){
     render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Vendas']);
+}
+
+else if ($url == "/produto/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $vendas = $vendaCtrl->salvar();
 }
 
 
