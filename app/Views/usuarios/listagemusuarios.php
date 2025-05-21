@@ -5,8 +5,7 @@
         </div>
 <div class="container mt-4 box">
     <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
-    <button class="btn btn-primary mb-3">Adicionar Novo Usuário</button>
-
+    <a href="/usuarios/novo" class="btn btn-primary mb-3"> Cadastrar um <b> Novo Usuário</b></a>
 
     
     <table class="table table-striped">
