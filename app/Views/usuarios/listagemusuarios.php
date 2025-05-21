@@ -1,5 +1,3 @@
-<pre>
-</pre>    
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -14,6 +12,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
@@ -39,12 +38,12 @@
                     </a>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     
     <div class="d-flex justify-content-between">
-        <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        <a href="/usuarios/novo" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
     </div>
     </header>

@@ -2,7 +2,9 @@
 session_start();
 // Importa o autoload do Composer para carregar as rotas
 require __DIR__ . '/../vendor/autoload.php';
+
 use App\Controllers\ProdutoController;
+// Instacia o Controller de Produtos para ser utilizado (cria objeto)
 $produtosCtrl = new  ProdutoController();
 
 use App\Controllers\UsuarioController;
@@ -10,6 +12,7 @@ use App\Controllers\UsuarioController;
 $usuarioCtrl = new UsuarioController();
 
 use App\Controllers\VendaController;
+// Instacia o Controller de Vendas para ser utilizado (cria objeto)
 $vendaCtrl = new VendaController();
 
 // Injeta o conteúdo das páginas de rota dentro do template base.php
@@ -54,26 +57,26 @@ if ($url == "/home"){
 // Rotas de usuários
   else if ($url == "/usuarios"){
     $usuarios = $usuarioCtrl->listar();
-    render("usuarios/listagemusuarios.php", ['title' => 'Listagem de Usuários - Comida Boa']);
+
 }
  else if ($url == "/usuarios/novo"){
     $usuarios = $usuarioCtrl->novo();
-    render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+
 }
  else if ($url == "/usuarios/editar"){
     render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
 } 
+else if ($url == "/usuarios/deletar"){
+    render('usuarios/listagemusuarios.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+}
 
-else if ($url == "/usuarios/deletar")
-{ 
-    
-} else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
     $usuarios = $usuarioCtrl->salvar();
 }
 
 
 // Rotas de produtos
-else if ($url == "/produtos"){
+else if ($url == "produtos"){
     $produtos = $produtosCtrl->listar();
     render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
 }
@@ -115,7 +118,7 @@ else if ($url == "/vendas/deletar"){
     render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Vendas']);
 }
 
-else if ($url == "/produto/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+else if ($url == "/vendas/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
     $vendas = $vendaCtrl->salvar();
 }
 

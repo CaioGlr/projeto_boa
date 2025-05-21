@@ -6,7 +6,8 @@ namespace App\Controllers;
 use App\Models\Usuario;
 
 class UsuarioController{
-    //exibe a lista de usuarios
+
+    //Exibe a lista de usuarios
     public function listar(){
         //Chama a Model de Usuario e executa a busca no BD
         $usuarios = Usuario::buscarTodos();
@@ -17,11 +18,11 @@ class UsuarioController{
             "usuarios" => $usuarios]);
     }
 
-    //abre o formulário para criar um usuario
-    public function novo(){
-        render('usuarios/listagemusuarios.php', ['title' => 'Listagem de Usuários - Comida Boa']);
+    //Abre o formulário para criar um usuario
+     public function novo(){
+        render('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
     }
-
+    
     //salva um novo usuario no BD
     public function salvar(){
     
@@ -73,19 +74,19 @@ class UsuarioController{
 
         //Validação do nome
     if(empty($dados['nome'])){
-            $erros[] = "O nome é obrigatório!";
+       $erros[] = "O nome é obrigatório!";
      } else if (strlen($dados['nome']) < 3){
        $erros[] = "O nome deve ter pelo menos 3 caracteres!";
      }
      // Validação da Senha
     if(empty($dados['senha'])){
-            $erros[] = "A senha é obrigatório!";
+       $erros[] = "A senha é obrigatório!";
      } else if (strlen($dados['senha']) < 6){
        $erros[] = "A senha deve ter pelo menos 6 caracteres!";
      }
         // Validação do Email
     if(empty($dados['email'])){
-            $erros[] = "O email é obrigatório!";
+       $erros[] = "O email é obrigatório!";
      } else if (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)){
        $erros[] = "E-mail informado é inválido!";
      }
@@ -109,7 +110,6 @@ class UsuarioController{
     } else if ($dados['senha'] !== $dados['confirmar_senha']) {
         $erros[] = "A Senha e Confirmação de Senha deve ser iguais!";
     }    
-
         return $erros;
      }
-}
+}?>
