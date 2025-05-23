@@ -6,7 +6,7 @@ if($_SESSION['dados']){
  if(isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
 ?>  
-<div class="alert alert-danger row py-5" role="alert">
+<div class="alert alert-danger row py-5 mt-5 mb-5" role="alert">
   <h4 class="alert-heading">Erro ao cadastrar!</h4>
   <p>Verifique os itens abaixo em seu formulário antes de tentar novamente!</p>
   <ul>

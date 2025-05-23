@@ -50,7 +50,8 @@ class Usuario
         estado,
         cep,
         email,
-        senha
+        senha,
+        tipo
     )";
 $sql .= "VALUES (
         :nome,
@@ -65,7 +66,8 @@ $sql .= "VALUES (
         :estado,
         :cep,
         :email,
-        :senha
+        :senha,
+        :tipo
     )";
 
             // prepara o SQL para ser inserido no BD limpando códigos maliciosos
@@ -85,6 +87,7 @@ $sql .= "VALUES (
             $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
             $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
             $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
+            $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
             //Demais campos...
 
             //Executa o SQL no Banco de dados
