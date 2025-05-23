@@ -1,3 +1,4 @@
+
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -7,7 +8,16 @@
     <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
     <a href="/usuarios/novo" class="btn btn-primary mb-3"> Cadastrar um <b> Novo Usuário</b></a>
 
-    
+<?php
+if (isset($_SESSION['mensagem'])):
+?>
+<div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?>alert-dismissible fade show" role="alert">
+  <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php endif;
+unset($_SESSION['mensagem']);
+unset($_SESSION['mensagem']); ?>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -15,6 +25,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
+                <th>Tipo</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -28,6 +39,7 @@
                 <td><?= $user['nome']?></td>
                 <td><?= $user['email']?></td>
                 <td><?= $user['celular']?></td>
+                <td><?= $user['tipo']?></td>
                 <td>
                     <a href="/usuarios/<?= $user['id_usuario'] ?>/editar"
                      class="btn btn-warning btn-sm">Editar</button>
@@ -42,8 +54,9 @@
     </table>
     
     <div class="d-flex justify-content-between">
-        <a href="/usuarios/novo" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
-    </div>
+ </div>
+</div>
     </header>
 </div>

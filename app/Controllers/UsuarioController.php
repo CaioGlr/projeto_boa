@@ -47,7 +47,7 @@ class UsuarioController{
           
 
         //print_r($_POST);exit();
-        //aqui vamos fazer validações
+        //Aqui vamos fazer validações
         $erros = $this->validar($dados);
 
         if(!empty($erros)) {   
@@ -61,7 +61,7 @@ class UsuarioController{
         
         //chama o model passando os dados
         Usuario::salvar($dados);
-         $_SESSION['mensagem'] = "Usuário cadastrado com sucesso!";
+         $_SESSION['mensagem'] = "Usuário " . $dados['nome'] . ", cadastrado com sucesso!";
          $_SESSION['tipo_mensagem'] = "success";
         header('Location: /usuarios');
         }
@@ -112,4 +112,4 @@ class UsuarioController{
     }    
         return $erros;
      }
-}?>
+}

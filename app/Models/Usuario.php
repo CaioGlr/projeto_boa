@@ -74,7 +74,7 @@ $sql .= "VALUES (
             //Passa os dados das variaveis para o INSERT do sql
             $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
             $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
-            $stmt->bindParam(':data_nascimento', $dados['nomdata_nascimentoe']);
+            $stmt->bindParam(':data_nascimento', $dados['data_nascimento']);
             $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
             $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
             $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
@@ -93,7 +93,7 @@ $sql .= "VALUES (
             //retorna o ID do registro no BD
             return (int) $pdo->lastInsertId();
         } catch (PDOException $e) {
-            echo "Eroo ao inserir: " . $e->getMessage();
+            echo "Erro ao inserir: " . $e->getMessage();
             exit;
         }
     }

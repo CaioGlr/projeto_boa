@@ -41,6 +41,7 @@ function render_sem_login($view, $data = [])
 // Obtem a URL da requisição da navegação
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+// Páginas Principais
 if ($url == "/home"){
     render_sem_login('home.php', ['title' => 'Página Inicial - Comida Boa']);
 } else if ($url == '/sobre'){
@@ -82,7 +83,7 @@ else if ($url == "produtos"){
 }
 
 else if ($url == "/produtos/novo"){
-    $produto = $produtoCtrl->novo();
+    //$produto = $produtoCtrl->novo();
     render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
 } 
 
@@ -95,7 +96,7 @@ else if ($url == "/produtos/deletar"){
 }
 
 else if ($url == "/produto/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
-    $produto = $produtoCtrl->salvar();
+    //$produto = $produtoCtrl->salvar();
 }
 
 
@@ -106,7 +107,7 @@ else if ($url == "/vendas"){
 }
 
 else if ($url == "/vendas/novo"){
-    $vendas = $vendaCtrl->novo();
+    //$vendas = $vendaCtrl->novo();
     render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
 } 
 
@@ -119,7 +120,7 @@ else if ($url == "/vendas/deletar"){
 }
 
 else if ($url == "/vendas/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
-    $vendas = $vendaCtrl->salvar();
+    //$vendas = $vendaCtrl->salvar();
 }
 
 

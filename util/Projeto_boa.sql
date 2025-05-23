@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS projeto_boa
 
 USE projeto_boa;
 
+-- Tabela de Usuários
 CREATE TABLE IF NOT EXISTS usuarios (
   id_usuario BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -18,14 +19,14 @@ CREATE TABLE IF NOT EXISTS usuarios (
   cep VARCHAR(10),
   email VARCHAR(255) NOT NULL UNIQUE,
   senha VARCHAR(255) NOT NULL,
-  tipo ENUM('Administrador', 'Funcionario', 'Cliente') NOT NULL,
+  tipo ENUM('Administrador', 'Funcionário', 'Cliente') NOT NULL,
   
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
 
-
+-- Tabela de Formas de Pagamento
 CREATE TABLE IF NOT EXISTS formas_pagamentos (
   id_forma_pagamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   descricao VARCHAR(100) NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS formas_pagamentos (
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
 
-
+-- Tabela de Produtos/Serviços
 CREATE TABLE IF NOT EXISTS produtos (
   id_produto BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS produtos (
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
 
-
+-- Tabela de Vendas
 CREATE TABLE IF NOT EXISTS vendas (
   id_venda BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   id_usuario BIGINT UNSIGNED,
@@ -68,7 +69,7 @@ CREATE TABLE IF NOT EXISTS vendas (
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
 
-
+-- Tabela de Suporte
 CREATE TABLE IF NOT EXISTS suporte (
   id_suporte BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -79,3 +80,4 @@ CREATE TABLE IF NOT EXISTS suporte (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
+

@@ -1,5 +1,5 @@
-
-        <div class="col-6 d-flex justify-content-center align-items-center">
+    <div class="row py-5">
+        <div class="col-12 d-flex">
             <div class="login-container">
                 <div class="login-header text-center">
                     <h2>Login</h2>
