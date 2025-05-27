@@ -6,8 +6,8 @@ namespace App\Controllers;
 use App\Models\Usuario;
 
 class UsuarioController{
-
-    //Exibe a lista de usuarios
+  //Exibe a lista de usuarios
+  
     public function listar(){
         //Chama a Model de Usuario e executa a busca no BD
         $usuarios = Usuario::buscarTodos();

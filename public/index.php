@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\ProdutoController;
 // Instacia o Controller de Produtos para ser utilizado (cria objeto)
-$produtosCtrl = new  ProdutoController();
+$produtoCtrl = new  ProdutoController();
 
 use App\Controllers\UsuarioController;
 // Instacia o Controller de Usuário para ser utilizado (cria objeto)
@@ -77,14 +77,12 @@ else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 // Rotas de produtos
-else if ($url == "produtos"){
-    $produtos = $produtosCtrl->listar();
-    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
+else if ($url == "/produtos"){
+    $produtos = $produtoCtrl->listar();
 }
 
 else if ($url == "/produtos/novo"){
-    //$produto = $produtoCtrl->novo();
-    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
+    $produto = $produtoCtrl->novo();
 } 
 
 else if ($url == "/produtos/editar"){
@@ -95,8 +93,8 @@ else if ($url == "/produtos/deletar"){
     render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
 }
 
-else if ($url == "/produto/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
-    //$produto = $produtoCtrl->salvar();
+else if ($url == "/produtos/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $produto = $produtoCtrl->salvar();
 }
 
 

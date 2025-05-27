@@ -1,79 +1,62 @@
-<pre>
-    <?php print_r($produtos)?>
-</pre>    
-
-  
- <div class="content-titulo">
+<div class="content-titulo">
     <header class="text-center">
         <div>
             <h1 class="display-3 fw-bold">Listagem de Produtos</h1>
         </div>
+<div class="container mt-4 box">
+    <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
+    <a href="/produtos/novo" class="btn btn-primary mb-3"> Cadastrar um <b> Novo Produto</b></a>
+
+<?php
+if (isset($_SESSION['mensagem'])):
+?>
+<div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?>alert-dismissible fade show" role="alert">
+  <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php endif;
+unset($_SESSION['mensagem']);
+unset($_SESSION['mensagem']); ?>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Preço em Reais</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+            <!-- foreach percorre a lista recebida e coloca
+             cada item da lista &produtos que veio do controller na variavel $user -->
+           <?php foreach ($produtos as $user): ?>
+            <tr>
+                
+                <td><?= $user['id_produto']?></td>
+                <td><?= $user['nome']?></td>
+                <td><?= $user['tipo']?></td>
+                <td><?= $user['preco']?></td>
+                <td><?= $user['estoque']?></td>
+                <td>
+                    <a href="/produtos/<?= $user['id_produto'] ?>/editar"
+                     class="btn btn-warning btn-sm">Editar</button>
+                    </a>
+                    <a href
+                        class="btn btn-danger btn-sm">Excluir</button>
+                    </a>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+    
+    <div class="d-flex justify-content-between">
+        <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+    </div>
+ </div>
+</div>
     </header>
 </div>
-
-    <div class="container mt-4 box">
-        <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar produto...">
-        <button class="btn btn-primary mb-3">Adicionar Novo Produto</button>
-        
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Estoque</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="productTable">
-                <tr>
-                    <td>Pizza Margherita</td>
-                    <td>R$ 40,00</td>
-                    <td>15</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Hambúrguer Artesanal</td>
-                    <td>R$ 25,00</td>
-                    <td>20</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Salada Caesar</td>
-                    <td>R$ 18,00</td>
-                    <td>10</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pão de Alho</td>
-                    <td>R$ 12,00</td>
-                    <td>30</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sorvete de Chocolate</td>
-                    <td>R$ 10,00</td>
-                    <td>25</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-between">
-            <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-        </div>
-    </div>
-

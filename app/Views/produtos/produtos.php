@@ -1,36 +1,80 @@
-  
- <head>
- <link href="/css/style.css" rel="stylesheet">
- </head>
- <div class="content-titulo">
+<?php
+if($_SESSION['dados']){
+    $dados = $_SESSION['dados'];
+}
+
+ if(isset($_SESSION['erros'])):
+    $erros = $_SESSION['erros'];
+?>  
+<div class="alert alert-danger row py-5" role="alert">
+  <h4 class="alert-heading">Erro ao cadastrar!</h4>
+  <p>Verifique os itens abaixo em seu formulário antes de tentar novamente!</p>
+  <ul>
+    <?php foreach($erros as $e):?>
+    <li><?=$e ?></li>
+    <?php endforeach; ?>
+  </ul>
+</div>
+<?php endif; ?>
+    <!-- Conteúdo Principal -->
+ <div class="content-titulo" >
     <header class="text-center">
         <div>
-            <h1 class="display-3 fw-bold">Cadastro de Produtos</h1>
+            <h1 class="display-3 fw-bold">Cadastro do Produto</h1>
         </div>
     </header>
-</div>
-    <div class="container mt-5 text-white box">
-        <form>
-            <div class="mb-3">
-                <label for="nomeProduto" class="form-label">Nome do Produto</label>
-                <input type="text" class="form-control" id="nomeProduto" required>
-            </div>
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="preco" class="form-label">Preço</label>
-                <input type="number" class="form-control" id="preco" step="0.01" required>
-            </div>
-            <div class="mb-3">
-                <label for="quantidade" class="form-label">Quantidade em Estoque</label>
-                <input type="number" class="form-control" id="quantidade" disabled>
-            </div>
-            <div class="d-flex justify-content-between">
-                <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-                <button type="reset" class="btn btn-warning">Limpar</button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
+ </div> 
+<!-- Formulário -->
+<form action="/produtos/salvar" method="POST">    
+
+<div class="container mt-2 box">
+    <div class="section-header bg-white text-dark p-2 mb-3 fw-bold border-bottom">
+            PREENCHA OS DADOS DO PRODUTO
+        </div>
+    <div class="row d-flex justify-content-evenly">
+    <!-- Nome do Produto -->
+        <div class="col-md-5 mb-3">
+            <label for="nome" class="form-label">Nome do Produto</label>
+            <input type="text" class="form-control" id="nome" name="nome" 
+                value="<?= isset($dados['nome']) ? $dados['nome'] : '' ?>" 
+                placeholder="Digite o nome do produto" required>
+        </div>
+
+        <!-- Preço do Produto -->
+        <div class="col-md-5 mb-3">
+            <label for="preco" class="form-label">Preço</label>
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" 
+                value="<?= isset($dados['preco']) ? $dados['preco'] : '' ?>" 
+                placeholder="Digite o preço do produto" required>
+        </div>
     </div>
+
+    <div class="row d-flex justify-content-evenly">
+        <!-- Tipo de Produto -->
+        <div class="col-md-5 mb-3">
+            <label for="tipo" class="form-label">Tipo de Produto</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Café da Manhã" ? "selected" : "" ?> value="Café da Manhã">Café da Manhã</option>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Almoço" ? "selected" : "" ?> value="Almoço">Almoço</option>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Janta" ? "selected" : "" ?> value="Janta">Janta</option>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Bebida" ? "selected" : "" ?> value="Bebida">Bebida</option>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Sobremesa" ? "selected" : "" ?> value="Sobremesa">Sobremesa</option>
+                <option <?= isset($dados['tipo']) && $dados['tipo'] == "Salgados" ? "selected" : "" ?> value="Salgados">Salgados</option>
+            </select>
+        </div>
+
+        <!-- Estoque -->
+        <div class="col-md-5 mb-3">
+            <label for="estoque" class="form-label">Quantidade em Estoque</label>
+            <input type="number" class="form-control" id="estoque" name="estoque" 
+                value="<?= isset($dados['estoque']) ? $dados['estoque'] : '' ?>" 
+                placeholder="Digite a quantidade em estoque" required>
+        </div>
+    </div>
+        <!-- Botões -->
+    <div class="d-flex justify-content-center">       
+        <!-- Botão de Submeter -->
+        <button type="submit" class="btn btn-primary">Cadastrar o Produto</button>
+    </div>
+</div>
+</form>

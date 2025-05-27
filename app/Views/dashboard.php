@@ -5,7 +5,7 @@
         </div>
     </header>
 </div>
-<div class="container mt-5 box">
+<div class="container mt-1 box">
     <div class="row">
         <div class="col-md-4">
             <div class="card text-center p-3">
@@ -30,12 +30,24 @@
         </div>
     </div>
     <div class="mt-4 text-center">
-        <a href="/usuarios" class="btn btn-danger"><i class="fas fa-list-alt"></i> Listar Usuários</a>
-        <a href="/produtos/novo" class="btn btn-primary"><i class="fas fa-plus"></i> Cadastrar Produto</a>
-        <a href="/produtos" class="btn btn-secondary"><i class="fas fa-list"></i> Listar Produtos</a>
-        <a href="/vendas/novo" class="btn btn-success"><i class="fas fa-cash-register"></i> Registrar Venda</a>
-        <a href="/vendas" class="btn btn-warning"><i class="fas fa-list-alt"></i> Listar Vendas</a>
-  
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <!-- Usuários -->
+            <a href="/usuarios/novo" class="btn btn-success"><i class="fas fa-user-plus"></i> Cadastrar Usuário</a>
+            <a href="/usuarios" class="btn btn-info text-white"><i class="fas fa-list-alt"></i> Listar Usuários</a>
+            
+            <!-- Separator -->
+            <span class="vr d-none d-md-inline"></span>
+            
+            <!-- Produtos -->
+            <a href="/produtos/novo" class="btn btn-primary"><i class="fas fa-plus"></i> Cadastrar Produto</a>
+            <a href="/produtos" class="btn btn-secondary"><i class="fas fa-list"></i> Listar Produtos</a>
+            
+            <!-- Separator -->
+            <span class="vr d-none d-md-inline"></span>
+            
+            <!-- Vendas -->
+            <a href="/vendas/novo" class="btn btn-danger"><i class="fas fa-cash-register"></i> Registrar Venda</a>
+            <a href="/vendas" class="btn btn-warning"><i class="fas fa-list-alt"></i> Listar Vendas</a>
         </div>
     </div>
 </div>

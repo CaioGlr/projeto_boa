@@ -23,73 +23,95 @@
             </button>
     
             <ul class="navbar-nav me-auto justify-content-between w-100">
-                <li class="nav-item text-cartoon fs-4 fw-bold mb-2">Comida Boa</li>
+            <li class="nav-item text-cartoon fs-4 fw-bold mb-7 text-center" style="color:rgb(255, 255, 255); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                Comida Boa!!
+            </li>
                 <li class="nav-item"><a class="nav-link text-center" href="/home"><i class="fas fa-home"></i> Página Inicial</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/cardapio"><i class="fas fa-utensils"></i> Cardápio</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/entrar"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                <li class="nav-item"><a class="nav-link text-center" href="/usuarios/novo"><i class="fas fa-user-plus"></i> Cadastro</a></li>
             </ul>
         </div>
     </nav>
-    <!-- Side Bar -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-        <div class="offcanvas-header" style="background-color: #ffffff;">
-            <h5 class="offcanvas-title text-dark text-center fw-bold" id="sidebarLabel">Comida Boa</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="nav_bar ms-auto flex-column">
-                <li class="nav-item d-flex justify-content-start">
-                    <a class="nav-link me-2" href="/entrar">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </a>
-                    <a class="nav-link" href="/usuarios/novo">
-                        <i class="fas fa-user-plus"></i> Cadastro
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/home ">
-                        <i class="fas fa-home"></i> Página Inicial
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">
-                        <i class="fas fa-chart-line"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/usuarios">
-                        <i class="fas fa-users"></i> Listagem de Usuários
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/produtos/novo">
-                        <i class="fas fa-box"></i> Cadastro de Produtos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/produtos">
-                        <i class="fas fa-list"></i> Listagem de Produtos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/vendas/novo">
-                        <i class="fas fa-file-invoice-dollar"></i> Registro de Vendas
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/vendas">
-                        <i class="fas fa-list-alt"></i> Lista de Vendas
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sobre">
-                        <i class="fas fa-headset"></i> Contato e Suporte
-                    </a>
-                </li>
-            </ul>
-        </div>
+<!-- Side Bar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+    <div class="offcanvas-header" style="background-color: #ffffff;">
+        <h5 class="offcanvas-title text-dark text-center fw-bold" id="sidebarLabel">
+            <i class="fas fa-utensils me-2"></i>Comida Boa
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+
+    <div class="offcanvas-body p-0">
+        <ul class="nav_bar ms-auto flex-column list-unstyled">
+
+            <!-- Página Inicial e Dashboard -->
+            <li class="nav-item d-flex flex-column">
+                <a class="nav-link" href="/home">
+                    <i class="fas fa-home me-2"></i> Página Inicial
+                </a>
+                <a class="nav-link" href="/dashboard">
+                    <i class="fas fa-chart-line me-2"></i> Dashboard
+                </a>
+            </li>
+
+            <!-- Usuários -->
+            <div class="bg-black text-white p-2 ps-3 fw-bold">
+                <i class="fas fa-users me-2"></i>USUÁRIOS
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/usuarios/novo">
+                    <i class="fas fa-user-plus me-2"></i> Cadastro de Usuário
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/usuarios">
+                    <i class="fas fa-address-book me-2"></i> Listagem de Usuários
+                </a>
+            </li>
+
+            <!-- Produtos -->
+            <div class="bg-black text-white p-2 ps-3 fw-bold">
+                <i class="fas fa-boxes me-2"></i>PRODUTOS
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/produtos/novo">
+                    <i class="fas fa-plus-square me-2"></i> Cadastro de Produtos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/produtos">
+                    <i class="fas fa-clipboard-list me-2"></i> Listagem de Produtos
+                </a>
+            </li>
+
+            <!-- Vendas -->
+            <div class="bg-black text-white p-2 ps-3 fw-bold">
+                <i class="fas fa-shopping-cart me-2"></i>VENDAS
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/vendas/novo">
+                    <i class="fas fa-file-invoice-dollar me-2"></i> Registro de Vendas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vendas">
+                    <i class="fas fa-receipt me-2"></i> Lista de Vendas
+                </a>
+            </li>
+
+            <!-- Outros -->
+            <div class="bg-black text-white p-2 ps-3 fw-bold">
+                <i class="fas fa-cogs me-2"></i>OUTROS
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/sobre">
+                    <i class="fas fa-headset me-2"></i> Contato e Suporte
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
     <!-- Conteúdo Principal -->
     <?php
     echo $content;
