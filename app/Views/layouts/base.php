@@ -135,8 +135,8 @@
                     <h2 class="fw-bold">
                         <i class="fas fa-clock"></i> Horário de Funcionamento
                     </h2>
-                    <p><i class="fas fa-calendar-day"></i> <strong>Segunda a Sexta:</strong> 11:00 - 22:00</p>
-                    <p><i class="fas fa-calendar-alt"></i> <strong>Sábado e Feriados:</strong> 14:00 - 20:00</p>
+                    <p><i class="fas fa-calendar-day"></i> <strong>Segunda a Sexta:</strong> 6:00 - 22:00</p>
+                    <p><i class="fas fa-calendar-alt"></i> <strong>Sábado e Feriados:</strong> 6:00 - 18:00</p>
                     <p><i class="fas fa-times-circle"></i> <strong>Domingo:</strong> Fechado</p>
                 </div>
             </div>
