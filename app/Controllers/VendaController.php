@@ -16,4 +16,10 @@ class VendaController{
             'title' => 'Listagem de Vendas - Comida Boa',
             "vendas" => $vendas]);
     }    
+
+
+     //Abre o formulário para criar um usuario
+     public function novo(){
+        render('vendas/vendas.php', ['title' => 'Registro de Vendas - Comida Boa']);
+    }
 }

@@ -23,5 +23,8 @@ class Venda {
         return $pdo->query($sql)->fetchAll();
 
     }
-
+     //Salva um usuario no BD com os dados da View
+    public static function salvar($dados)
+    {
+    }
 }

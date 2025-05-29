@@ -56,25 +56,35 @@ if ($url == "/home"){
 
 }
 // Rotas de usuários
-  else if ($url == "/usuarios"){
+else if ($url == "/usuarios")
+{
     $usuarios = $usuarioCtrl->listar();
-
 }
- else if ($url == "/usuarios/novo"){
+else if ($url == "/usuarios/novo")
+{
     $usuarios = $usuarioCtrl->novo();
-
 }
- else if ($url == "/usuarios/editar"){
-    render_sem_login('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
-} 
-else if ($url == "/usuarios/deletar"){
-    render('usuarios/listagemusuarios.php', ['title' => 'Listagem de Usuários - Comida Boa']);
-}
-
-else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST')
+{
     $usuarios = $usuarioCtrl->salvar();
 }
-
+// preg_match utiliza uma expressão regular para extrair um valor de uma string
+else if (preg_match('#^/usuarios/(\d+)/editar$#', $url, $num))
+{
+    $usuarioCtrl->editar($num[1]);
+}
+else if (preg_match('#^/usuarios/(\d+)/atualizar$#', $url, $num) && $_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    $usuarioCtrl->atualizar($num[1]);
+}
+else if (preg_match('#^/usuarios/(\d+)/del-fisico$#', $url, $num))
+{
+    $usuarioCtrl->deleteFisico($num[1]);
+}
+else if (preg_match('#^/usuarios/(\d+)/del-logico$#', $url, $num))
+{
+    $usuarioCtrl->deleteLogico($num[1]);
+}
 
 // Rotas de produtos
 else if ($url == "/produtos"){
@@ -101,12 +111,10 @@ else if ($url == "/produtos/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
 // Rotas de vendas
 else if ($url == "/vendas"){
     $vendas = $vendaCtrl->listar();
-    render('vendas/listagemvendas.php', ['title' => 'Listagem de Vendas - Comida Boa']);
-}
+}    
 
 else if ($url == "/vendas/novo"){
     //$vendas = $vendaCtrl->novo();
-    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
 } 
 
 else if ($url == "/vendas/editar"){

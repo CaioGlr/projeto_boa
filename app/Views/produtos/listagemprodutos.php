@@ -16,7 +16,7 @@ if (isset($_SESSION['mensagem'])):
 </div>
 <?php endif;
 unset($_SESSION['mensagem']);
-unset($_SESSION['mensagem']); ?>
+unset($_SESSION['tipo_mensagem']); ?>
 
     <table class="table table-striped">
         <thead>

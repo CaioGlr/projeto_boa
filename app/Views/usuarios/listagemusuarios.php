@@ -17,7 +17,7 @@ if (isset($_SESSION['mensagem'])):
 </div>
 <?php endif;
 unset($_SESSION['mensagem']);
-unset($_SESSION['mensagem']); ?>
+unset($_SESSION['tipo_mensagem']); ?>
 
     <table class="table table-striped">
         <thead>
@@ -45,9 +45,19 @@ unset($_SESSION['mensagem']); ?>
                     <a href="/usuarios/<?= $user['id_usuario'] ?>/editar"
                      class="btn btn-warning btn-sm">Editar</button>
                     </a>
-                    <a href
-                        class="btn btn-danger btn-sm">Excluir</button>
-                    </a>
+
+    <button class="btn btn-danger btn-sm btn-action"
+        onclick="deletarFisico(<?= $user['id_usuario'] ?>)"
+        title="Excluir" type="button">
+        Excluir Físico
+    </button>
+
+    <button class="btn btn-danger btn-sm btn-action"
+        onclick="deletarLogico(<?= $user['id_usuario'] ?>)"
+        title="Excluir" type="button">
+        Excluir Lógico
+    </button>
+
                 </td>
             </tr>
             <?php endforeach ?>
@@ -61,3 +71,24 @@ unset($_SESSION['mensagem']); ?>
 </div>
     </header>
 </div>
+
+<script>
+    function deletarFisico(id){
+
+        if(confirm("Deseja deletar PERMANENTEMENTE este usuário? Esta ação não poderá ser desfeita!")) {
+            window.location.href = `/usuarios/${id}/del-fisico"`;
+            
+        }else{
+            alert("Exclusão cancelada!");
+        }
+    }
+
+    function deletarLogico(id){
+        if(confirm("Deseja DESATIVAR este usuário? Esta ação poderá ser desfeita!")) {
+            window.location.href = `/usuarios/${id}/del-logico`;
+            
+        }else{
+            alert("Exclusão cancelada!");
+        }
+    }
+</script>

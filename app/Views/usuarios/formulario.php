@@ -1,11 +1,20 @@
 <?php
-if($_SESSION['dados']){
+if(isset($_SESSION['dados'])){
     $dados = $_SESSION['dados'];
+    unset($_SESSION['dados']);
 }
+
+if(isset($dados['id_usuario'])){
+    $rota = "/usuarios/" . $dados['id_usuario'] . "/atualizar";
+} else {
+    $rota = "/usuarios/salvar";
+}    
 
 if(isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
-?>  
+
+?>
+
 <div class="alert alert-danger row py-5" role="alert">
   <h4 class="alert-heading">Erro ao cadastrar!</h4>
   <p>Verifique os itens abaixo em seu formulário antes de tentar novamente!</p>
@@ -28,7 +37,7 @@ if(isset($_SESSION['erros'])):
 </div> 
 
 <!-- Formulário -->
-<form action="/usuarios/salvar" method="POST">    
+<form action="<?= $rota ?>" method="POST">    
     <!-- Seção Dados Pessoais -->
     <div class="container mt box">
         <div class="section-header bg-white text-dark p-2 mb-3 fw-bold border-bottom">
@@ -196,6 +205,7 @@ if(isset($_SESSION['erros'])):
             <div class="col-md-5 mb-3">
                 <label for="tipo-usuario" class="form-label">Tipo de Usuário</label>
                 <select class="form-select" id="tipo-usuario" required name="tipo">
+                    <option disabled value=""> Selecione...</option>
                     <option <?= isset($dados['tipo']) && $dados['tipo'] == "Cliente" ? "selected" : "" ?> value="Cliente">Cliente</option>
                     <option <?= isset($dados['tipo']) && $dados['tipo'] == "Administrador" ? "selected" : "" ?> value="Administrador">Administrador</option>
                     <option <?= isset($dados['tipo']) && $dados['tipo'] == "Funcionario" ? "selected" : "" ?> value="Funcionario">Funcionário</option>

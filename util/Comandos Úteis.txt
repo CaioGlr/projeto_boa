@@ -5,3 +5,6 @@ code .
 
 Começar Servidor:
 php -S localhost:8000 -t public 
+
+
+join - Trazer o usuario e produto para a aba vendas

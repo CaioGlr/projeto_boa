@@ -1,5 +1,5 @@
 <?php
-if($_SESSION['dados']){
+if(isset($_SESSION['dados'])){
     $dados = $_SESSION['dados'];
 }
 
