@@ -76,7 +76,7 @@ unset($_SESSION['tipo_mensagem']); ?>
     function deletarFisico(id){
 
         if(confirm("Deseja deletar PERMANENTEMENTE este usuário? Esta ação não poderá ser desfeita!")) {
-            window.location.href = `/usuarios/${id}/del-fisico"`;
+            window.location.href = `/usuarios/${id}/del-fisico`;
             
         }else{
             alert("Exclusão cancelada!");
