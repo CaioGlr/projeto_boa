@@ -69,7 +69,7 @@ class UsuarioController{
 
     public function editar($id)
     {
-      $dados = Usuario::BuscarUm($id);
+          $dados = Usuario::BuscarUm($id);
           render("usuarios/formulario.php", [
             'title' => 'Alterar Usuário - Comida Boa',
             "dados" => $dados

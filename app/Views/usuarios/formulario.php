@@ -10,20 +10,20 @@ if(isset($dados['id_usuario'])){
     $rota = "/usuarios/salvar";
 }    
 
+// Exibe erros APENAS UMA VEZ, no topo
 if(isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
-
+    unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
-
-<div class="alert alert-danger row py-5" role="alert">
-  <h4 class="alert-heading">Erro ao cadastrar!</h4>
-  <p>Verifique os itens abaixo em seu formulário antes de tentar novamente!</p>
-  <ul>
-    <?php foreach($erros as $e):?>
-    <li><?=$e ?></li>
-    <?php endforeach; ?>
-  </ul>
-</div>
+    <div class="alert alert-danger row py-5" role="alert">
+        <h4 class="alert-heading">Erro no formulário!</h4>
+        <p>Verifique os itens abaixo antes de tentar novamente:</p>
+        <ul>
+            <?php foreach($erros as $e): ?>
+                <li><?= $e ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 <?php endif; ?>
 
 <!-- Conteúdo Principal -->

@@ -56,33 +56,26 @@ if ($url == "/home"){
 
 }
 // Rotas de usuários
-else if ($url == "/usuarios")
-{
+else if ($url == "/usuarios"){
     $usuarios = $usuarioCtrl->listar();
 }
-else if ($url == "/usuarios/novo")
-{
+else if ($url == "/usuarios/novo"){
     $usuarios = $usuarioCtrl->novo();
 }
-else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST')
-{
+else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
     $usuarios = $usuarioCtrl->salvar();
 }
 // preg_match utiliza uma expressão regular para extrair um valor de uma string
-else if (preg_match('#^/usuarios/(\d+)/editar$#', $url, $num))
-{
+else if (preg_match('#^/usuarios/(\d+)/editar$#', $url, $num)){
     $usuarioCtrl->editar($num[1]);
 }
-else if (preg_match('#^/usuarios/(\d+)/atualizar$#', $url, $num) && $_SERVER['REQUEST_METHOD'] == 'POST')
-{
+else if (preg_match('#^/usuarios/(\d+)/atualizar$#', $url, $num) && $_SERVER['REQUEST_METHOD'] == 'POST'){
     $usuarioCtrl->atualizar($num[1]);
 }
-else if (preg_match('#^/usuarios/(\d+)/del-fisico$#', $url, $num))
-{
+else if (preg_match('#^/usuarios/(\d+)/del-fisico$#', $url, $num)){
     $usuarioCtrl->deleteFisico($num[1]);
 }
-else if (preg_match('#^/usuarios/(\d+)/del-logico$#', $url, $num))
-{
+else if (preg_match('#^/usuarios/(\d+)/del-logico$#', $url, $num)){
     $usuarioCtrl->deleteLogico($num[1]);
 }
 
@@ -95,17 +88,25 @@ else if ($url == "/produtos/novo"){
     $produto = $produtoCtrl->novo();
 } 
 
-else if ($url == "/produtos/editar"){
-    render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
-} 
-
-else if ($url == "/produtos/deletar"){
-    render('produtos/listagemprodutos.php', ['title' => 'Listagem de Produtos - Comida Boa']);
-}
-
 else if ($url == "/produtos/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
     $produto = $produtoCtrl->salvar();
 }
+
+// preg_match utiliza uma expressão regular para extrair um valor de uma string
+else if (preg_match('#^/produtos/(\d+)/editar$#', $url, $num)){
+    $produtoCtrl->editar($num[1]);
+}
+// O request_method é utilizado para verificar se o método POST, que é o método utilizado para enviar dados ao servidor
+else if (preg_match('#^/produtos/(\d+)/atualizar$#', $url, $num) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $produtoCtrl->atualizar($num[1]);
+}
+else if (preg_match('#^/produtos/(\d+)/del-fisico$#', $url, $num)){
+    $produtoCtrl->deleteFisico($num[1]);
+}
+else if (preg_match('#^/produtos/(\d+)/del-logico$#', $url, $num)){
+    $produtoCtrl->deleteLogico($num[1]);
+}
+
 
 
 // Rotas de vendas

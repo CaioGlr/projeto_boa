@@ -24,8 +24,24 @@ class Produto {
         return $pdo->query($sql)->fetchAll();
 
     }
+
+    public static function BuscarUm($id)
+    {
+        // Inicia a conexão com o BD
+        $pdo = Database::conectar();
+
+        $sql = "SELECT * FROM produtos WHERE delete_at IS NULL AND id_produto = :id";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
     
-    //Salva um usuario no BD com os dados da View
+    //Salva um produto no BD com os dados da View
     public static function salvar($dados)
     {
         try {
@@ -63,5 +79,55 @@ $sql .= "VALUES (
             exit;
         }
     }
-}
+    
+    public static function atualizar($dados)
+    {
+        try {
+            $pdo = Database::conectar();
 
+            $sql = "UPDATE produtos SET ";
+            $sql .= "nome = :nome, ";
+            $sql .= "preco = :preco, ";
+            $sql .= "tipo = :tipo, ";
+            $sql .= "estoque = :estoque ";
+
+            $sql .= "WHERE id_produto = :id; ";
+
+            // prepara o SQL para ser inserido no BD limpando códigos maliciosos
+            $stmt = $pdo->prepare($sql);
+
+            //Passa os dados das variaveis para o INSERT do sql
+            $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+            $stmt->bindParam(':preco', $dados['preco'], PDO::PARAM_STR);
+            $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
+            $stmt->bindParam(':estoque', $dados['estoque'], PDO::PARAM_INT);
+
+            $stmt->bindParam(':id', $dados['id_produto'], PDO::PARAM_INT);
+            
+            //Executa o SQL no Banco de dados
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            echo "Erro ao alterar: " . $e->getMessage();
+            exit;
+        }
+    }
+
+    public static function deletarLogico($id)
+    {
+        $pdo = Database::conectar();
+        $sql = "UPDATE produtos SET delete_at = NOW() WHERE id_produto = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+        public static function deletarFisico($id)
+    {
+        $pdo = Database::conectar();
+        $sql = "DELETE FROM produtos WHERE id_produto = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+}

@@ -53,10 +53,65 @@ class ProdutoController{
          $_SESSION['tipo_mensagem'] = "success";
         header('Location: /produtos');
         }
-
     }
 
-    // Implementa a validação e sanitização dos dados do form (limpeza de segurança)
+  public function editar($id) 
+  {
+        $dados = Produto::BuscarUm($id);
+        render("produtos/produtos.php", [
+        'title' => 'Alterar Produto - Comida Boa',
+        "dados" => $dados
+    ]);
+}
+
+    public function atualizar($id){
+        // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
+        $dados = [
+            'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
+            'preco' => filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_SPECIAL_CHARS),
+            'tipo' => filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS),
+            'estoque' => filter_input(INPUT_POST, 'estoque', FILTER_SANITIZE_NUMBER_INT)
+        ];
+          
+        //print_r($_POST);exit();
+        //Aqui vamos fazer validações
+        $erros = $this->validar($dados);
+
+        if(!empty($erros)) {   
+            //Envia os erros para a página de cadastro
+            $_SESSION['erros'] = $erros;
+            // Envia os dados já informados para serem incluidos
+            $_SESSION['dados'] = $dados;
+            // Redireciona para a página de cadastro
+            header('Location: /produtos/' . $id . '/editar');
+        }else{
+        
+        //Chama o model passando os dados
+        //Adiciona o ID do produto para atualização
+        $dados['id_produto'] = $id; 
+         //Atualiza o produto no banco de dados
+        Produto::atualizar($dados);
+         $_SESSION['mensagem'] = "O Produto " . $dados['nome'] . ", foi atualizado com sucesso!";
+         $_SESSION['tipo_mensagem'] = "success";
+        header('Location: /produtos');
+        }
+    }
+    //EXCLUI O PRODUTO NO BANCO DE DADOS
+    //Apenas coloca a data da exclusão no BD
+    public function deleteLogico($id)
+    {
+      Produto::deletarLogico($id);
+      header('Location: /produtos');
+    }
+    //Exclui definitvamente o usuário da tabela
+    public function deleteFisico($id)
+    {
+      Produto::deletarFisico($id);
+      header('Location: /produtos');
+  
+    }
+
+    //Implementa a validação e sanitização dos dados do form (limpeza de segurança)
      public function validar($dados){
         $erros = [];
 

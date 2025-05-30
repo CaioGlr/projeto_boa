@@ -117,7 +117,8 @@ $sql .= "VALUES (
         }
     }
 
-        public static function atualizar($dados){
+        public static function atualizar($dados)
+        {
             try{
                 $pdo = Database::conectar();
 
