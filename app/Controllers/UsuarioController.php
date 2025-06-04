@@ -162,7 +162,7 @@ class UsuarioController{
      // Validação do Tipo
      if(empty($dados['tipo'])){
         $erros[] = "O Tipo do Usuário é obrigatório!";
-     } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionario', 'Cliente'])){
+     } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])){
         $erros[] = "O Tipo do Usuário é Inválido!";
      }
 

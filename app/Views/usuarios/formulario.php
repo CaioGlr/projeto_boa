@@ -133,35 +133,36 @@ if(isset($_SESSION['erros'])):
             <!-- Estado -->
             <div class="col-md-5 mb-3">
                 <label for="estado" class="form-label">Estado</label>
-                <select class="form-select" id="estado" name="estado" required>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "AC" ? "selected" : "" ?> value="AC">Acre</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "AL" ? "selected" : "" ?> value="AL">Alagoas</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "AP" ? "selected" : "" ?> value="AP">Amapá</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "AM" ? "selected" : "" ?> value="AM">Amazonas</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "BA" ? "selected" : "" ?> value="BA">Bahia</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "CE" ? "selected" : "" ?> value="CE">Ceará</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "DF" ? "selected" : "" ?> value="DF">Distrito Federal</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "ES" ? "selected" : "" ?> value="ES">Espírito Santo</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "GO" ? "selected" : "" ?> value="GO">Goiás</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "MA" ? "selected" : "" ?> value="MA">Maranhão</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "MT" ? "selected" : "" ?> value="MT">Mato Grosso</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "MS" ? "selected" : "" ?> value="MS">Mato Grosso do Sul</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "MG" ? "selected" : "" ?> value="MG">Minas Gerais</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "PA" ? "selected" : "" ?> value="PA">Pará</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "PB" ? "selected" : "" ?> value="PB">Paraíba</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "PR" ? "selected" : "" ?> value="PR">Paraná</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "PE" ? "selected" : "" ?> value="PE">Pernambuco</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "PI" ? "selected" : "" ?> value="PI">Piauí</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "RJ" ? "selected" : "" ?> value="RJ">Rio de Janeiro</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "RN" ? "selected" : "" ?> value="RN">Rio Grande do Norte</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "RS" ? "selected" : "" ?> value="RS">Rio Grande do Sul</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "RO" ? "selected" : "" ?> value="RO">Rondônia</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "RR" ? "selected" : "" ?> value="RR">Roraima</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "SC" ? "selected" : "" ?> value="SC">Santa Catarina</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "SP" ? "selected" : "" ?> value="SP">São Paulo</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "SE" ? "selected" : "" ?> value="SE">Sergipe</option>
-    <option <?= isset($dados['estado']) && $dados['estado'] == "TO" ? "selected" : "" ?> value="TO">Tocantins</option>
-            </select>     
+                    <select class="form-select" id="estado" name="estado" required>
+                        <option disabled value=""> Selecione...</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "AC" ? "selected" : "" ?> value="AC">Acre</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "AL" ? "selected" : "" ?> value="AL">Alagoas</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "AP" ? "selected" : "" ?> value="AP">Amapá</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "AM" ? "selected" : "" ?> value="AM">Amazonas</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "BA" ? "selected" : "" ?> value="BA">Bahia</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "CE" ? "selected" : "" ?> value="CE">Ceará</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "DF" ? "selected" : "" ?> value="DF">Distrito Federal</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "ES" ? "selected" : "" ?> value="ES">Espírito Santo</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "GO" ? "selected" : "" ?> value="GO">Goiás</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "MA" ? "selected" : "" ?> value="MA">Maranhão</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "MT" ? "selected" : "" ?> value="MT">Mato Grosso</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "MS" ? "selected" : "" ?> value="MS">Mato Grosso do Sul</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "MG" ? "selected" : "" ?> value="MG">Minas Gerais</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "PA" ? "selected" : "" ?> value="PA">Pará</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "PB" ? "selected" : "" ?> value="PB">Paraíba</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "PR" ? "selected" : "" ?> value="PR">Paraná</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "PE" ? "selected" : "" ?> value="PE">Pernambuco</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "PI" ? "selected" : "" ?> value="PI">Piauí</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "RJ" ? "selected" : "" ?> value="RJ">Rio de Janeiro</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "RN" ? "selected" : "" ?> value="RN">Rio Grande do Norte</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "RS" ? "selected" : "" ?> value="RS">Rio Grande do Sul</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "RO" ? "selected" : "" ?> value="RO">Rondônia</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "RR" ? "selected" : "" ?> value="RR">Roraima</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "SC" ? "selected" : "" ?> value="SC">Santa Catarina</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "SP" ? "selected" : "" ?> value="SP">São Paulo</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "SE" ? "selected" : "" ?> value="SE">Sergipe</option>
+                        <option <?= isset($dados['estado']) && $dados['estado'] == "TO" ? "selected" : "" ?> value="TO">Tocantins</option>
+                </select>     
             </div>
         </div>
     </div>
@@ -208,7 +209,7 @@ if(isset($_SESSION['erros'])):
                     <option disabled value=""> Selecione...</option>
                     <option <?= isset($dados['tipo']) && $dados['tipo'] == "Cliente" ? "selected" : "" ?> value="Cliente">Cliente</option>
                     <option <?= isset($dados['tipo']) && $dados['tipo'] == "Administrador" ? "selected" : "" ?> value="Administrador">Administrador</option>
-                    <option <?= isset($dados['tipo']) && $dados['tipo'] == "Funcionario" ? "selected" : "" ?> value="Funcionario">Funcionário</option>
+                    <option <?= isset($dados['tipo']) && $dados['tipo'] == "Funcionário" ? "selected" : "" ?> value="Funcionário">Funcionário</option>
                 </select>
             </div>
         </div>
