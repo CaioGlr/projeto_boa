@@ -59,6 +59,11 @@ if ($url == "/home"){
 else if ($url == "/usuarios"){
     $usuarios = $usuarioCtrl->listar();
 }
+
+else if ($url == "/usuarios/relatorio"){
+    $usuarios = $usuarioCtrl->relatorio();
+}
+
 else if ($url == "/usuarios/novo"){
     $usuarios = $usuarioCtrl->novo();
 }
@@ -82,6 +87,10 @@ else if (preg_match('#^/usuarios/(\d+)/del-logico$#', $url, $num)){
 // Rotas de produtos
 else if ($url == "/produtos"){
     $produtos = $produtoCtrl->listar();
+}
+
+else if ($url == "/produtos/relatorio"){
+    $produtos = $produtoCtrl->relatorio();
 }
 
 else if ($url == "/produtos/novo"){

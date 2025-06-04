@@ -6,21 +6,31 @@ namespace App\Controllers;
 use App\Models\Usuario;
 
 class UsuarioController{
-  //Exibe a lista de usuarios
-  
+
+//EXIBE A LISTA DE USUÁRIOS  
     public function listar(){
         //Chama a Model de Usuario e executa a busca no BD
         $usuarios = Usuario::buscarTodos();
 
         //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
-        render("usuarios/listagemusuarios.php", [
-            'title' => 'Listagem de Usuários - Comida Boa',
+        render("usuarios/lista_usuarios.php", [
+            'title' => 'Lista de Usuários - Comida Boa',
+            "usuarios" => $usuarios]);
+    }
+//EXIBE O RELATÓRIO DE USUÁRIOS
+    public function relatorio(){
+        //Chama a Model de Usuario e executa a busca no BD
+        $usuarios = Usuario::buscarTodos();
+
+        //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
+        render("usuarios/rel_usuarios.php", [
+            'title' => 'Relatório de Usuários - Comida Boa',
             "usuarios" => $usuarios]);
     }
 
     //Abre o formulário para criar um usuario
      public function novo(){
-        render('usuarios/formulario.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+        render('usuarios/form_usuarios.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
     }
     
     //salva um novo usuario no BD
@@ -70,7 +80,7 @@ class UsuarioController{
     public function editar($id)
     {
           $dados = Usuario::BuscarUm($id);
-          render("usuarios/formulario.php", [
+          render("usuarios/form_usuarios.php", [
             'title' => 'Alterar Usuário - Comida Boa',
             "dados" => $dados
           ]);
@@ -165,8 +175,6 @@ class UsuarioController{
      } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])){
         $erros[] = "O Tipo do Usuário é Inválido!";
      }
-
-     //Outras validações
 
      // Validação do CPF se é valido de acordo com o calculo
      // Validar se o CPF já foi cadastrado (Busca no BD)

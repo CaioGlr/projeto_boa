@@ -10,7 +10,7 @@
 
     
         <!-- Seção: Café da Manhã -->
-        <h3 class="fw-bold mt-4">☕ Café da Manhã</h3>
+        <h3 class="fw-bold mt-4 text-dark">☕ Café da Manhã</h3>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm p-2">
@@ -58,7 +58,7 @@
         <button class="btn btn-primary mt-3 text-center" onclick="mostrarMais('cafe-da-manha')">Mostrar Mais</button>
     
         <!-- Seção: Almoço -->
-        <h3 class="fw-bold mt-4">🍽️ Almoço</h3>
+        <h3 class="fw-bold mt-4 text-dark">🍽️ Almoço</h3>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm p-2">
@@ -106,7 +106,7 @@
         <button class="btn btn-primary mt-3 text-center" onclick="mostrarMais('cafe-da-manha')">Mostrar Mais</button>
     
         <!-- Seção: Jantar -->
-        <h3 class="fw-bold mt-4">🌙 Jantar</h3>
+        <h3 class="fw-bold mt-4 text-dark" >🌙 Jantar</h3>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm p-2">
@@ -154,7 +154,7 @@
         <button class="btn btn-primary mt-3 text-center" onclick="mostrarMais('cafe-da-manha')">Mostrar Mais</button>
     
         <!-- Seção: Sobremesas -->
-        <h3 class="fw-bold mt-4">🍰 Sobremesas</h3>
+        <h3 class="fw-bold mt-4 text-dark">🍰 Sobremesas</h3>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm p-2">
@@ -202,7 +202,7 @@
         <button class="btn btn-primary mt-3 text-center" onclick="mostrarMais('cafe-da-manha')">Mostrar Mais</button>
     
         <!-- Seção: Refrigerantes -->
-        <h3 class="fw-bold mt-4">🥤 Refrigerantes</h3>
+        <h3 class="fw-bold mt-4 text-dark">🥤 Refrigerantes</h3>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm p-2">

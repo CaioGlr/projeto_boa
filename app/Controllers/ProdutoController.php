@@ -6,21 +6,31 @@ namespace App\Controllers;
 use App\Models\Produto;
 
 class ProdutoController{
-    //exibe a lista de produtos
-
+    
+//EXIBE A LISTA DE PRODUTOS
     public function listar(){
         //Chama a Model de Produtos e executa a busca no BD
         $produtos = Produto::buscarTodos();
 
         //Exibe o arquivo PHP de lista enviando os produtos do BD para apresentação.
-        render('produtos/listagemprodutos.php', [
+        render('produtos/lista_produtos.php', [
             'title' => 'Listagem de Produtos - Comida Boa',
+            "produtos" => $produtos]);
+    }
+//EXIBE O RELATÓRIO DE PRODUTOS    
+        public function relatorio(){
+        //Chama a Model de Usuario e executa a busca no BD
+        $produtos = Produto::buscarTodos();
+
+        //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
+        render("produtos/rel_produtos.php", [
+            'title' => 'Relatório de Produtos - Comida Boa',
             "produtos" => $produtos]);
     }
 
     //Abre o formulário para criar um produto
      public function novo(){
-        render('produtos/produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
+        render('produtos/form_produtos.php', ['title' => 'Cadastro de Produtos - Comida Boa']);
     }
     
     //salva um novo produtos no BD
@@ -58,7 +68,7 @@ class ProdutoController{
   public function editar($id) 
   {
         $dados = Produto::BuscarUm($id);
-        render("produtos/produtos.php", [
+        render("produtos/form_produtos.php", [
         'title' => 'Alterar Produto - Comida Boa',
         "dados" => $dados
     ]);

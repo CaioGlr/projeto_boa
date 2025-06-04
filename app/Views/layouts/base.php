@@ -6,15 +6,45 @@
     <title><?= $title ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link rel="icon" href="/img/Icone.png" type="image/png">
+    <!-- Ajustes para impressão -->
+    <style>
+    /* Estilos para impressão - Oculta elementos indesejados */
+@media print {
+    /* Oculta a barra de navegação superior */
+    nav.navbar,
+    /* Oculta o botão que abre o sidebar */
+    button.btn-outline-secondary,
+    /* Oculta o sidebar (offcanvas) */
+    .offcanvas,
+    /* Oculta a seção de contato */
+    #contato,
+    /* Oculta o rodapé */
+    footer.footer,
+    /* Oculta botões de ação (como o de imprimir e de voltar) */
+    button.btn-dark,
+    a.btn-secondary,
+    /* Oculta a barra de pesquisa */
+    #search {
+        /* Propriedade aplicada a todos os seletores acima */
+        display: none !important;  
+    }
+    /* Ajustes para a tabela */
+    table {
+        width: 100% !important;
+        margin: 0 !important; /* Remove margens externas */
+        padding: 0 !important; /* Remove preenchimento interno */
+        font-size: 12px !important;
+    }
+}
+</style>
     
 </head>
 <body>
     <!-- Barra de Navegação Superior -->
     <nav class="navbar navbar-expand-lg shadow-sm w-100">
         <div class="container-fluid">
-      
-            
-            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <button class="btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
                 <i class="fas fa-bars"></i> Menu
             </button>
     
@@ -34,11 +64,15 @@
     </nav>
 <!-- Side Bar -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-    <div class="offcanvas-header" style="background-color: #ffffff;">
-        <h5 class="offcanvas-title text-dark text-center fw-bold" id="sidebarLabel">
-            <i class="fas fa-utensils me-2"></i>Comida Boa
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="nav-bar flex-column mb-4 text-center">
+        <div class="d-flex justify-content-center align-items-center gap-3 bg-black text-white p-3">
+            <img src="/img/ComidaBoa.png" 
+                alt="Comida Boa" 
+                class="img-fluid"
+                style="height: 100px; filter: drop-shadow(1px 1px 2px rgba(255, 0, 0, 0.3));">
+                
+            <h5 class="mb-0 fw-bold">Menu de Navegação</h5>
+        </div>
     </div>
 
     <div class="offcanvas-body p-0">

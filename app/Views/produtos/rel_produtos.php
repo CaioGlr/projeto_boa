@@ -7,7 +7,6 @@
 
     <div class="container mt-4 box">
         <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar produto...">
-        <a href="/produtos/novo" class="btn btn-primary mb-3">Cadastrar um <b>Novo Produto</b></a>
 
         <?php
          if (isset($_SESSION['mensagem'])):
@@ -22,6 +21,13 @@
             unset($_SESSION['tipo_mensagem']); 
         ?>
 
+               <!-- Botão de Imprimir -->
+        <div class="d-flex justify-content-center mb-4">
+            <button onclick="window.print()" class="btn btn-dark x-4 py-2 fs-5">
+                <i class="fas fa-print"></i> Imprimir Relatório
+            </button>
+        </div>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -30,7 +36,6 @@
                     <th>Tipo</th>
                     <th>Preço em Reais</th>
                     <th>Estoque</th>
-                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="userTable">
@@ -41,19 +46,6 @@
                         <td><?= $user['tipo'] ?></td>
                         <td><?= $user['preco'] ?></td>
                         <td><?= $user['estoque'] ?></td>
-                        <td>
-                            <a href="/produtos/<?= $user['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
-                            <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarFisico(<?= $user['id_produto'] ?>)"
-                                    title="Excluir" type="button">
-                                Excluir Físico
-                            </button>
-                            <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarLogico(<?= $user['id_produto'] ?>)"
-                                    title="Excluir" type="button">
-                                Excluir Lógico
-                            </button>
-                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -66,21 +58,15 @@
         </div>
     </div>
 </div>
-
 <script>
-    function deletarFisico(id) {
-        if (confirm("Deseja deletar PERMANENTEMENTE este Produto? Esta ação não poderá ser desfeita!")) {
-            window.location.href = `/produtos/${id}/del-fisico`;
-        } else {
-            alert("Exclusão cancelada!");
-        }
-    }
+     // Filtro de busca
+    document.getElementById("search").addEventListener("keyup", function () {
+        const filtro = this.value.toLowerCase();
+        const linhas = document.querySelectorAll("#userTable tr");
 
-    function deletarLogico(id) {
-        if (confirm("Deseja DESATIVAR este Produto? Esta ação poderá ser desfeita!")) {
-            window.location.href = `/produtos/${id}/del-logico`;
-        } else {
-            alert("Exclusão cancelada!");
-        }
-    }
+        linhas.forEach(function (linha) {
+            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            linha.style.display = nome.includes(filtro) ? "" : "none";
+        });
+    });
 </script>

@@ -83,4 +83,14 @@
             alert("Exclusão cancelada!");
         }
     }
+     // Filtro de busca
+    document.getElementById("search").addEventListener("keyup", function () {
+        const filtro = this.value.toLowerCase();
+        const linhas = document.querySelectorAll("#userTable tr");
+
+        linhas.forEach(function (linha) {
+            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            linha.style.display = nome.includes(filtro) ? "" : "none";
+        });
+    });
 </script>
