@@ -15,6 +15,8 @@ use App\Controllers\VendaController;
 // Instacia o Controller de Vendas para ser utilizado (cria objeto)
 $vendaCtrl = new VendaController();
 
+
+
 // Injeta o conteúdo das páginas de rota dentro do template base.php
 function render($view, $data = [])
 {
@@ -94,11 +96,11 @@ else if ($url == "/produtos/relatorio"){
 }
 
 else if ($url == "/produtos/novo"){
-    $produto = $produtoCtrl->novo();
+    $produtos = $produtoCtrl->novo();
 } 
 
 else if ($url == "/produtos/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
-    $produto = $produtoCtrl->salvar();
+    $produtos = $produtoCtrl->salvar();
 }
 
 // preg_match utiliza uma expressão regular para extrair um valor de uma string
@@ -121,24 +123,34 @@ else if (preg_match('#^/produtos/(\d+)/del-logico$#', $url, $num)){
 // Rotas de vendas
 else if ($url == "/vendas"){
     $vendas = $vendaCtrl->listar();
-}    
+}
+
+else if ($url == "/vendas/relatorio"){
+    $vendas = $vendaCtrl->relatorio();
+}
 
 else if ($url == "/vendas/novo"){
-    //$vendas = $vendaCtrl->novo();
+    $vendas = $vendaCtrl->novo();
 } 
-
-else if ($url == "/vendas/editar"){
-    render('vendas/vendas.php', ['title' => 'Cadastro de Usuários - Vendas']);
-} 
-
-else if ($url == "/vendas/deletar"){
-    render('vendas/listagemvendas.php', ['title' => 'Listagem de Usuários - Vendas']);
-}
 
 else if ($url == "/vendas/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST'){
-    //$vendas = $vendaCtrl->salvar();
+    $vendas = $vendaCtrl->salvar();
 }
 
+// preg_match utiliza uma expressão regular para extrair um valor de uma string
+else if (preg_match('#^/vendas/(\d+)/editar$#', $url, $num)){
+    $vendaCtrl->editar($num[1]);
+}
+// O request_method é utilizado para verificar se o método POST, que é o método utilizado para enviar dados ao servidor
+else if (preg_match('#^/vendas/(\d+)/atualizar$#', $url, $num) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $vendaCtrl->atualizar($num[1]);
+}
+else if (preg_match('#^/vendas/(\d+)/del-fisico$#', $url, $num)){
+    $vendaCtrl->deleteFisico($num[1]);
+}
+else if (preg_match('#^/vendas/(\d+)/del-logico$#', $url, $num)){
+    $vendaCtrl->deleteLogico($num[1]);
+}
 
 //Outras rotas entram aqui...
 else {

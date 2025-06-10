@@ -169,14 +169,26 @@ class UsuarioController{
        $erros[] = "E-mail informado é inválido!";
      }
      
-     // Validação do Tipo
+     // Validação do Tipo de Usuário
      if(empty($dados['tipo'])){
         $erros[] = "O Tipo do Usuário é obrigatório!";
      } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])){
         $erros[] = "O Tipo do Usuário é Inválido!";
      }
 
-     // Validação do CPF se é valido de acordo com o calculo
+     // Validação do CPF se é valido
+    if (empty($dados['cpf'])) {
+        $erros[] = "O CPF é obrigatório!";
+    } else if (strlen($dados['cpf']) != 11) {
+        $erros[] = "Seu CPF deve ter 11 números!";
+    }
+      // Validação do Telefone
+    if (empty($dados['celular'])) {
+        $erros[] = "O Telefone é obrigatório!";
+    } else if (strlen($dados['celular']) < 10 || strlen($dados['celular']) > 11) {
+        $erros[] = "O Telefone deve ter entre 10 e 11 números!";
+    }
+
      // Validar se o CPF já foi cadastrado (Busca no BD)
      // Validar se o Email já foi cadastrado (Busca no BD)
 

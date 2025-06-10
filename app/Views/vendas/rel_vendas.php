@@ -1,16 +1,14 @@
 <div class="content-titulo">
     <header class="text-center">
         <div>
-            <h1 class="display-3 fw-bold">Relátorio de Produtos</h1>
+            <h1 class="display-3 fw-bold">Relátorio das Vendas</h1>
         </div>
     </header>
-
-    <div class="container mt-4 box">
-        <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar produto...">
-
-               <!-- Botão de Imprimir -->
+        <!-- Filtro de busca -->
+        <div class="container mt-4 box">
+        <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
-            <button onclick="window.print()" class="btn btn-dark x-4 py-2 fs-5">
+            <button onclick="window.print()" class="btn btn-dark px-4 py-2 fs-5">
                 <i class="fas fa-print"></i> Imprimir Relatório
             </button>
         </div>
@@ -18,33 +16,32 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>Preço em Reais</th>
-                    <th>Estoque</th>
+                    <th>ID do Usuário</th>
+                    <th>ID do Produto</th>
+                    <th>Quantidade Vendida</th>
+                    <th>Data do Pagamento</th>
+                    <th>Forma de Pagamento</th>
                 </tr>
             </thead>
             <tbody id="userTable">
-                <?php foreach ($produtos as $user): ?>
+                <?php foreach ($vendas as $user): ?>
                     <tr>
+                        <td><?= $user['id_usuario'] ?></td>
                         <td><?= $user['id_produto'] ?></td>
-                        <td><?= $user['nome'] ?></td>
-                        <td><?= $user['tipo'] ?></td>
-                        <td><?= $user['preco'] ?></td>
-                        <td><?= $user['estoque'] ?></td>
+                        <td><?= $user['quantidade'] ?></td>
+                        <td><?= $user['data_pagamento'] ?></td>
+                        <td><?= $user['forma_pagamento_id'] ?></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
 
         <div class="d-flex justify-content-between">
-            <a href="/dashboard" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </a>
+            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>
     </div>
 </div>
+
 <script>
      // Filtro de busca
     document.getElementById("search").addEventListener("keyup", function () {

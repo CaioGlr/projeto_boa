@@ -4,22 +4,9 @@
             <h1 class="display-3 fw-bold">Relatório de Usuários</h1>
         </div>
     </header>
-
+    <!-- Filtro de busca -->
     <div class="container mt-4 box">
         <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
-
-        <?php 
-        if (isset($_SESSION['mensagem'])): 
-        ?>
-            <div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?> alert-dismissible fade show" role="alert">
-                <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php 
-            endif;
-            unset($_SESSION['mensagem']);
-            unset($_SESSION['tipo_mensagem']); 
-        ?>
 
         <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
@@ -28,14 +15,13 @@
             </button>
         </div>
 
-        </style>
-
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
+                    <th>CPF</th>
                     <th>Telefone</th>
                     <th>Tipo</th>
                 </tr>
@@ -46,6 +32,7 @@
                         <td><?= $user['id_usuario'] ?></td>
                         <td><?= $user['nome'] ?></td>
                         <td><?= $user['email'] ?></td>
+                        <td><?= $user['cpf'] ?></td>
                         <td><?= $user['celular'] ?></td>
                         <td><?= $user['tipo'] ?></td>
                     </tr>
@@ -55,7 +42,7 @@
             <div class="d-flex justify-content-between">
                 <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
             </div>
-        </div>
+    </div>
 </div>
 
 <script>     

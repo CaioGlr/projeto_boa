@@ -117,54 +117,60 @@ $sql .= "VALUES (
         }
     }
 
-        public static function atualizar($dados)
-        {
-            try{
-                $pdo = Database::conectar();
+public static function atualizar($dados)
+{
+    try {
+        $pdo = Database::conectar();
 
-                $sql = "UPDATE usuarios SET ";
-                $sql .= "nome = :nome, ";
-                $sql .= "cpf = :cpf, ";
-                $sql .= "data_nascimento = :data_nascimento, ";
-                $sql .= "celular = :celular, ";
-                $sql .= "rua = :rua, ";
-                $sql .= "numero = :numero, ";
-                $sql .= "complemento = :complemento, ";
-                $sql .= "bairro = :bairro, ";
-                $sql .= "cidade = :cidade, ";
-                $sql .= "estado = :estado, ";
-                $sql .= "cep = :cep, ";
-                $sql .= "email = :email, ";
-                $sql .= "tipo = :tipo ";
+        $sql = "UPDATE usuarios SET 
+            nome = :nome,
+            cpf = :cpf,
+            data_nascimento = :data_nascimento,
+            celular = :celular,
+            rua = :rua,
+            numero = :numero,
+            complemento = :complemento,
+            bairro = :bairro,
+            cidade = :cidade,
+            estado = :estado,
+            cep = :cep,
+            email = :email,
+            tipo = :tipo";
 
-                $sql .= "WHERE id_usuario = :id; ";
-
-                $stmt = $pdo->prepare($sql);
-
-                $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
-                $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
-                $stmt->bindParam(':data_nascimento', $dados['data_nascimento']);
-                $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
-                $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
-                $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
-                $stmt->bindParam(':complemento', $dados['complemento'], PDO::PARAM_STR);
-                $stmt->bindParam(':bairro', $dados['bairro'], PDO::PARAM_STR);
-                $stmt->bindParam(':cidade', $dados['cidade'], PDO::PARAM_STR);
-                $stmt->bindParam(':estado', $dados['estado'], PDO::PARAM_STR);
-                $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
-                $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-                $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
-
-                $stmt->bindParam(':id', $dados['id_usuario'], PDO::PARAM_INT);
-
-            return $stmt->execute();
-
-            }catch(PDOException $e){
-                echo "Erro ao alterar: " . $e->getMessage();
-                exit;
-            }
-
+        if (!empty($dados['senha'])) {
+            $sql .= ", senha = :senha";
         }
+
+        $sql .= " WHERE id_usuario = :id";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
+        $stmt->bindParam(':data_nascimento', $dados['data_nascimento']);
+        $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
+        $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
+        $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
+        $stmt->bindParam(':complemento', $dados['complemento'], PDO::PARAM_STR);
+        $stmt->bindParam(':bairro', $dados['bairro'], PDO::PARAM_STR);
+        $stmt->bindParam(':cidade', $dados['cidade'], PDO::PARAM_STR);
+        $stmt->bindParam(':estado', $dados['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
+        $stmt->bindParam(':id', $dados['id_usuario'], PDO::PARAM_INT);
+
+        if (!empty($dados['senha'])) {
+            $senhaCriptografada = password_hash($dados['senha'], PASSWORD_BCRYPT);
+            $stmt->bindParam(':senha', $senhaCriptografada, PDO::PARAM_STR);
+        }
+
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        echo "Erro ao alterar: " . $e->getMessage();
+        exit;
+    }
+}
     
         public static function deletarLogico($id) 
         {
