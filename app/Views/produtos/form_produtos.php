@@ -81,7 +81,9 @@ if(isset($_SESSION['erros'])):
                     placeholder="Digite a quantidade em estoque" required>
             </div>
         </div>
-
+        <div class="d-flex justify-content-between">
+            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>  
         <!-- Botão de Submeter -->
         <div class="d-flex justify-content-center mt-3">       
             <button type="submit" class="btn btn-primary">

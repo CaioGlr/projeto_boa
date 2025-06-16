@@ -12,11 +12,11 @@ if (isset($dados['id_venda'])) {
 ?>
 
 <!-- Mensagens de Erro -->
-<?php if(isset($_SESSION['erros'])): ?>
+<?php if (isset($_SESSION['erros'])): ?>
     <div class="alert alert-danger row py-5" role="alert">
         <h4 class="alert-heading">Erro no registro!</h4>
         <ul>
-            <?php foreach($_SESSION['erros'] as $e): ?>
+            <?php foreach ($_SESSION['erros'] as $e): ?>
                 <li><?= $e ?></li>
             <?php endforeach; ?>
         </ul>
@@ -39,27 +39,38 @@ if (isset($dados['id_venda'])) {
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Cliente -->
+            <!-- Usuário -->
             <div class="col-md-5 mb-3">
-                <label for="id_usuario" class="form-label">Cliente</label>
-                <select class="form-select" id="id_usuario" name="id_usuario" required>
-                    <option value="">Selecione o cliente</option>
-                    <option value="1" <?= isset($dados['id_usuario']) && $dados['id_usuario'] == 1 ? 'selected' : '' ?>>1</option>
-                    <option value="2" <?= isset($dados['id_usuario']) && $dados['id_usuario'] == 2 ? 'selected' : '' ?>>2</option>
-                    <option value="3" <?= isset($dados['id_usuario']) && $dados['id_usuario'] == 3 ? 'selected' : '' ?>>3</option>
-                    <option value="4" <?= isset($dados['id_usuario']) && $dados['id_usuario'] == 4 ? 'selected' : '' ?>>4</option>
+                <label for="usuario_id" class="form-label">Usuário</label>
+                <select class="form-select" id="usuario_id" name="usuario_id" required>
+                    <option value="">Selecione o usuário</option>
+                    <?php foreach ($usuarios as $usuario): ?>
+
+                        <option value="<?= $usuario['id_usuario'] ?>"
+                            <?= isset($dados['usuario_id']) && $dados['usuario_id'] == $usuario['id_usuario'] ? 'selected' : '' ?>>
+                            <!-- Exibe o nome do usuário -->
+                            <?= htmlspecialchars($usuario['nome']) ?>
+                        </option>
+                        
+                    <?php endforeach; ?>
                 </select>
             </div>
 
             <!-- Produto -->
             <div class="col-md-5 mb-3">
-                <label for="id_produto" class="form-label">Produto</label>
-                <select class="form-select" id="id_produto" name="id_produto" required>
+                <label for="produto_id" class="form-label">Produto</label>
+                <select class="form-select" id="produto_id" name="produto_id" required>
                     <option value="">Selecione o produto</option>
-                    <option value="1" <?= isset($dados['id_produto']) && $dados['id_produto'] == 1 ? 'selected' : '' ?>>1</option>
-                    <option value="2" <?= isset($dados['id_produto']) && $dados['id_produto'] == 2 ? 'selected' : '' ?>>2</option>
-                    <option value="3" <?= isset($dados['id_produto']) && $dados['id_produto'] == 3 ? 'selected' : '' ?>>3</option>
-                    <option value="4" <?= isset($dados['id_produto']) && $dados['id_produto'] == 4 ? 'selected' : '' ?>>4</option>
+                    <?php foreach ($produtos as $produto): ?>
+                        <!-- Exibe o ID do produto, nome e preço formatado -->
+
+                        <option value="<?= $produto['id_produto'] ?>"
+                            <?= isset($dados['produto_id']) && $dados['produto_id'] == $produto['id_produto'] ? 'selected' : '' ?>>
+                            <!-- Exibe o nome do produto e o preço formatado -->
+                            <?= htmlspecialchars($produto['nome']) ?>
+                        </option>
+
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -69,18 +80,22 @@ if (isset($dados['id_venda'])) {
             <div class="col-md-5 mb-3">
                 <label for="quantidade" class="form-label">Quantidade</label>
                 <input type="number" class="form-control" id="quantidade" name="quantidade" 
-                    value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>" 
-                    min="1" required>
+                       value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>" 
+                       min="1" required>
             </div>
 
             <!-- Forma de Pagamento -->
             <div class="col-md-5 mb-3">
-                <label for="forma_pagamento_id" class="form-label">Forma de Pagamento</label>
-                <select class="form-select" id="forma_pagamento" name="forma_pagamento_id" required>
-                    <option value="1" <?= isset($dados['forma_pagamento_id']) && $dados['forma_pagamento_id'] == 1 ? 'selected' : '' ?>>Dinheiro</option>
-                    <option value="2" <?= isset($dados['forma_pagamento_id']) && $dados['forma_pagamento_id'] == 2 ? 'selected' : '' ?>>Cartão de Crédito</option>
-                    <option value="3" <?= isset($dados['forma_pagamento_id']) && $dados['forma_pagamento_id'] == 3 ? 'selected' : '' ?>>Cartão de Débito</option>
-                    <option value="4" <?= isset($dados['forma_pagamento_id']) && $dados['forma_pagamento_id'] == 4 ? 'selected' : '' ?>>PIX</option>
+                <label for="forma_pagamento" class="form-label">Forma de Pagamento</label>
+                <select class="form-select" id="forma_pagamento" name="forma_pagamento" required>
+                    <option value="">Selecione a forma de pagamento</option>
+                    <?php $formas_pagamento = ['Dinheiro', 'Crédito', 'Débito', 'Pix', 'Transferência']; ?>
+                    <?php foreach ($formas_pagamento as $forma): ?>
+                        <option value="<?= $forma ?>"
+                            <?= isset($dados['forma_pagamento']) && $dados['forma_pagamento'] === $forma ? 'selected' : '' ?>>
+                            <?= $forma ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -89,13 +104,15 @@ if (isset($dados['id_venda'])) {
         <div class="row d-flex justify-content-evenly">
             <div class="col-md-5 mb-3">
                 <label for="data_venda" class="form-label">Data da Venda</label>
-                <input type="date" class="form-control" value="<?= isset($dados['data_venda']) ? $dados['data_pagamento'] : null ?>"
-                 id="data_venda" name="data_venda" required>
+                <input type="date" class="form-control" id="data_venda" name="data_venda"
+                    value="<?= isset($dados['data_venda']) ? $dados['data_venda'] : date('Y-m-d') ?>" required>
             </div>
         </div>
-
+        <div class="d-flex justify-content-between">
+            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>                
         <!-- Botão de Submeter -->
-        <div class="d-flex justify-content-center mt-3">       
+        <div class="d-flex justify-content-center">       
             <button type="submit" class="btn btn-primary">
                 <?= isset($dados['id_venda']) ? 'Atualizar Venda' : 'Registrar Venda' ?>
             </button>

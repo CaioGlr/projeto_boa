@@ -87,7 +87,7 @@ body {
 }
 
 h1.display-3 {
-    color: #ac2828;
+    color: #ffffff;
     font-family: 'Roboto', sans-serif;
     font-size: 3rem;
     font-weight: 700;
@@ -99,7 +99,7 @@ h1.display-3 {
 }
 
 h3.lead {
-    color: #802b2b;
+    color: #ffffff;
     font-family: 'Roboto', sans-serif;
     font-size: 1.25rem;
     font-weight: 400;
@@ -118,7 +118,7 @@ h3.lead {
     justify-content: center;
     text-align: center;
     color: #900000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(209, 118, 118, 0.3);
 }
 
 .title {

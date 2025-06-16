@@ -33,25 +33,25 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody id="userTable">
-                <?php foreach ($produtos as $user): ?>
+            <tbody id="prodTable">
+                <?php foreach ($produtos as $prod): ?>
                     <tr>
-                        <td><?= $user['id_produto'] ?></td>
-                        <td><?= $user['nome'] ?></td>
-                        <td><?= $user['tipo'] ?></td>
-                        <td><?= $user['preco'] ?></td>
-                        <td><?= $user['estoque'] ?></td>
+                        <td><?= $prod['id_produto'] ?></td>
+                        <td><?= $prod['nome'] ?></td>
+                        <td><?= $prod['tipo'] ?></td>
+                        <td><?= $prod['preco'] ?></td>
+                        <td><?= $prod['estoque'] ?></td>
                         <td>
-                            <a href="/produtos/<?= $user['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="/produtos/<?= $prod['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarFisico(<?= $user['id_produto'] ?>)"
+                                    onclick="deletarFisico(<?= $prod['id_produto'] ?>)"
                                     title="Excluir" type="button">
-                                Excluir Físico
+                                Deletar
                             </button>
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarLogico(<?= $user['id_produto'] ?>)"
+                                    onclick="deletarLogico(<?= $prod['id_produto'] ?>)"
                                     title="Excluir" type="button">
-                                Excluir Lógico
+                                Desativar
                             </button>
                         </td>
                     </tr>
@@ -87,7 +87,7 @@
     // Filtro de busca
     document.getElementById("search").addEventListener("keyup", function () {
         const filtro = this.value.toLowerCase();
-        const linhas = document.querySelectorAll("#userTable tr");
+        const linhas = document.querySelectorAll("#prodTable tr");
 
         linhas.forEach(function (linha) {
             const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();

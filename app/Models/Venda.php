@@ -1,85 +1,87 @@
 <?php
 
-// Informa em qual área da memória vai ficar alocado
 namespace App\Models;
 
-// Importa o Arquivo de BD para ser utilizado nesta classe
 use App\Core\Database;
-
-// Importa a classe de BD do PHP
 use PDO;
 use PDOException;
 
 class Venda {
-
-    // Busca todos os usuários
-    public static function buscarTodos(){
-        // Inicia a conexão com o banco de dados
+    // Busca todas as vendas com os nomes de usuário e produto
+    public static function buscarTodos() {
         $pdo = Database::conectar();
 
-        // Monta o Script SQL de consulta
-        $sql = "SELECT * FROM vendas WHERE delete_at IS NULL";
+        $sql = "
+            SELECT
+                vendas.id_venda,
+                usuarios.nome AS nome_usuario,
+                produtos.nome AS nome_produto,
+                produtos.preco AS preco_produto,
+                vendas.quantidade,
+                vendas.data_venda,
+                vendas.forma_pagamento
+            FROM vendas
+            INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario
+            INNER JOIN produtos ON vendas.produto_id = produtos.id_produto
+            WHERE vendas.delete_at IS NULL
+            ORDER BY vendas.data_venda DESC
+        ";
 
-        // Retorna o resultado do SQL
-        return $pdo->query($sql)->fetchAll();
-
+        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function BuscarUm($id)
-    {
-        // Inicia a conexão com o BD
+    // Busca uma venda específica
+    public static function buscarUm($id) {
         $pdo = Database::conectar();
 
-        $sql = "SELECT * FROM vendas WHERE delete_at IS NULL AND id_venda = :id";
+        $sql = "
+            SELECT
+                id_venda,
+                usuario_id,
+                produto_id,
+                quantidade,
+                data_venda,
+                forma_pagamento
+            FROM vendas
+            WHERE delete_at IS NULL AND id_venda = :id
+        ";
 
         $stmt = $pdo->prepare($sql);
-
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    //Salva um usuario no BD com os dados da View
-    public static function salvar($dados)
-    {
+    // Salvar nova venda
+    public static function salvar($dados) {
         try {
             $pdo = Database::conectar();
 
-            $sql = "INSERT INTO
-    vendas (
-        id_venda,
-        id_usuario,
-        id_produto,
-        quantidade,
-        data_venda,
-        forma_pagamento_id
-    )";
-$sql .= "VALUES (
-        :id_venda,
-        :id_usuario,
-        :id_produto,
-        :quantidade,
-        :data_venda,
-        :forma_pagamento_id
-    )";
+            $sql = "
+                INSERT INTO vendas (
+                    usuario_id,
+                    produto_id,
+                    quantidade,
+                    data_venda,
+                    forma_pagamento
+                ) VALUES (
+                    :usuario_id,
+                    :produto_id,
+                    :quantidade,
+                    :data_venda,
+                    :forma_pagamento
+                )
+            ";
 
-            // prepara o SQL para ser inserido no BD limpando códigos maliciosos
             $stmt = $pdo->prepare($sql);
-
-            //Passa os dados das variaveis para o INSERT do sql
-            $stmt->bindParam(':id_venda', $dados['id_venda'], PDO::PARAM_STR);
-            $stmt->bindParam(':id_usuario', $dados['id_usuario'], PDO::PARAM_STR);
+            $stmt->bindParam(':usuario_id', $dados['usuario_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':produto_id', $dados['produto_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_INT);
             $stmt->bindParam(':data_venda', $dados['data_venda']);
-            $stmt->bindParam(':id_produto', $dados['id_produto'], PDO::PARAM_STR);
-            $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_STR);
-            $stmt->bindParam(':forma_pagamento_id', $dados['forma_pagamento_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':forma_pagamento', $dados['forma_pagamento']);
 
-            //Executa o SQL no Banco de dados
             $stmt->execute();
-
-            //retorna o ID do registro no BD
             return (int) $pdo->lastInsertId();
         } catch (PDOException $e) {
             echo "Erro ao inserir: " . $e->getMessage();
@@ -87,56 +89,51 @@ $sql .= "VALUES (
         }
     }
 
-        public static function atualizar($dados)
-        {
-            try{
-                $pdo = Database::conectar();
-
-                $sql = "UPDATE vendas SET ";
-                $sql .= "id_venda = :id_venda, ";
-                $sql .= "id_usuario = :id_usuario, ";
-                $sql .= "data_venda = :data_venda, ";
-                $sql .= "id_produto = :id_produto, ";
-                $sql .= "quantidade = :quantidade, ";
-                $sql .= "forma_pagamento_id = :forma_pagamento_id, ";
-
-                $sql .= "WHERE id_usuario = :id; ";
-
-                $stmt = $pdo->prepare($sql);
-
-                $stmt->bindParam(':id_venda', $dados['id_venda'], PDO::PARAM_STR);
-                $stmt->bindParam(':id_usuario', $dados['id_usuario'], PDO::PARAM_STR);
-                $stmt->bindParam(':data_venda', $dados['data_venda']);
-                $stmt->bindParam(':id_produto', $dados['id_produto'], PDO::PARAM_STR);
-                $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_STR);
-                $stmt->bindParam(':forma_pagamento_id', $dados['forma_pagamento_id'], PDO::PARAM_STR);
-
-                $stmt->bindParam(':id', $dados['id_vendas'], PDO::PARAM_INT);
-
-            return $stmt->execute();
-
-            }catch(PDOException $e){
-                echo "Erro ao alterar: " . $e->getMessage();
-                exit;
-            }
-
-        }
-    
-        public static function deletarLogico($id) 
-        {
+    // Atualizar venda existente
+    public static function atualizar($dados) {
+        try {
             $pdo = Database::conectar();
-            $sql = "UPDATE vendas SET delete_at = NOW() WHERE id_vendas = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
-        }
 
-        public static function deletarFisico($id)
-        {
-            $pdo = Database::conectar($id);
-            $sql = "DELETE FROM vendas WHERE id_vendas = :id";
+            $sql = "
+                UPDATE vendas SET
+                    usuario_id = :usuario_id,
+                    produto_id = :produto_id,
+                    quantidade = :quantidade,
+                    data_venda = :data_venda,
+                    forma_pagamento = :forma_pagamento
+                WHERE id_venda = :id_venda
+            ";
+
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':usuario_id', $dados['usuario_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':produto_id', $dados['produto_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_INT);
+            $stmt->bindParam(':data_venda', $dados['data_venda']);
+            $stmt->bindParam(':forma_pagamento', $dados['forma_pagamento']);
+            $stmt->bindParam(':id_venda', $dados['id_venda'], PDO::PARAM_INT);
+
             return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erro ao alterar: " . $e->getMessage();
+            exit;
         }
+    }
+
+    // Exclusão lógica
+    public static function deletarLogico($id) {
+        $pdo = Database::conectar();
+        $sql = "UPDATE vendas SET delete_at = NOW() WHERE id_venda = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    // Exclusão física
+    public static function deletarFisico($id) {
+        $pdo = Database::conectar();
+        $sql = "DELETE FROM vendas WHERE id_venda = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

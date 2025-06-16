@@ -192,6 +192,7 @@ class UsuarioController{
      // Validar se o CPF já foi cadastrado (Busca no BD)
      // Validar se o Email já foi cadastrado (Busca no BD)
 
+
      // Validação da Senha se é igual a confirmação
     if(empty($dados['senha']) || empty($dados['confirmar_senha'])) {
         $erros[] = "A senha e a confirmação de senha são obrigatórias!";

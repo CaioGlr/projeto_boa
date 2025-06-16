@@ -6,6 +6,7 @@ USE projeto_boa;
 -- Tabela de Usuários
 CREATE TABLE IF NOT EXISTS usuarios (
   id_usuario BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
   nome VARCHAR(255) NOT NULL,
   cpf VARCHAR(14),
   data_nascimento DATE,
@@ -20,19 +21,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
   email VARCHAR(255) NOT NULL UNIQUE,
   senha VARCHAR(255) NOT NULL,
   tipo ENUM('Administrador', 'Funcionário', 'Cliente') NOT NULL,
-  
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL
-);
-
--- Tabela de Formas de Pagamento
-CREATE TABLE IF NOT EXISTS formas_pagamentos (
-  id_forma_pagamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  descricao VARCHAR(100) NOT NULL,
-  taxa DECIMAL(4,3),
-  desconto DECIMAL(4,3),
-
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   delete_at TIMESTAMP NULL DEFAULT NULL
@@ -41,11 +29,11 @@ CREATE TABLE IF NOT EXISTS formas_pagamentos (
 -- Tabela de Produtos/Serviços
 CREATE TABLE IF NOT EXISTS produtos (
   id_produto BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
   nome VARCHAR(255) NOT NULL,
-  tipo ENUM('Café da Manhã', 'Almoço', 'Janta','Bebida','Sobremesa','Salgados') NOT NULL,
+  tipo ENUM('Café da Manhã', 'Almoço', 'Janta', 'Bebida', 'Sobremesa', 'Salgados') NOT NULL,
   preco DECIMAL(10,2) NOT NULL,
   estoque INT NOT NULL DEFAULT 0,
-
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   delete_at TIMESTAMP NULL DEFAULT NULL
@@ -54,29 +42,50 @@ CREATE TABLE IF NOT EXISTS produtos (
 -- Tabela de Vendas
 CREATE TABLE IF NOT EXISTS vendas (
   id_venda BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  id_usuario BIGINT UNSIGNED,
-  id_produto BIGINT UNSIGNED,
+  usuario_id BIGINT UNSIGNED NOT NULL,
+  produto_id BIGINT UNSIGNED NOT NULL,
+
   quantidade INT NOT NULL,
   data_venda DATE NOT NULL,
-  forma_pagamento_id INT UNSIGNED NOT NULL,
-
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-  FOREIGN KEY (id_produto) REFERENCES produtos(id_produto),
-  FOREIGN KEY (forma_pagamento_id) REFERENCES formas_pagamentos(id_forma_pagamento),
-
+  forma_pagamento ENUM('Pix', 'Dinheiro', 'Débito', 'Crédito') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL
+  delete_at TIMESTAMP NULL DEFAULT NULL,
+
+-- Chaves estrangeiras
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
+  FOREIGN KEY (produto_id) REFERENCES produtos(id_produto)
+
 );
 
 -- Tabela de Suporte
 CREATE TABLE IF NOT EXISTS suporte (
   id_suporte BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(100) NOT NULL,
   mensagem TEXT,
-
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   delete_at TIMESTAMP NULL DEFAULT NULL
 );
+
+-- Consulta de vendas
+SELECT
+   vendas.id_venda,
+    
+    usuarios.nome AS nome_usuario,
+    produtos.nome AS nome_produto,
+    produtos.preco AS preco_produto,
+
+    vendas.quantidade,
+    (produtos.preco * vendas.quantidade) AS total,
+    
+    vendas.data_venda,
+    vendas.forma_pagamento
+
+FROM vendas
+INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario
+INNER JOIN produtos ON vendas.produto_id = produtos.id_produto
+WHERE vendas.delete_at IS NULL
+ORDER BY vendas.data_venda DESC

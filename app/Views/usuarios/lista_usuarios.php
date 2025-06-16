@@ -47,13 +47,13 @@
                             <button class="btn btn-danger btn-sm btn-action"
                                     onclick="deletarFisico(<?= $user['id_usuario'] ?>)"
                                     title="Excluir" type="button">
-                                Excluir Físico
+                                Deletar
                             </button>
 
                             <button class="btn btn-danger btn-sm btn-action"
                                     onclick="deletarLogico(<?= $user['id_usuario'] ?>)"
                                     title="Excluir" type="button">
-                                Excluir Lógico
+                                Desativar
                             </button>
                         </td>
                     </tr>

@@ -2,149 +2,144 @@
 
 namespace App\Controllers;
 
-//Importa o Model para ser utilizado.
+// Importa os Models necessários
 use App\Models\Venda;
+use App\Models\Usuario;
+use App\Models\Produto;
 
-class VendaController{
-    //exibe a lista de vendas
-    public function listar(){
-        //Chama a Model de venda e executa a busca no BD
+// Classe VendaController para gerenciar as operações relacionadas a vendas
+class VendaController {
+    // Exibe a lista de vendas
+    public function listar() {
         $vendas = Venda::buscarTodos();
-
-        //Exibe o arquivo PHP de lista enviando as vendas do BD para apresentação.
         render('vendas/lista_vendas.php', [
             'title' => 'Listagem de Vendas - Comida Boa',
-            "vendas" => $vendas]);
-    }    
-//EXIBE O RELATÓRIO DE VENDAS
-    public function relatorio(){
-        //Chama a Model de Vendas e executa a busca no BD
+            'vendas' => $vendas
+        ]);
+    }
+
+    // Exibe o relatório de vendas
+    public function relatorio() {
         $vendas = Venda::buscarTodos();
-
-        //Exibe o arquivo PHP de lista enviando os Vendas do BD para apresentação.
-        render("vendas/rel_vendas.php", [
+        render('vendas/rel_vendas.php', [
             'title' => 'Relatório de Vendas - Comida Boa',
-            "vendas" => $vendas]);
+            'vendas' => $vendas
+        ]);
     }
 
-     //Abre o formulário para criar uma venda
-     public function novo(){
-        render('vendas/form_vendas.php', ['title' => 'Registro de Vendas - Comida Boa']);
+    // Abre o formulário para criar uma nova venda
+    public function novo() {
+        $usuarios = Usuario::buscarTodos();
+        $produtos = Produto::buscarTodos();
+
+        render('vendas/form_vendas.php', [
+            'title' => 'Registro de Vendas - Comida Boa',
+            'usuarios' => $usuarios,
+            'produtos' => $produtos
+        ]);
     }
 
-     //salva uma nova venda no BD
-    public function salvar(){
-    
-        // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
+    // Salva uma nova venda no banco de dados
+    public function salvar() {
         $dados = [
-            'id_Produto' => filter_input(INPUT_POST, 'id_Produto', FILTER_SANITIZE_SPECIAL_CHARS),
+            'produto_id' => filter_input(INPUT_POST, 'produto_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'quantidade' => filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_SPECIAL_CHARS),
             'data_venda' => filter_input(INPUT_POST, 'data_venda', FILTER_SANITIZE_SPECIAL_CHARS),
-            'id_venda' => filter_input(INPUT_POST, 'id_venda', FILTER_SANITIZE_SPECIAL_CHARS),
-            'id_usuario' => filter_input(INPUT_POST, 'id_usuario', FILTER_SANITIZE_SPECIAL_CHARS),
-            'forma_pagamento_id' => filter_input(INPUT_POST, 'forma_pagamento_id', FILTER_SANITIZE_SPECIAL_CHARS),
-
+            'usuario_id' => filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_SPECIAL_CHARS),
+            'forma_pagamento' => filter_input(INPUT_POST, 'forma_pagamento', FILTER_SANITIZE_SPECIAL_CHARS),
         ];
-
-        //print_r($_POST);exit();
-        //Aqui vamos fazer validações
+        
+        // Valida os dados da venda
         $erros = $this->validar($dados);
 
-        if(!empty($erros)) {   
-            //Envia os erros para a página de cadastro
+        if (!empty($erros)) {
             $_SESSION['erros'] = $erros;
-            // Envia os dados já informados para serem incluidos
             $_SESSION['dados'] = $dados;
-            // Redireciona para a página de cadastro
             header('Location: /vendas/novo');
-        }else{
-
-            //chama o model passando os dados
-        Venda::salvar($dados);
-         $_SESSION['mensagem'] = "Vendas: " . $dados['nome'] . ", cadastrado com sucesso!";
-         $_SESSION['tipo_mensagem'] = "success";
-        header('Location: /vendas');
+        } else {
+            Venda::salvar($dados);
+            $_SESSION['mensagem'] = "Venda registrada com sucesso!";
+            $_SESSION['tipo_mensagem'] = "success";
+            header('Location: /vendas');
         }
     }
 
-    public function editar($id)
-    {
-          $dados = Venda::BuscarUm($id);
-          render("vendas/form_vendas.php", [
-            'title' => 'Alterar Vendas - Comida Boa',
-            "dados" => $dados
-          ]);
+    // Edita uma venda existente
+    public function editar($id) {
+        $dados = Venda::buscarUm($id);
+        $usuarios = Usuario::buscarTodos();
+        $produtos = Produto::buscarTodos();
 
+        render("vendas/form_vendas.php", [
+            'title' => 'Alterar Vendas - Comida Boa',
+            // Passa os dados da venda, usuários e produtos para a view
+            'dados' => $dados,
+            'usuarios' => $usuarios,
+            'produtos' => $produtos
+        ]);
     }
 
-    public function atualizar($id){
-     // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
+    // Atualiza uma venda existente
+    public function atualizar($id) {
         $dados = [
-            'id_Produto' => filter_input(INPUT_POST, 'id_Produto', FILTER_SANITIZE_SPECIAL_CHARS),
+            'produto_id' => filter_input(INPUT_POST, 'produto_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'quantidade' => filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_SPECIAL_CHARS),
             'data_venda' => filter_input(INPUT_POST, 'data_venda', FILTER_SANITIZE_SPECIAL_CHARS),
-            'id_venda' => filter_input(INPUT_POST, 'id_venda', FILTER_SANITIZE_SPECIAL_CHARS),
-            'id_usuario' => filter_input(INPUT_POST, 'id_usuario', FILTER_SANITIZE_SPECIAL_CHARS),
-            'forma_pagamento_id' => filter_input(INPUT_POST, 'forma_pagamento_id', FILTER_SANITIZE_SPECIAL_CHARS),
-
+            'usuario_id' => filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_SPECIAL_CHARS),
+            'forma_pagamento' => filter_input(INPUT_POST, 'forma_pagamento', FILTER_SANITIZE_SPECIAL_CHARS),
+            'id_venda' => $id
         ];
 
-        
-        //print_r($_POST);exit();
-        //Aqui vamos fazer validações
         $erros = $this->validar($dados);
 
-        if(!empty($erros)) {   
-            //Envia os erros para a página de cadastro
+        if (!empty($erros)) {
             $_SESSION['erros'] = $erros;
-            // Envia os dados já informados para serem incluidos
             $_SESSION['dados'] = $dados;
-            // Redireciona para a página de cadastro
             header('Location: /vendas/' . $id . '/editar');
-        }else{
-        
-        //Chama o model passando os dados
-        //Adiciona o ID do usuário para atualizar
-        $dados['id_venda'] = $id; 
-        Venda::atualizar($dados);
-         $_SESSION['mensagem'] = "Usuário: " . $dados['nome'] . ", alterado com sucesso!";
-         $_SESSION['tipo_mensagem'] = "success";
+        } else {
+            Venda::atualizar($dados);
+            $_SESSION['mensagem'] = "Venda alterada com sucesso!";
+            $_SESSION['tipo_mensagem'] = "success";
+            header('Location: /vendas');
+        }
+    }
+
+    // Exclusão lógica de uma venda
+    public function deleteLogico($id) {
+        Venda::deletarLogico($id);
         header('Location: /vendas');
-        }  
     }
 
-    //Apenas coloca a data da exclusão no BD
-    public function deleteLogico($id)
-    {
-      Venda::deletarLogico($id);
-      header('Location: /Vendas');
-    }
-    //Exclui definitvamente o usuário da tabela
-    public function deleteFisico($id)
-    {
-      Venda::deletarFisico($id);
-      header('Location: /vendas');
-  
+    // Exclusão física de uma venda
+    public function deleteFisico($id) {
+        Venda::deletarFisico($id);
+        header('Location: /vendas');
     }
 
-    
-    // Implementa a validação e sanitização dos dados do form (limpeza de segurança)
-     public function validar($dados){
+    // Valida os dados recebidos do formulário de venda
+    public function validar($dados) {
         $erros = [];
 
-        //Validação do nome
-    if(empty($dados['nome'])){
-       $erros[] = "O nome é obrigatório!";
-     } else if (strlen($dados['nome']) < 3){
-       $erros[] = "O nome deve ter pelo menos 3 caracteres!";
-     }
-     
-     
-     // Validação do Tipo
-     if(empty($dados['tipo'])){
-        $erros[] = "O Tipo do Usuário é obrigatório!";
-     } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])){
-        $erros[] = "O Tipo do Usuário é Inválido!";
-     }
+        if (empty($dados['usuario_id'])) {
+            $erros[] = "O usuário é obrigatório.";
+        }
+
+        if (empty($dados['produto_id'])) {
+            $erros[] = "O produto é obrigatório.";
+        }
+
+        if (empty($dados['quantidade']) || $dados['quantidade'] < 1) {
+            $erros[] = "A quantidade deve ser maior que zero.";
+        }
+
+        if (empty($dados['data_venda'])) {
+            $erros[] = "A data da venda é obrigatória.";
+        }
+
+        if (empty($dados['forma_pagamento']) || !in_array($dados['forma_pagamento'], ['Pix', 'Dinheiro', 'Débito', 'Crédito', 'Transferência'])) {
+            $erros[] = "A forma de pagamento é inválida.";
+        }
+
+        return $erros;
     }
 }

@@ -22,45 +22,45 @@
             unset($_SESSION['tipo_mensagem']); 
         ?>
 
-        <table class="table table-striped">
-            <thead>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuário</th>
+                <th>Produto</th>
+                <th>Quantidade Vendida</th>
+                <th>Data do Pagamento</th>
+                <th>Forma de Pagamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="vendaTable">
+            <?php foreach ($vendas as $venda): ?>
                 <tr>
-                    <th>ID do Usuário</th>
-                    <th>ID do Produto</th>
-                    <th>Quantidade Vendida</th>
-                    <th>Data do Pagamento</th>
-                    <th>Forma de Pagamento</th>
-                    <th>Ações</th>
+                    <td><?= $venda['id_venda'] ?></td>
+                    <td><?= htmlspecialchars($venda['nome_usuario']) ?></td> <!-- Nome do usuário -->
+                    <td><?= htmlspecialchars($venda['nome_produto']) ?></td> <!-- Nome do produto -->
+                    <td><?= $venda['quantidade'] ?></td>
+                    <!-- strtotime converte a data para o formato d/m/y-->
+                    <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
+                    <td><?= $venda['forma_pagamento'] ?></td>
+                    <td>
+                        <a href="/vendas/<?= $venda['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                        <button class="btn btn-danger btn-sm btn-action"
+                                onclick="deletarFisico(<?= $venda['id_venda'] ?>)"
+                                title="Excluir" type="button">
+                            Deletar
+                        </button>
+                        <button class="btn btn-danger btn-sm btn-action"
+                                onclick="deletarLogico(<?= $venda['id_venda'] ?>)"
+                                title="Excluir" type="button">
+                            Desativar
+                        </button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody id="userTable">
-                <?php foreach ($vendas as $user): ?>
-                    <tr>
-                        <td><?= $user['id_usuario'] ?></td>
-                        <td><?= $user['id_produto'] ?></td>
-                        <td><?= $user['quantidade'] ?></td>
-                        <td><?= $user['data_pagamento'] ?></td>
-                        <td><?= $user['forma_pagamento_id'] ?></td>
-                        <td>
-                            <a href="/vendas/<?= $user['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
-
-                            <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarFisico(<?= $user['id_venda'] ?>)"
-                                    title="Excluir" type="button">
-                                Excluir Físico
-                            </button>
-
-                            <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarLogico(<?= $user['id_venda'] ?>)"
-                                    title="Excluir" type="button">
-                                Excluir Lógico
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-
+            <?php endforeach ?>
+        </tbody>
+    </table>
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>

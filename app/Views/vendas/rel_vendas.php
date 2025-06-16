@@ -1,11 +1,8 @@
 <div class="content-titulo">
     <header class="text-center">
-        <div>
-            <h1 class="display-3 fw-bold">Relátorio das Vendas</h1>
-        </div>
+        <h1 class="display-3 fw-bold">Relatório das Vendas</h1>
     </header>
-        <!-- Filtro de busca -->
-        <div class="container mt-4 box">
+    <div class="container mt-4 box">
         <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
             <button onclick="window.print()" class="btn btn-dark px-4 py-2 fs-5">
@@ -16,23 +13,35 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID do Usuário</th>
-                    <th>ID do Produto</th>
-                    <th>Quantidade Vendida</th>
-                    <th>Data do Pagamento</th>
+                    <th>ID</th>
+                    <th>Usuário</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Valor Total</th>
+                    <th>Data da Venda</th>
                     <th>Forma de Pagamento</th>
                 </tr>
             </thead>
-            <tbody id="userTable">
-                <?php foreach ($vendas as $user): ?>
+            <tbody id="vendaTable">
+                <?php foreach ($vendas as $venda): ?>
                     <tr>
-                        <td><?= $user['id_usuario'] ?></td>
-                        <td><?= $user['id_produto'] ?></td>
-                        <td><?= $user['quantidade'] ?></td>
-                        <td><?= $user['data_pagamento'] ?></td>
-                        <td><?= $user['forma_pagamento_id'] ?></td>
+                        <td><?= $venda['id_venda'] ?></td>
+                        <td><?= htmlspecialchars($venda['nome_usuario']) ?></td>
+                        <td><?= htmlspecialchars($venda['nome_produto']) ?></td>
+                        <td><?= $venda['quantidade'] ?></td>
+                        <!-- Verifica se o preço do produto está definido, caso contrário usa o preço da venda -->
+                        <?php 
+                        $precoUnit = $venda['preco_produto'] ?? ($venda['preco'] ?? 0);
+                        $total    = $precoUnit * $venda['quantidade'];
+                        ?>
+                        <!-- Formata o preço unitário e total -->
+                        <td>R$<?= number_format($precoUnit, 2, ',', '.') ?></td>
+                        <td>R$<?= number_format($total, 2, ',', '.') ?></td>
+                        <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
+                        <td><?= htmlspecialchars($venda['forma_pagamento']) ?></td>
                     </tr>
-                <?php endforeach ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
@@ -43,14 +52,12 @@
 </div>
 
 <script>
-     // Filtro de busca
-    document.getElementById("search").addEventListener("keyup", function () {
+    // Filtro de busca (por nome de usuário)
+    document.getElementById("search")?.addEventListener("keyup", function () {
         const filtro = this.value.toLowerCase();
-        const linhas = document.querySelectorAll("#userTable tr");
-
-        linhas.forEach(function (linha) {
-            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            linha.style.display = nome.includes(filtro) ? "" : "none";
+        document.querySelectorAll("#userTable tr").forEach(function (linha) {
+            const usuario = linha.querySelector("td:nth-child(1)").textContent.toLowerCase();
+            linha.style.display = usuario.includes(filtro) ? "" : "none";
         });
     });
 </script>
