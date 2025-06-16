@@ -21,7 +21,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Tipo</th>
-                    <th>Preço em Reais</th>
+                    <th>Preço</th>
                     <th>Estoque</th>
                 </tr>
             </thead>
@@ -31,7 +31,7 @@
                         <td><?= $prod['id_produto'] ?></td>
                         <td><?= $prod['nome'] ?></td>
                         <td><?= $prod['tipo'] ?></td>
-                        <td><?= $prod['preco'] ?></td>
+                        <td>R$<?= number_format($prod['preco'], 2, ',', '.') ?></td>
                         <td><?= $prod['estoque'] ?></td>
                     </tr>
                 <?php endforeach ?>

@@ -30,14 +30,8 @@
                         <td><?= htmlspecialchars($venda['nome_usuario']) ?></td>
                         <td><?= htmlspecialchars($venda['nome_produto']) ?></td>
                         <td><?= $venda['quantidade'] ?></td>
-                        <!-- Verifica se o preço do produto está definido, caso contrário usa o preço da venda -->
-                        <?php 
-                        $precoUnit = $venda['preco_produto'] ?? ($venda['preco'] ?? 0);
-                        $total    = $precoUnit * $venda['quantidade'];
-                        ?>
-                        <!-- Formata o preço unitário e total -->
-                        <td>R$<?= number_format($precoUnit, 2, ',', '.') ?></td>
-                        <td>R$<?= number_format($total, 2, ',', '.') ?></td>
+                        <td>R$<?= number_format($venda['preco_produto'], 2, ',', '.') ?></td>
+                        <td>R$<?= number_format($venda['total'], 2, ',', '.') ?></td>
                         <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
                         <td><?= htmlspecialchars($venda['forma_pagamento']) ?></td>
                     </tr>
