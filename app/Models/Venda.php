@@ -18,6 +18,7 @@ class Venda {
                 produtos.nome AS nome_produto,
                 produtos.preco AS preco_produto,
                 vendas.quantidade,
+                (produtos.preco * vendas.quantidade) AS total,
                 vendas.data_venda,
                 vendas.forma_pagamento
             FROM vendas
