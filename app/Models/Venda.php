@@ -1,16 +1,26 @@
 <?php
 
+// Informa em qual área da memória vai ficar alocado
 namespace App\Models;
 
+// Importa o Arquivo de BD para ser utilizado nesta classe
 use App\Core\Database;
+
+// Importa a classe de BD do PHP
 use PDO;
 use PDOException;
 
-class Venda {
+class Venda
+{
     // Busca todas as vendas com os nomes de usuário e produto
     public static function buscarTodos() {
+        // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
 
+        // Monta o Script SQL de consulta
+        // Inclui os nomes dos usuários e produtos para melhor legibilidade
+        // Utiliza INNER JOIN para unir as tabelas vendas, usuarios e produtos
+        // Filtra apenas as vendas que não foram deletadas (delete_at IS NULL)
         $sql = "
             SELECT
                 vendas.id_venda,
@@ -27,14 +37,16 @@ class Venda {
             WHERE vendas.delete_at IS NULL
             ORDER BY vendas.data_venda DESC
         ";
-
+        // Retorna o resultado do SQL
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Busca uma venda específica
     public static function buscarUm($id) {
+        // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
-
+        // Monta o Script SQL de consulta
+        // Inclui os nomes dos usuários e produtos
         $sql = "
             SELECT
                 id_venda,

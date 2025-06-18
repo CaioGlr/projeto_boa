@@ -1,5 +1,5 @@
 <?php 
-
+// Não precisa iniciar a sessão, pois este arquivo já é chamado no index.php
 namespace App\Controllers;
 
 //Importa o Model para ser utilizado.

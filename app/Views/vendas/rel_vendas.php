@@ -3,6 +3,7 @@
         <h1 class="display-3 fw-bold">Relatório das Vendas</h1>
     </header>
     <div class="container mt-4 box">
+
         <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
             <button onclick="window.print()" class="btn btn-dark px-4 py-2 fs-5">
@@ -27,13 +28,16 @@
                 <?php foreach ($vendas as $venda): ?>
                     <tr>
                         <td><?= $venda['id_venda'] ?></td>
-                        <td><?= htmlspecialchars($venda['nome_usuario']) ?></td>
-                        <td><?= htmlspecialchars($venda['nome_produto']) ?></td>
+                        <td><?= $venda['nome_usuario'] ?></td>
+                        <td><?= $venda['nome_produto'] ?></td>
                         <td><?= $venda['quantidade'] ?></td>
+                        <!-- Formata o valor unitário do produto -->
                         <td>R$<?= number_format($venda['preco_produto'], 2, ',', '.') ?></td>
+                        <!-- Formata o valor total da venda -->
                         <td>R$<?= number_format($venda['total'], 2, ',', '.') ?></td>
+                        <!-- strtotime converte a data para o formato d/m/y -->
                         <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
-                        <td><?= htmlspecialchars($venda['forma_pagamento']) ?></td>
+                        <td><?= $venda['forma_pagamento'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -44,14 +48,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Filtro de busca (por nome de usuário)
-    document.getElementById("search")?.addEventListener("keyup", function () {
-        const filtro = this.value.toLowerCase();
-        document.querySelectorAll("#userTable tr").forEach(function (linha) {
-            const usuario = linha.querySelector("td:nth-child(1)").textContent.toLowerCase();
-            linha.style.display = usuario.includes(filtro) ? "" : "none";
-        });
-    });
-</script>

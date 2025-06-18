@@ -1,10 +1,10 @@
 <?php
-if (isset($_SESSION['dados'])) {
+if(isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
-if (isset($dados['id_produto'])) {
+if(isset($dados['id_produto'])) {
     $rota = "/produtos/" . $dados['id_produto'] . "/atualizar";
 } else {
     $rota = "/produtos/salvar";

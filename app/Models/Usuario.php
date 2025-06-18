@@ -139,6 +139,7 @@ public static function atualizar($dados)
 
         if (!empty($dados['senha'])) {
             $sql .= ", senha = :senha";
+            $senha = password_hash($dados['senha'], PASSWORD_BCRYPT);
         }
 
         $sql .= " WHERE id_usuario = :id";
@@ -161,8 +162,7 @@ public static function atualizar($dados)
         $stmt->bindParam(':id', $dados['id_usuario'], PDO::PARAM_INT);
 
         if (!empty($dados['senha'])) {
-            $senhaCriptografada = password_hash($dados['senha'], PASSWORD_BCRYPT);
-            $stmt->bindParam(':senha', $senhaCriptografada, PDO::PARAM_STR);
+            $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
         }
 
         return $stmt->execute();
@@ -183,7 +183,7 @@ public static function atualizar($dados)
 
         public static function deletarFisico($id)
         {
-            $pdo = Database::conectar($id);
+            $pdo = Database::conectar();
             $sql = "DELETE FROM usuarios WHERE id_usuario = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);

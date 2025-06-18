@@ -1,12 +1,11 @@
 <div class="content-titulo">
     <header class="text-center">
         <div>
-            <h1 class="display-3 fw-bold">Listagem de Usuários</h1>
+            <h1 class="display-3 fw-bold">Lista de Vendas</h1>
         </div>
     </header>
 
     <div class="container mt-4 box">
-        <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar venda...">
         <a href="/vendas/novo" class="btn btn-primary mb-3">Registrar uma nova <b>Venda</b></a>
 
         <?php 
@@ -38,8 +37,8 @@
             <?php foreach ($vendas as $venda): ?>
                 <tr>
                     <td><?= $venda['id_venda'] ?></td>
-                    <td><?= htmlspecialchars($venda['nome_usuario']) ?></td> <!-- Nome do usuário -->
-                    <td><?= htmlspecialchars($venda['nome_produto']) ?></td> <!-- Nome do produto -->
+                    <td><?= $venda['nome_usuario'] ?></td> <!-- Nome do usuário -->
+                    <td><?= $venda['nome_produto'] ?></td> <!-- Nome do produto -->
                     <td><?= $venda['quantidade'] ?></td>
                     <!-- strtotime converte a data para o formato d/m/y-->
                     <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
@@ -77,20 +76,10 @@
     }
 
     function deletarLogico(id) {
-        if (confirm("Deseja DESATIVAR este usuário?")) {
+        if (confirm("Deseja DESATIVAR essa Venda?")) {
             window.location.href = `/vendas/${id}/del-logico`;
         } else {
             alert("Exclusão cancelada!");
         }
     }
-     // Filtro de busca
-    document.getElementById("search").addEventListener("keyup", function () {
-        const filtro = this.value.toLowerCase();
-        const linhas = document.querySelectorAll("#userTable tr");
-
-        linhas.forEach(function (linha) {
-            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            linha.style.display = nome.includes(filtro) ? "" : "none";
-        });
-    });
 </script>

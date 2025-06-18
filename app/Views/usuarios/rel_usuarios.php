@@ -6,7 +6,6 @@
     </header>
     <!-- Filtro de busca -->
     <div class="container mt-4 box">
-        <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar usuário...">
 
         <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
@@ -45,15 +44,3 @@
     </div>
 </div>
 
-<script>     
-// Filtro de busca
-    document.getElementById("search").addEventListener("keyup", function () {
-        const filtro = this.value.toLowerCase();
-        const linhas = document.querySelectorAll("#userTable tr");
-
-        linhas.forEach(function (linha) {
-            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            linha.style.display = nome.includes(filtro) ? "" : "none";
-        });
-    });    
-</script>

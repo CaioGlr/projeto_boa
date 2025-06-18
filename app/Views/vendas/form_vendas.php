@@ -1,27 +1,29 @@
 <?php
-if (isset($_SESSION['dados'])) {
+if(isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
-if (isset($dados['id_venda'])) {
+if(isset($dados['id_venda'])) {
     $rota = "/vendas/" . $dados['id_venda'] . "/atualizar";
 } else {
     $rota = "/vendas/salvar";
 }
-?>
 
-<!-- Mensagens de Erro -->
-<?php if (isset($_SESSION['erros'])): ?>
+// Exibe erros APENAS UMA VEZ, no topo
+if(isset($_SESSION['erros'])): 
+    $erros = $_SESSION['erros'];
+    unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
+?>
     <div class="alert alert-danger row py-5" role="alert">
         <h4 class="alert-heading">Erro no registro!</h4>
+        <p>Verifique os itens abaixo antes de tentar novamente:</p>
         <ul>
-            <?php foreach ($_SESSION['erros'] as $e): ?>
+            <?php foreach($erros as $e): ?>
                 <li><?= $e ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
-    <?php unset($_SESSION['erros']); ?>
 <?php endif; ?>
 
 <!-- Conteúdo Principal -->

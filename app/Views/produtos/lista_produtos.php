@@ -6,11 +6,10 @@
     </header>
 
     <div class="container mt-4 box">
-        <input type="text" id="search" class="form-control mb-3" placeholder="Pesquisar produto...">
         <a href="/produtos/novo" class="btn btn-primary mb-3">Cadastrar um <b>Novo Produto</b></a>
 
         <?php
-         if (isset($_SESSION['mensagem'])):
+        if (isset($_SESSION['mensagem'])):
         ?>
             <div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?> alert-dismissible fade show" role="alert">
                 <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
@@ -39,6 +38,7 @@
                         <td><?= $prod['id_produto'] ?></td>
                         <td><?= $prod['nome'] ?></td>
                         <td><?= $prod['tipo'] ?></td>
+                        <!-- number_format formata o preço para o padrão brasileiro -->
                         <td>R$<?= number_format($prod['preco'], 2, ',', '.') ?></td>
                         <td><?= $prod['estoque'] ?></td>
                         <td>
@@ -77,22 +77,10 @@
     }
 
     function deletarLogico(id) {
-        if (confirm("Deseja DESATIVAR este Produto? Esta ação poderá ser desfeita!")) {
+        if (confirm("Deseja DESATIVAR este Produto?")) {
             window.location.href = `/produtos/${id}/del-logico`;
         } else {
             alert("Exclusão cancelada!");
         }
     }
-
-    // Filtro de busca
-    document.getElementById("search").addEventListener("keyup", function () {
-        const filtro = this.value.toLowerCase();
-        const linhas = document.querySelectorAll("#prodTable tr");
-
-        linhas.forEach(function (linha) {
-            const nome = linha.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            linha.style.display = nome.includes(filtro) ? "" : "none";
-        });
-    });
-</script>
 </script>

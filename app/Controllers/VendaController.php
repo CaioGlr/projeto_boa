@@ -1,11 +1,11 @@
 <?php 
-
+// Não precisa iniciar a sessão, pois este arquivo já é chamado no index.php
 namespace App\Controllers;
 
 // Importa os Models necessários
-use App\Models\Venda;
-use App\Models\Usuario;
-use App\Models\Produto;
+use App\Models\Venda; // Classe Venda para gerenciar as vendas
+use App\Models\Usuario; // Classe Usuario para gerenciar os usuários
+use App\Models\Produto; // Classe Produto para gerenciar os produtos
 
 // Classe VendaController para gerenciar as operações relacionadas a vendas
 class VendaController {
@@ -29,11 +29,14 @@ class VendaController {
 
     // Abre o formulário para criar uma nova venda
     public function novo() {
+        // Busca todos os usuários e produtos para preencher os campos do formulário
+        // Isso permite que o usuário selecione um produto e um usuário ao registrar uma venda
         $usuarios = Usuario::buscarTodos();
         $produtos = Produto::buscarTodos();
 
         render('vendas/form_vendas.php', [
             'title' => 'Registro de Vendas - Comida Boa',
+            // Passa os usuários e produtos para a view do formulário
             'usuarios' => $usuarios,
             'produtos' => $produtos
         ]);
@@ -42,6 +45,7 @@ class VendaController {
     // Salva uma nova venda no banco de dados
     public function salvar() {
         $dados = [
+            // Sanitiza os dados recebidos do formulário para evitar injeção de código
             'produto_id' => filter_input(INPUT_POST, 'produto_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'quantidade' => filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_SPECIAL_CHARS),
             'data_venda' => filter_input(INPUT_POST, 'data_venda', FILTER_SANITIZE_SPECIAL_CHARS),
@@ -52,14 +56,17 @@ class VendaController {
         // Valida os dados da venda
         $erros = $this->validar($dados);
 
+        // Se houver erros, armazena-os na sessão e redireciona para o formulário de nova venda
+        // Isso permite que o usuário veja os erros e corrija os dados antes de tentar novamente
         if (!empty($erros)) {
             $_SESSION['erros'] = $erros;
             $_SESSION['dados'] = $dados;
             header('Location: /vendas/novo');
         } else {
+            // Se não houver erros, chama o método salvar da classe Venda para registrar a venda no banco de dados
             Venda::salvar($dados);
-            $_SESSION['mensagem'] = "Venda registrada com sucesso!";
-            $_SESSION['tipo_mensagem'] = "success";
+                $_SESSION['mensagem'] = "Venda registrada com sucesso!";
+                $_SESSION['tipo_mensagem'] = "success";
             header('Location: /vendas');
         }
     }
@@ -74,6 +81,7 @@ class VendaController {
             'title' => 'Alterar Vendas - Comida Boa',
             // Passa os dados da venda, usuários e produtos para a view
             'dados' => $dados,
+            // Passa os usuários e produtos para a view do formulário
             'usuarios' => $usuarios,
             'produtos' => $produtos
         ]);
@@ -87,6 +95,7 @@ class VendaController {
             'data_venda' => filter_input(INPUT_POST, 'data_venda', FILTER_SANITIZE_SPECIAL_CHARS),
             'usuario_id' => filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'forma_pagamento' => filter_input(INPUT_POST, 'forma_pagamento', FILTER_SANITIZE_SPECIAL_CHARS),
+
             'id_venda' => $id
         ];
 
