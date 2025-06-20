@@ -1,13 +1,33 @@
-    <div class="row py-5">
+<?php
+if(isset($_SESSION['usuario_email'])){
+    header('Location: /dashboard');
+}
+?>
+
+<div class="row py-5">
         <div class="col-12 d-flex">
             <div class="login-container">
+                <?php
+                if(isset($_SESSION['erros'])):
+    $erros = $_SESSION['erros'];
+    unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE?>
+
+    <div class="alert alert-danger row py-5" role="alert">
+        <h4 class="alert-heading">Erro ao entrar!</h4>
+        <ul>
+            <?php foreach($erros as $e): ?>
+                <li><?= $e ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
                 <div class="login-header text-center">
                     <h2>Login</h2>
                     <p>Bem-vindo de volta ao Comida Boa!</p>
                 </div>
 
       
-                <form action="#" method="post">
+                <form action="/entrar" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">E-mail</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>

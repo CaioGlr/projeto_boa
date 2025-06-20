@@ -23,12 +23,8 @@
     footer.footer,
     /* Oculta botões de ação (como o de imprimir e de voltar) */
     button.btn-dark,
+    /* Oculta links de navegação */
     a.btn-secondary,
-    /* Oculta a barra de pesquisa */
-    #search {
-        /* Propriedade aplicada a todos os seletores acima */
-        display: none !important;  
-    }
     /* Ajustes para a tabela */
     table {
         width: 100% !important;

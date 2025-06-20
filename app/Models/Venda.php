@@ -21,24 +21,14 @@ class Venda
         // Inclui os nomes dos usuários e produtos para melhor legibilidade
         // Utiliza INNER JOIN para unir as tabelas vendas, usuarios e produtos
         // Filtra apenas as vendas que não foram deletadas (delete_at IS NULL)
-        $sql = "
-            SELECT
-                vendas.id_venda,
-                usuarios.nome AS nome_usuario,
-                produtos.nome AS nome_produto,
-                produtos.preco AS preco_produto,
-                vendas.quantidade,
-                (produtos.preco * vendas.quantidade) AS total,
-                vendas.data_venda,
-                vendas.forma_pagamento
-            FROM vendas
-            INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario
-            INNER JOIN produtos ON vendas.produto_id = produtos.id_produto
-            WHERE vendas.delete_at IS NULL
-            ORDER BY vendas.data_venda DESC
-        ";
+
+        $sql = "SELECT vendas.*, produtos.nome, usuarios.nome FROM vendas ";
+        $sql .= "INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario ";
+        $sql .= "INNER JOIN produtos ON vendas.produto_id = produtos.id_produto ";
+        $sql .= "WHERE delete_at IS NULL";
+
         // Retorna o resultado do SQL
-        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        return $pdo->query($sql)->fetchAll();
     }
 
     // Busca uma venda específica

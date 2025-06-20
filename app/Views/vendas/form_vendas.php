@@ -51,7 +51,7 @@ if(isset($_SESSION['erros'])):
                         <option value="<?= $usuario['id_usuario'] ?>"
                             <?= isset($dados['usuario_id']) && $dados['usuario_id'] == $usuario['id_usuario'] ? 'selected' : '' ?>>
                             <!-- Exibe o nome do usuário -->
-                            <?= htmlspecialchars($usuario['nome']) ?>
+                            <?= $usuario['nome'] ?>
                         </option>
                         
                     <?php endforeach; ?>
@@ -64,12 +64,12 @@ if(isset($_SESSION['erros'])):
                 <select class="form-select" id="produto_id" name="produto_id" required>
                     <option value="">Selecione o produto</option>
                     <?php foreach ($produtos as $produto): ?>
+                        <?= isset($dados['produto_id']) ?>
                         <!-- Exibe o ID do produto, nome e preço formatado -->
-
+                         
                         <option value="<?= $produto['id_produto'] ?>"
-                            <?= isset($dados['produto_id']) && $dados['produto_id'] == $produto['id_produto'] ? 'selected' : '' ?>>
-                            <!-- Exibe o nome do produto e o preço formatado -->
-                            <?= htmlspecialchars($produto['nome']) ?>
+                            <?= isset($dados['produto_id']) && $dados['produto_id'] == $produto['id_produto'] ? 'selected' : null ?>    
+                            <?= $produto['nome'] ?>> - (R$ <?= $produto['preco'] ?>)
                         </option>
 
                     <?php endforeach; ?>

@@ -3,6 +3,7 @@ session_start();
 // Importa o autoload do Composer para carregar as rotas
 require __DIR__ . '/../vendor/autoload.php';
 
+use App\Controllers\AuthController;
 use App\Controllers\ProdutoController;
 // Instacia o Controller de Produtos para ser utilizado (cria objeto)
 $produtoCtrl = new  ProdutoController();
@@ -10,12 +11,11 @@ $produtoCtrl = new  ProdutoController();
 use App\Controllers\UsuarioController;
 // Instacia o Controller de Usuário para ser utilizado (cria objeto)
 $usuarioCtrl = new UsuarioController();
+$authCtrl = new AuthController();
 
 use App\Controllers\VendaController;
 // Instacia o Controller de Vendas para ser utilizado (cria objeto)
 $vendaCtrl = new VendaController();
-
-
 
 // Injeta o conteúdo das páginas de rota dentro do template base.php
 function render($view, $data = [])
@@ -44,13 +44,22 @@ function render_sem_login($view, $data = [])
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Páginas Principais
-if ($url == "/home"){
+if ($url == "/"){
     render_sem_login('home.php', ['title' => 'Página Inicial - Comida Boa']);
 } else if ($url == '/sobre'){
     render_sem_login('sobre.php', ['title' => 'Sobre o Sistema - Comida Boa']);
-} else if ($url == '/entrar'){
+// Authenticação
+}else if($url == '/entrar' && $_SERVER ['REQUEST_METHOD'] == 'POST'){
+    $authCtrl->login();
+}else if ($url == '/entrar'){
     render_sem_login('auth/login.php', ['title' => 'Entrar o Sistema - Comida Boa']);
-} else if ($url == "/dashboard"){
+}else if($url == '/sair'){
+    $authCtrl->logout();
+}
+
+
+
+ else if ($url == "/dashboard"){
     render('dashboard.php', ['title' => 'Dashboard - Comida Boa']);
 }  else if ($url == "/cardapio"){
     render_sem_login('cardapio.php', ['title' => 'Cardapio - Comida Boa']);
