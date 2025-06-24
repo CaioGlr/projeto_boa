@@ -20,7 +20,7 @@ class Usuario
         $pdo = Database::conectar();
 
         // Monta o Script SQL de consulta
-        $sql = "SELECT * FROM usuarios WHERE delete_at IS NULL";
+        $sql = "SELECT * FROM usuarios WHERE deleted_at IS NULL";
 
         // Retorna o resultado do SQL
         return $pdo->query($sql)->fetchAll();
@@ -31,7 +31,7 @@ class Usuario
         // Inicia a conexão com o BD
         $pdo = Database::conectar();
 
-        $sql = "SELECT * FROM usuarios WHERE delete_at IS NULL AND id_usuario = :id";
+        $sql = "SELECT * FROM usuarios WHERE deleted_at IS NULL AND id_usuario = :id";
 
         $stmt = $pdo->prepare($sql);
 
@@ -69,7 +69,7 @@ class Usuario
         senha,
         tipo
     )";
-$sql .= "VALUES (
+            $sql .= "VALUES (
         :nome,
         :cpf,
         :data_nascimento,
@@ -117,12 +117,12 @@ $sql .= "VALUES (
         }
     }
 
-public static function atualizar($dados)
-{
-    try {
-        $pdo = Database::conectar();
+    public static function atualizar($dados)
+    {
+        try {
+            $pdo = Database::conectar();
 
-        $sql = "UPDATE usuarios SET 
+            $sql = "UPDATE usuarios SET 
             nome = :nome,
             cpf = :cpf,
             data_nascimento = :data_nascimento,
@@ -137,58 +137,56 @@ public static function atualizar($dados)
             email = :email,
             tipo = :tipo";
 
-        if (!empty($dados['senha'])) {
-            $sql .= ", senha = :senha";
-            $senha = password_hash($dados['senha'], PASSWORD_BCRYPT);
+            if (!empty($dados['senha'])) {
+                $sql .= ", senha = :senha";
+                $senha = password_hash($dados['senha'], PASSWORD_BCRYPT);
+            }
+
+            $sql .= " WHERE id_usuario = :id";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+            $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
+            $stmt->bindParam(':data_nascimento', $dados['data_nascimento']);
+            $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
+            $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
+            $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
+            $stmt->bindParam(':complemento', $dados['complemento'], PDO::PARAM_STR);
+            $stmt->bindParam(':bairro', $dados['bairro'], PDO::PARAM_STR);
+            $stmt->bindParam(':cidade', $dados['cidade'], PDO::PARAM_STR);
+            $stmt->bindParam(':estado', $dados['estado'], PDO::PARAM_STR);
+            $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
+            $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+            $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
+            $stmt->bindParam(':id', $dados['id_usuario'], PDO::PARAM_INT);
+
+            if (!empty($dados['senha'])) {
+                $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
+            }
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erro ao alterar: " . $e->getMessage();
+            exit;
         }
-
-        $sql .= " WHERE id_usuario = :id";
-
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
-        $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
-        $stmt->bindParam(':data_nascimento', $dados['data_nascimento']);
-        $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
-        $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
-        $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
-        $stmt->bindParam(':complemento', $dados['complemento'], PDO::PARAM_STR);
-        $stmt->bindParam(':bairro', $dados['bairro'], PDO::PARAM_STR);
-        $stmt->bindParam(':cidade', $dados['cidade'], PDO::PARAM_STR);
-        $stmt->bindParam(':estado', $dados['estado'], PDO::PARAM_STR);
-        $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
-        $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-        $stmt->bindParam(':tipo', $dados['tipo'], PDO::PARAM_STR);
-        $stmt->bindParam(':id', $dados['id_usuario'], PDO::PARAM_INT);
-
-        if (!empty($dados['senha'])) {
-            $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
-        }
-
-        return $stmt->execute();
-    } catch (PDOException $e) {
-        echo "Erro ao alterar: " . $e->getMessage();
-        exit;
     }
-}
-    
-        public static function deletarLogico($id) 
-        {
-            $pdo = Database::conectar();
-            $sql = "UPDATE usuarios SET delete_at = NOW() WHERE id_usuario = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
-        }
 
-        public static function deletarFisico($id)
-        {
-            $pdo = Database::conectar();
-            $sql = "DELETE FROM usuarios WHERE id_usuario = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
-        }
-    
+    public static function deletarLogico($id)
+    {
+        $pdo = Database::conectar();
+        $sql = "UPDATE usuarios SET deleted_at = NOW() WHERE id_usuario = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 
+    public static function deletarFisico($id)
+    {
+        $pdo = Database::conectar();
+        $sql = "DELETE FROM usuarios WHERE id_usuario = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

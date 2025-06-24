@@ -38,9 +38,8 @@
                 <?php endforeach ?>
             </tbody>
         </table>
-            <div class="d-flex justify-content-between">
-                <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-            </div>
+        <div class="d-flex justify-content-between">
+            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
     </div>
 </div>
-

@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Não precisa iniciar a sessão, pois este arquivo já é chamado no index.php
 namespace App\Controllers;
 
@@ -8,9 +8,11 @@ use App\Models\Usuario; // Classe Usuario para gerenciar os usuários
 use App\Models\Produto; // Classe Produto para gerenciar os produtos
 
 // Classe VendaController para gerenciar as operações relacionadas a vendas
-class VendaController {
+class VendaController
+{
     // Exibe a lista de vendas
-    public function listar() {
+    public function listar()
+    {
         $vendas = Venda::buscarTodos();
         render('vendas/lista_vendas.php', [
             'title' => 'Listagem de Vendas - Comida Boa',
@@ -19,7 +21,8 @@ class VendaController {
     }
 
     // Exibe o relatório de vendas
-    public function relatorio() {
+    public function relatorio()
+    {
         $vendas = Venda::buscarTodos();
         render('vendas/rel_vendas.php', [
             'title' => 'Relatório de Vendas - Comida Boa',
@@ -28,7 +31,8 @@ class VendaController {
     }
 
     // Abre o formulário para criar uma nova venda
-    public function novo() {
+    public function novo()
+    {
         // Busca todos os usuários e produtos para preencher os campos do formulário
         // Isso permite que o usuário selecione um produto e um usuário ao registrar uma venda
         $usuarios = Usuario::buscarTodos();
@@ -43,7 +47,8 @@ class VendaController {
     }
 
     // Salva uma nova venda no banco de dados
-    public function salvar() {
+    public function salvar()
+    {
         $dados = [
             // Sanitiza os dados recebidos do formulário para evitar injeção de código
             'produto_id' => filter_input(INPUT_POST, 'produto_id', FILTER_SANITIZE_SPECIAL_CHARS),
@@ -52,7 +57,7 @@ class VendaController {
             'usuario_id' => filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'forma_pagamento' => filter_input(INPUT_POST, 'forma_pagamento', FILTER_SANITIZE_SPECIAL_CHARS),
         ];
-        
+
         // Valida os dados da venda
         $erros = $this->validar($dados);
 
@@ -65,14 +70,15 @@ class VendaController {
         } else {
             // Se não houver erros, chama o método salvar da classe Venda para registrar a venda no banco de dados
             Venda::salvar($dados);
-                $_SESSION['mensagem'] = "Venda registrada com sucesso!";
-                $_SESSION['tipo_mensagem'] = "success";
+            $_SESSION['mensagem'] = "Venda registrada com sucesso!";
+            $_SESSION['tipo_mensagem'] = "success";
             header('Location: /vendas');
         }
     }
 
     // Edita uma venda existente
-    public function editar($id) {
+    public function editar($id)
+    {
         $dados = Venda::buscarUm($id);
         $usuarios = Usuario::buscarTodos();
         $produtos = Produto::buscarTodos();
@@ -88,7 +94,8 @@ class VendaController {
     }
 
     // Atualiza uma venda existente
-    public function atualizar($id) {
+    public function atualizar($id)
+    {
         $dados = [
             'produto_id' => filter_input(INPUT_POST, 'produto_id', FILTER_SANITIZE_SPECIAL_CHARS),
             'quantidade' => filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_SPECIAL_CHARS),
@@ -114,19 +121,22 @@ class VendaController {
     }
 
     // Exclusão lógica de uma venda
-    public function deleteLogico($id) {
+    public function deleteLogico($id)
+    {
         Venda::deletarLogico($id);
         header('Location: /vendas');
     }
 
     // Exclusão física de uma venda
-    public function deleteFisico($id) {
+    public function deleteFisico($id)
+    {
         Venda::deletarFisico($id);
         header('Location: /vendas');
     }
 
     // Valida os dados recebidos do formulário de venda
-    public function validar($dados) {
+    public function validar($dados)
+    {
         $erros = [];
 
         if (empty($dados['usuario_id'])) {

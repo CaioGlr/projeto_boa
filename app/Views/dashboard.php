@@ -14,7 +14,7 @@
                 <h5>Clientes Registrados</h5>
                 <p class="fs-4">0</p>
             </div>
-        </div>    
+        </div>
         <div class="col-md-4">
             <div class="card text-center p-3">
                 <i class="fas fa-box fa-3x mb-2"></i>
@@ -29,7 +29,7 @@
                 <p class="fs-4">0</p>
             </div>
         </div>
-        
+
     </div>
 
     <div class="mt-4">

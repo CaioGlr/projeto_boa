@@ -1,17 +1,17 @@
 <?php
-if(isset($_SESSION['dados'])) {
+if (isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
-if(isset($dados['id_produto'])) {
+if (isset($dados['id_produto'])) {
     $rota = "/produtos/" . $dados['id_produto'] . "/atualizar";
 } else {
     $rota = "/produtos/salvar";
 }
 
 // Exibe erros APENAS UMA VEZ, no topo
-if(isset($_SESSION['erros'])):
+if (isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
     unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
@@ -19,7 +19,7 @@ if(isset($_SESSION['erros'])):
         <h4 class="alert-heading">Erro no formulário!</h4>
         <p>Verifique os itens abaixo antes de tentar novamente:</p>
         <ul>
-            <?php foreach($erros as $e): ?>
+            <?php foreach ($erros as $e): ?>
                 <li><?= $e ?></li>
             <?php endforeach; ?>
         </ul>
@@ -32,10 +32,10 @@ if(isset($_SESSION['erros'])):
             <h1 class="display-3 fw-bold">Cadastro do Produto</h1>
         </div>
     </header>
-</div> 
+</div>
 
 <!-- Formulário -->
-<form action="<?= $rota ?>" method="POST">  
+<form action="<?= $rota ?>" method="POST">
     <div class="container mt-2 box">
         <div class="section-header bg-white text-dark p-2 mb-3 fw-bold border-bottom">
             PREENCHA OS DADOS DO PRODUTO
@@ -45,16 +45,16 @@ if(isset($_SESSION['erros'])):
             <!-- Nome do Produto -->
             <div class="col-md-5 mb-3">
                 <label for="nome" class="form-label">Nome do Produto</label>
-                <input type="text" class="form-control" id="nome" name="nome" 
-                    value="<?= isset($dados['nome']) ? $dados['nome'] : '' ?>" 
+                <input type="text" class="form-control" id="nome" name="nome"
+                    value="<?= isset($dados['nome']) ? $dados['nome'] : '' ?>"
                     placeholder="Digite o nome do produto" required>
             </div>
 
             <!-- Preço do Produto -->
             <div class="col-md-5 mb-3">
                 <label for="preco" class="form-label">Preço</label>
-                <input type="number" step="0.01" class="form-control" id="preco" name="preco" 
-                    value="<?= isset($dados['preco']) ? $dados['preco'] : '' ?>" 
+                <input type="number" step="0.01" class="form-control" id="preco" name="preco"
+                    value="<?= isset($dados['preco']) ? $dados['preco'] : '' ?>"
                     placeholder="Digite o preço do produto" required>
             </div>
         </div>
@@ -76,16 +76,16 @@ if(isset($_SESSION['erros'])):
             <!-- Estoque -->
             <div class="col-md-5 mb-3">
                 <label for="estoque" class="form-label">Quantidade em Estoque</label>
-                <input type="number" class="form-control" id="estoque" name="estoque" 
-                    value="<?= isset($dados['estoque']) ? $dados['estoque'] : '' ?>" 
+                <input type="number" class="form-control" id="estoque" name="estoque"
+                    value="<?= isset($dados['estoque']) ? $dados['estoque'] : '' ?>"
                     placeholder="Digite a quantidade em estoque" required>
             </div>
         </div>
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-        </div>  
+        </div>
         <!-- Botão de Submeter -->
-        <div class="d-flex justify-content-center mt-3">       
+        <div class="d-flex justify-content-center mt-3">
             <button type="submit" class="btn btn-primary">
                 <?= isset($dados['id_produto']) ? 'Atualizar Produto' : 'Cadastrar o Produto' ?>
             </button>

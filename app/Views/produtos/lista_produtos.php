@@ -15,10 +15,10 @@
                 <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        <?php 
-            endif;
-            unset($_SESSION['mensagem']);
-            unset($_SESSION['tipo_mensagem']); 
+        <?php
+        endif;
+        unset($_SESSION['mensagem']);
+        unset($_SESSION['tipo_mensagem']);
         ?>
 
         <table class="table table-striped">
@@ -44,13 +44,13 @@
                         <td>
                             <a href="/produtos/<?= $prod['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarFisico(<?= $prod['id_produto'] ?>)"
-                                    title="Excluir" type="button">
+                                onclick="deletarFisico(<?= $prod['id_produto'] ?>)"
+                                title="Excluir" type="button">
                                 Deletar
                             </button>
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarLogico(<?= $prod['id_produto'] ?>)"
-                                    title="Excluir" type="button">
+                                onclick="deletarLogico(<?= $prod['id_produto'] ?>)"
+                                title="Excluir" type="button">
                                 Desativar
                             </button>
                         </td>

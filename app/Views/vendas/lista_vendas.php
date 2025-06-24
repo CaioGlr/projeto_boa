@@ -8,58 +8,58 @@
     <div class="container mt-4 box">
         <a href="/vendas/novo" class="btn btn-primary mb-3">Registrar uma nova <b>Venda</b></a>
 
-        <?php 
-        if (isset($_SESSION['mensagem'])): 
+        <?php
+        if (isset($_SESSION['mensagem'])):
         ?>
             <div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?> alert-dismissible fade show" role="alert">
                 <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        <?php 
-            endif;
-            unset($_SESSION['mensagem']);
-            unset($_SESSION['tipo_mensagem']); 
+        <?php
+        endif;
+        unset($_SESSION['mensagem']);
+        unset($_SESSION['tipo_mensagem']);
         ?>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuário</th>
-                <th>Produto</th>
-                <th>Quantidade Vendida</th>
-                <th>Data do Pagamento</th>
-                <th>Forma de Pagamento</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody id="vendaTable">
-            <?php foreach ($vendas as $venda): ?>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td><?= $venda['id_venda'] ?></td>
-                    <td><?= $venda['nome_usuario'] ?></td> <!-- Nome do usuário -->
-                    <td><?= $venda['nome_produto'] ?></td> <!-- Nome do produto -->
-                    <td><?= $venda['quantidade'] ?></td>
-                    <!-- strtotime converte a data para o formato d/m/y-->
-                    <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
-                    <td><?= $venda['forma_pagamento'] ?></td>
-                    <td>
-                        <a href="/vendas/<?= $venda['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
-                        <button class="btn btn-danger btn-sm btn-action"
+                    <th>ID</th>
+                    <th>Usuário</th>
+                    <th>Produto</th>
+                    <th>Quantidade Vendida</th>
+                    <th>Data do Pagamento</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="vendaTable">
+                <?php foreach ($vendas as $venda): ?>
+                    <tr>
+                        <td><?= $venda['id_venda'] ?></td>
+                        <td><?= $venda['nome_usuario'] ?></td> <!-- Nome do usuário -->
+                        <td><?= $venda['nome_produto'] ?></td> <!-- Nome do produto -->
+                        <td><?= $venda['quantidade'] ?></td>
+                        <!-- strtotime converte a data para o formato d/m/y-->
+                        <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
+                        <td><?= $venda['forma_pagamento'] ?></td>
+                        <td>
+                            <a href="/vendas/<?= $venda['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarFisico(<?= $venda['id_venda'] ?>)"
                                 title="Excluir" type="button">
-                            Deletar
-                        </button>
-                        <button class="btn btn-danger btn-sm btn-action"
+                                Deletar
+                            </button>
+                            <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarLogico(<?= $venda['id_venda'] ?>)"
                                 title="Excluir" type="button">
-                            Desativar
-                        </button>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
+                                Desativar
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>

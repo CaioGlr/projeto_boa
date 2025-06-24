@@ -1,17 +1,17 @@
 <?php
-if(isset($_SESSION['dados'])) {
+if (isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
-if(isset($dados['id_venda'])) {
+if (isset($dados['id_venda'])) {
     $rota = "/vendas/" . $dados['id_venda'] . "/atualizar";
 } else {
     $rota = "/vendas/salvar";
 }
 
 // Exibe erros APENAS UMA VEZ, no topo
-if(isset($_SESSION['erros'])): 
+if (isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
     unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
@@ -19,7 +19,7 @@ if(isset($_SESSION['erros'])):
         <h4 class="alert-heading">Erro no registro!</h4>
         <p>Verifique os itens abaixo antes de tentar novamente:</p>
         <ul>
-            <?php foreach($erros as $e): ?>
+            <?php foreach ($erros as $e): ?>
                 <li><?= $e ?></li>
             <?php endforeach; ?>
         </ul>
@@ -46,14 +46,14 @@ if(isset($_SESSION['erros'])):
                 <label for="usuario_id" class="form-label">Usuário</label>
                 <select class="form-select" id="usuario_id" name="usuario_id" required>
                     <option value="">Selecione o usuário</option>
-                    <?php foreach ($usuarios as $usuario): ?>
+                    <?php foreach ($usuarios as $user): ?>
 
-                        <option value="<?= $usuario['id_usuario'] ?>"
-                            <?= isset($dados['usuario_id']) && $dados['usuario_id'] == $usuario['id_usuario'] ? 'selected' : '' ?>>
+                        <option value="<?= $user['id_usuario'] ?>"
+                            <?= isset($dados['usuario_id']) && $dados['usuario_id'] == $user['id_usuario'] ? 'selected' : null ?>>
                             <!-- Exibe o nome do usuário -->
                             <?= $usuario['nome'] ?>
                         </option>
-                        
+
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -63,15 +63,11 @@ if(isset($_SESSION['erros'])):
                 <label for="produto_id" class="form-label">Produto</label>
                 <select class="form-select" id="produto_id" name="produto_id" required>
                     <option value="">Selecione o produto</option>
-                    <?php foreach ($produtos as $produto): ?>
-                        <?= isset($dados['produto_id']) ?>
-                        <!-- Exibe o ID do produto, nome e preço formatado -->
-                         
-                        <option value="<?= $produto['id_produto'] ?>"
-                            <?= isset($dados['produto_id']) && $dados['produto_id'] == $produto['id_produto'] ? 'selected' : null ?>    
-                            <?= $produto['nome'] ?>> - (R$ <?= $produto['preco'] ?>)
+                    <?php foreach ($produtos as $prod): ?>
+                        <option value="<?= $prod['id_produto'] ?>"
+                            <?= isset($dados['produto_id']) && $dados['produto_id'] == $prod['id_produto'] ? 'selected' : '' ?>>
+                            <?= $prod['id_produto'] ?> - <?= $prod['nome'] ?> (R$ <?= number_format($prod['preco'], 2, ',', '.') ?>)
                         </option>
-
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -81,9 +77,9 @@ if(isset($_SESSION['erros'])):
             <!-- Quantidade -->
             <div class="col-md-5 mb-3">
                 <label for="quantidade" class="form-label">Quantidade</label>
-                <input type="number" class="form-control" id="quantidade" name="quantidade" 
-                       value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>" 
-                       min="1" required>
+                <input type="number" class="form-control" id="quantidade" name="quantidade"
+                    value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>"
+                    min="1" required>
             </div>
 
             <!-- Forma de Pagamento -->
@@ -112,9 +108,9 @@ if(isset($_SESSION['erros'])):
         </div>
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-        </div>                
+        </div>
         <!-- Botão de Submeter -->
-        <div class="d-flex justify-content-center">       
+        <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">
                 <?= isset($dados['id_venda']) ? 'Atualizar Venda' : 'Registrar Venda' ?>
             </button>

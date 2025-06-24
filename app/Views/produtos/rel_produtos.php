@@ -7,7 +7,7 @@
 
     <div class="container mt-4 box">
 
-               <!-- Botão de Imprimir -->
+        <!-- Botão de Imprimir -->
         <div class="d-flex justify-content-center mb-4">
             <button onclick="window.print()" class="btn btn-dark x-4 py-2 fs-5">
                 <i class="fas fa-print"></i> Imprimir Relatório

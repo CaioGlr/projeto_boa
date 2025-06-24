@@ -5,200 +5,207 @@ namespace App\Controllers;
 //Importa o Model para ser utilizado.
 use App\Models\Usuario;
 
-class UsuarioController{
+class UsuarioController
+{
 
-//EXIBE A LISTA DE USUÁRIOS  
-    public function listar(){
-        //Chama a Model de Usuario e executa a busca no BD
-        $usuarios = Usuario::buscarTodos();
+  //EXIBE A LISTA DE USUÁRIOS  
+  public function listar()
+  {
+    //Chama a Model de Usuario e executa a busca no BD
+    $usuarios = Usuario::buscarTodos();
 
-        //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
-        render("usuarios/lista_usuarios.php", [
-            'title' => 'Lista de Usuários - Comida Boa',
-            "usuarios" => $usuarios]);
-    }
-//EXIBE O RELATÓRIO DE USUÁRIOS
-    public function relatorio(){
-        //Chama a Model de Usuario e executa a busca no BD
-        $usuarios = Usuario::buscarTodos();
+    //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
+    render("usuarios/lista_usuarios.php", [
+      'title' => 'Lista de Usuários - Comida Boa',
+      "usuarios" => $usuarios
+    ]);
+  }
+  //EXIBE O RELATÓRIO DE USUÁRIOS
+  public function relatorio()
+  {
+    //Chama a Model de Usuario e executa a busca no BD
+    $usuarios = Usuario::buscarTodos();
 
-        //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
-        render("usuarios/rel_usuarios.php", [
-            'title' => 'Relatório de Usuários - Comida Boa',
-            "usuarios" => $usuarios]);
-    }
+    //Exibe o arquivo PHP de lista enviando os usuarios do BD para apresentação.
+    render("usuarios/rel_usuarios.php", [
+      'title' => 'Relatório de Usuários - Comida Boa',
+      "usuarios" => $usuarios
+    ]);
+  }
 
-    //Abre o formulário para criar um usuario
-     public function novo(){
-        render('usuarios/form_usuarios.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
-    }
-    
-    //salva um novo usuario no BD
-    public function salvar(){
-    
-        // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
-        $dados = [
-            'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cpf' => filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS),
-            'data_nascimento' => $_POST['data_nascimento'] ?? '',
-            'celular' => filter_input(INPUT_POST, 'celular', FILTER_SANITIZE_SPECIAL_CHARS),
-            'rua' => filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS),
-            'numero' => filter_input(INPUT_POST, 'numero', FILTER_SANITIZE_SPECIAL_CHARS),
-            'complemento' => filter_input(INPUT_POST, 'complemento', FILTER_SANITIZE_SPECIAL_CHARS),
-            'bairro' => filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cidade' => filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cep' => filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS),
-            'estado' => filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS),
-            'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-            'tipo' => filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS),
-            'senha' => $_POST['senha'] ?? null,
-            'confirmar_senha' => $_POST['confirmar_senha'] ?? null
-        ];
-          
+  //Abre o formulário para criar um usuario
+  public function novo()
+  {
+    render('usuarios/form_usuarios.php', ['title' => 'Cadastro de Usuários - Comida Boa']);
+  }
 
-        //print_r($_POST);exit();
-        //Aqui vamos fazer validações
-        $erros = $this->validar($dados);
+  //salva um novo usuario no BD
+  public function salvar()
+  {
 
-        if(!empty($erros)) {   
-            //Envia os erros para a página de cadastro
-            $_SESSION['erros'] = $erros;
-            // Envia os dados já informados para serem incluidos
-            $_SESSION['dados'] = $dados;
-            // Redireciona para a página de cadastro
-            header('Location: /usuarios/novo');
-        }else{
-        
-        //chama o model passando os dados
-        Usuario::salvar($dados);
-         $_SESSION['mensagem'] = "Usuário: " . $dados['nome'] . ", cadastrado com sucesso!";
-         $_SESSION['tipo_mensagem'] = "success";
-        header('Location: /usuarios');
-        }
-    }
+    // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
+    $dados = [
+      'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cpf' => filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS),
+      'data_nascimento' => $_POST['data_nascimento'] ?? '',
+      'celular' => filter_input(INPUT_POST, 'celular', FILTER_SANITIZE_SPECIAL_CHARS),
+      'rua' => filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS),
+      'numero' => filter_input(INPUT_POST, 'numero', FILTER_SANITIZE_SPECIAL_CHARS),
+      'complemento' => filter_input(INPUT_POST, 'complemento', FILTER_SANITIZE_SPECIAL_CHARS),
+      'bairro' => filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cidade' => filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cep' => filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS),
+      'estado' => filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS),
+      'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+      'tipo' => filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS),
+      'senha' => $_POST['senha'] ?? null,
+      'confirmar_senha' => $_POST['confirmar_senha'] ?? null
+    ];
 
-    public function editar($id)
-    {
-          $dados = Usuario::BuscarUm($id);
-          render("usuarios/form_usuarios.php", [
-            'title' => 'Alterar Usuário - Comida Boa',
-            "dados" => $dados
-          ]);
 
-    }
+    //print_r($_POST);exit();
+    //Aqui vamos fazer validações
+    $erros = $this->validar($dados);
 
-    public function atualizar($id){
-     // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
-        $dados = [
-            'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cpf' => filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS),
-            'data_nascimento' => $_POST['data_nascimento'] ?? '',
-            'celular' => filter_input(INPUT_POST, 'celular', FILTER_SANITIZE_SPECIAL_CHARS),
-            'rua' => filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS),
-            'numero' => filter_input(INPUT_POST, 'numero', FILTER_SANITIZE_SPECIAL_CHARS),
-            'complemento' => filter_input(INPUT_POST, 'complemento', FILTER_SANITIZE_SPECIAL_CHARS),
-            'bairro' => filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cidade' => filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS),
-            'cep' => filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS),
-            'estado' => filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS),
-            'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-            'tipo' => filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS),
-            'senha' => $_POST['senha'] ?? null,
-            'confirmar_senha' => $_POST['confirmar_senha'] ?? null
-        ];
-          
+    if (!empty($erros)) {
+      //Envia os erros para a página de cadastro
+      $_SESSION['erros'] = $erros;
+      // Envia os dados já informados para serem incluidos
+      $_SESSION['dados'] = $dados;
+      // Redireciona para a página de cadastro
+      header('Location: /usuarios/novo');
+    } else {
 
-        //print_r($_POST);exit();
-        //Aqui vamos fazer validações
-        $erros = $this->validar($dados);
-
-        if(!empty($erros)) {   
-            //Envia os erros para a página de cadastro
-            $_SESSION['erros'] = $erros;
-            // Envia os dados já informados para serem incluidos
-            $_SESSION['dados'] = $dados;
-            // Redireciona para a página de cadastro
-            header('Location: /usuarios/' . $id . '/editar');
-        }else{
-        
-        //Chama o model passando os dados
-        //Adiciona o ID do usuário para atualizar
-        $dados['id_usuario'] = $id; 
-        Usuario::atualizar($dados);
-         $_SESSION['mensagem'] = "Usuário: " . $dados['nome'] . ", alterado com sucesso!";
-         $_SESSION['tipo_mensagem'] = "success";
-        header('Location: /usuarios');
-        }  
-    }
-
-    //Apenas coloca a data da exclusão no BD
-    public function deleteLogico($id)
-    {
-      Usuario::deletarLogico($id);
+      //chama o model passando os dados
+      Usuario::salvar($dados);
+      $_SESSION['mensagem'] = "Usuário: " . $dados['nome'] . ", cadastrado com sucesso!";
+      $_SESSION['tipo_mensagem'] = "success";
       header('Location: /usuarios');
     }
-    //Exclui definitvamente o usuário da tabela
-    public function deleteFisico($id)
-    {
-      Usuario::deletarFisico($id);
+  }
+
+  public function editar($id)
+  {
+    $dados = Usuario::BuscarUm($id);
+    render("usuarios/form_usuarios.php", [
+      'title' => 'Alterar Usuário - Comida Boa',
+      "dados" => $dados
+    ]);
+  }
+
+  public function atualizar($id)
+  {
+    // 1. Sanatização (Remove tudo que não for texto puro, evita golpes)
+    $dados = [
+      'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cpf' => filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS),
+      'data_nascimento' => $_POST['data_nascimento'] ?? '',
+      'celular' => filter_input(INPUT_POST, 'celular', FILTER_SANITIZE_SPECIAL_CHARS),
+      'rua' => filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS),
+      'numero' => filter_input(INPUT_POST, 'numero', FILTER_SANITIZE_SPECIAL_CHARS),
+      'complemento' => filter_input(INPUT_POST, 'complemento', FILTER_SANITIZE_SPECIAL_CHARS),
+      'bairro' => filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cidade' => filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS),
+      'cep' => filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS),
+      'estado' => filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS),
+      'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+      'tipo' => filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS),
+      'senha' => $_POST['senha'] ?? null,
+      'confirmar_senha' => $_POST['confirmar_senha'] ?? null
+    ];
+
+
+    //print_r($_POST);exit();
+    //Aqui vamos fazer validações
+    $erros = $this->validar($dados);
+
+    if (!empty($erros)) {
+      //Envia os erros para a página de cadastro
+      $_SESSION['erros'] = $erros;
+      // Envia os dados já informados para serem incluidos
+      $_SESSION['dados'] = $dados;
+      // Redireciona para a página de cadastro
+      header('Location: /usuarios/' . $id . '/editar');
+    } else {
+
+      //Chama o model passando os dados
+      //Adiciona o ID do usuário para atualizar
+      $dados['id_usuario'] = $id;
+      Usuario::atualizar($dados);
+      $_SESSION['mensagem'] = "Usuário: " . $dados['nome'] . ", alterado com sucesso!";
+      $_SESSION['tipo_mensagem'] = "success";
       header('Location: /usuarios');
-  
+    }
+  }
+
+  //Apenas coloca a data da exclusão no BD
+  public function deleteLogico($id)
+  {
+    Usuario::deletarLogico($id);
+    header('Location: /usuarios');
+  }
+  //Exclui definitvamente o usuário da tabela
+  public function deleteFisico($id)
+  {
+    Usuario::deletarFisico($id);
+    header('Location: /usuarios');
+  }
+
+
+  // Implementa a validação e sanitização dos dados do form (limpeza de segurança)
+  public function validar($dados)
+  {
+    $erros = [];
+
+    //Validação do nome
+    if (empty($dados['nome'])) {
+      $erros[] = "O nome é obrigatório!";
+    } else if (strlen($dados['nome']) < 3) {
+      $erros[] = "O nome deve ter pelo menos 3 caracteres!";
+    }
+    // Validação da Senha
+    if (empty($dados['senha'])) {
+      $erros[] = "A senha é obrigatório!";
+    } else if (strlen($dados['senha']) < 6) {
+      $erros[] = "A senha deve ter pelo menos 6 caracteres!";
+    }
+    // Validação do Email
+    if (empty($dados['email'])) {
+      $erros[] = "O email é obrigatório!";
+    } else if (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
+      $erros[] = "E-mail informado é inválido!";
     }
 
-    
-    // Implementa a validação e sanitização dos dados do form (limpeza de segurança)
-     public function validar($dados){
-        $erros = [];
+    // Validação do Tipo de Usuário
+    if (empty($dados['tipo'])) {
+      $erros[] = "O Tipo do Usuário é obrigatório!";
+    } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])) {
+      $erros[] = "O Tipo do Usuário é Inválido!";
+    }
 
-        //Validação do nome
-    if(empty($dados['nome'])){
-       $erros[] = "O nome é obrigatório!";
-     } else if (strlen($dados['nome']) < 3){
-       $erros[] = "O nome deve ter pelo menos 3 caracteres!";
-     }
-     // Validação da Senha
-    if(empty($dados['senha'])){
-       $erros[] = "A senha é obrigatório!";
-     } else if (strlen($dados['senha']) < 6){
-       $erros[] = "A senha deve ter pelo menos 6 caracteres!";
-     }
-        // Validação do Email
-    if(empty($dados['email'])){
-       $erros[] = "O email é obrigatório!";
-     } else if (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)){
-       $erros[] = "E-mail informado é inválido!";
-     }
-     
-     // Validação do Tipo de Usuário
-     if(empty($dados['tipo'])){
-        $erros[] = "O Tipo do Usuário é obrigatório!";
-     } else if (!in_array($dados['tipo'], ['Administrador', 'Funcionário', 'Cliente'])){
-        $erros[] = "O Tipo do Usuário é Inválido!";
-     }
-
-     // Validação do CPF se é valido
+    // Validação do CPF se é valido
     if (empty($dados['cpf'])) {
-        $erros[] = "O CPF é obrigatório!";
+      $erros[] = "O CPF é obrigatório!";
     } else if (strlen($dados['cpf']) != 11) {
-        $erros[] = "Seu CPF deve ter 11 números!";
+      $erros[] = "Seu CPF deve ter 11 números!";
     }
-      // Validação do Telefone
+    // Validação do Telefone
     if (empty($dados['celular'])) {
-        $erros[] = "O Telefone é obrigatório!";
+      $erros[] = "O Telefone é obrigatório!";
     } else if (strlen($dados['celular']) < 10 || strlen($dados['celular']) > 11) {
-        $erros[] = "O Telefone deve ter entre 10 e 11 números!";
+      $erros[] = "O Telefone deve ter entre 10 e 11 números!";
     }
 
-     // Validar se o CPF já foi cadastrado (Busca no BD)
-     // Validar se o Email já foi cadastrado (Busca no BD)
+    // Validar se o CPF já foi cadastrado (Busca no BD)
+    // Validar se o Email já foi cadastrado (Busca no BD)
 
 
-     // Validação da Senha se é igual a confirmação
-    if(empty($dados['senha']) || empty($dados['confirmar_senha'])) {
-        $erros[] = "A senha e a confirmação de senha são obrigatórias!";
+    // Validação da Senha se é igual a confirmação
+    if (empty($dados['senha']) || empty($dados['confirmar_senha'])) {
+      $erros[] = "A senha e a confirmação de senha são obrigatórias!";
     } else if ($dados['senha'] !== $dados['confirmar_senha']) {
-        $erros[] = "A Senha e Confirmação de Senha deve ser iguais!";
-    }    
-        return $erros;
-     }
+      $erros[] = "A Senha e Confirmação de Senha deve ser iguais!";
+    }
+    return $erros;
+  }
 }

@@ -10,19 +10,20 @@ use App\Core\Database;
 use PDO;
 use PDOException;
 
-class Produto {
+class Produto
+{
 
     // Busca todos os usuários
-    public static function buscarTodos(){
+    public static function buscarTodos()
+    {
         // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
 
         // Monta o Script SQL de consulta
-        $sql = "SELECT * FROM produtos WHERE delete_at IS NULL";
+        $sql = "SELECT * FROM produtos WHERE deleted_at IS NULL";
 
         // Retorna o resultado do SQL
         return $pdo->query($sql)->fetchAll();
-
     }
 
     public static function BuscarUm($id)
@@ -30,7 +31,7 @@ class Produto {
         // Inicia a conexão com o BD
         $pdo = Database::conectar();
 
-        $sql = "SELECT * FROM produtos WHERE delete_at IS NULL AND id_produto = :id";
+        $sql = "SELECT * FROM produtos WHERE deleted_at IS NULL AND id_produto = :id";
 
         $stmt = $pdo->prepare($sql);
 
@@ -40,7 +41,7 @@ class Produto {
 
         return $stmt->fetch();
     }
-    
+
     //Salva um produto no BD com os dados da View
     public static function salvar($dados)
     {
@@ -54,7 +55,7 @@ class Produto {
         tipo,
         estoque
     )";
-$sql .= "VALUES (
+            $sql .= "VALUES (
         :nome,
         :preco,
         :tipo,
@@ -79,7 +80,7 @@ $sql .= "VALUES (
             exit;
         }
     }
-    
+
     public static function atualizar($dados)
     {
         try {
@@ -103,10 +104,9 @@ $sql .= "VALUES (
             $stmt->bindParam(':estoque', $dados['estoque'], PDO::PARAM_INT);
 
             $stmt->bindParam(':id', $dados['id_produto'], PDO::PARAM_INT);
-            
+
             //Executa o SQL no Banco de dados
             return $stmt->execute();
-
         } catch (PDOException $e) {
             echo "Erro ao alterar: " . $e->getMessage();
             exit;
@@ -116,12 +116,12 @@ $sql .= "VALUES (
     public static function deletarLogico($id)
     {
         $pdo = Database::conectar();
-        $sql = "UPDATE produtos SET delete_at = NOW() WHERE id_produto = :id";
+        $sql = "UPDATE produtos SET deleted_at = NOW() WHERE id_produto = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-        public static function deletarFisico($id)
+    public static function deletarFisico($id)
     {
         $pdo = Database::conectar();
         $sql = "DELETE FROM produtos WHERE id_produto = :id";
@@ -129,5 +129,4 @@ $sql .= "VALUES (
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
 }

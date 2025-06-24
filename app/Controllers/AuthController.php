@@ -1,53 +1,56 @@
 <?php
-// Não precisa iniciar a sessão, pois este arquivo já é chamado no index.php
+// Não precisa iniciar a sessão aqui, pois este arquivo é chamado no index
 namespace App\Controllers;
 
-//Importa o Model para ser utilizado.
+// Importa o modelo de autenticação
 use App\Models\Auth;
 
 class AuthController
 {
-    public function login(){
+    public function login()
+    {
         $usuario = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $senha = $_POST['senha'];
 
         $erros = [];
-        if(empty($usuario)) {
+
+        if (empty($usuario)) {
             $erros[] = 'O campo de email é obrigatório.';
         }
-        if(empty($senha)) {
+
+        if (empty($senha)) {
             $erros[] = 'O campo de senha é obrigatório.';
         }
 
-        if(!empty($erros)) {   
-            //Envia os erros para a página de cadastro
+        if (!empty($erros)) {
             $_SESSION['erros'] = $erros;
-            // Envia os dados já informados para serem incluidos
-            $_SESSION['dados'] = $usuario;
-            // Redireciona para a página de cadastro
+            $_SESSION['dados'] = ['email' => $usuario];
             header('Location: /entrar');
-        }else{
-            if(Auth::login($usuario,$senha)){
-                header('Location: /dashoard');
-            }else{
-                $_SESSION['erros'] = ['Usuario e/ou Senha Inválidos!'];
-                header('Location: /entrar');
+            exit;
+        }
+
+        if (Auth::login($usuario, $senha)) {
+            header('Location: /dashboard');
+            exit;
+        } else {
+            $_SESSION['erros'] = ['Usuário e/ou senha inválidos!'];
+            $_SESSION['dados'] = ['email' => $usuario];
+            header('Location: /entrar');
+            exit;
         }
     }
-}
 
-        public function logout(){
-            unset($_SESSION['usuario_id']);
-            unset($_SESSION['usuario_nome']);  
-            unset($_SESSION['usuario_email']);
-            unset($_SESSION['usuario_tipo']);
+    public function logout()
+    {
+        unset($_SESSION['usuario_id']);
+        unset($_SESSION['usuario_nome']);
+        unset($_SESSION['usuario_email']);
+        unset($_SESSION['usuario_tipo']);
 
-            session_destroy();
-            session_start();
+        session_destroy();
+        session_start();
 
-            header(`location: /entrar`);
-        }
-        
-
-
+        header('Location: /entrar');
+        exit;
+    }
 }

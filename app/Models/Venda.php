@@ -13,26 +13,28 @@ use PDOException;
 class Venda
 {
     // Busca todas as vendas com os nomes de usuário e produto
-    public static function buscarTodos() {
+    public static function buscarTodos()
+    {
         // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
 
         // Monta o Script SQL de consulta
         // Inclui os nomes dos usuários e produtos para melhor legibilidade
         // Utiliza INNER JOIN para unir as tabelas vendas, usuarios e produtos
-        // Filtra apenas as vendas que não foram deletadas (delete_at IS NULL)
+        // Filtra apenas as vendas que não foram deletadas (deleted_at IS NULL)
 
         $sql = "SELECT vendas.*, produtos.nome, usuarios.nome FROM vendas ";
         $sql .= "INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario ";
         $sql .= "INNER JOIN produtos ON vendas.produto_id = produtos.id_produto ";
-        $sql .= "WHERE delete_at IS NULL";
+        $sql .= "WHERE deleted_at IS NULL";
 
         // Retorna o resultado do SQL
         return $pdo->query($sql)->fetchAll();
     }
 
     // Busca uma venda específica
-    public static function buscarUm($id) {
+    public static function buscarUm($id)
+    {
         // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
         // Monta o Script SQL de consulta
@@ -46,7 +48,7 @@ class Venda
                 data_venda,
                 forma_pagamento
             FROM vendas
-            WHERE delete_at IS NULL AND id_venda = :id
+            WHERE deleted_at IS NULL AND id_venda = :id
         ";
 
         $stmt = $pdo->prepare($sql);
@@ -57,7 +59,8 @@ class Venda
     }
 
     // Salvar nova venda
-    public static function salvar($dados) {
+    public static function salvar($dados)
+    {
         try {
             $pdo = Database::conectar();
 
@@ -93,7 +96,8 @@ class Venda
     }
 
     // Atualizar venda existente
-    public static function atualizar($dados) {
+    public static function atualizar($dados)
+    {
         try {
             $pdo = Database::conectar();
 
@@ -123,16 +127,18 @@ class Venda
     }
 
     // Exclusão lógica
-    public static function deletarLogico($id) {
+    public static function deletarLogico($id)
+    {
         $pdo = Database::conectar();
-        $sql = "UPDATE vendas SET delete_at = NOW() WHERE id_venda = :id";
+        $sql = "UPDATE vendas SET deleted_at = NOW() WHERE id_venda = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
     // Exclusão física
-    public static function deletarFisico($id) {
+    public static function deletarFisico($id)
+    {
         $pdo = Database::conectar();
         $sql = "DELETE FROM vendas WHERE id_venda = :id";
         $stmt = $pdo->prepare($sql);

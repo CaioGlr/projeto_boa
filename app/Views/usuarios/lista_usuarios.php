@@ -8,17 +8,17 @@
     <div class="container mt-4 box">
         <a href="/usuarios/novo" class="btn btn-primary mb-3">Cadastrar um <b>Novo Usuário</b></a>
 
-        <?php 
-        if (isset($_SESSION['mensagem'])): 
+        <?php
+        if (isset($_SESSION['mensagem'])):
         ?>
             <div class="alert alert-<?= $_SESSION['tipo_mensagem'] ?> alert-dismissible fade show" role="alert">
                 <strong>Sucesso!</strong> <?= $_SESSION['mensagem'] ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        <?php 
-            endif;
-            unset($_SESSION['mensagem']);
-            unset($_SESSION['tipo_mensagem']); 
+        <?php
+        endif;
+        unset($_SESSION['mensagem']);
+        unset($_SESSION['tipo_mensagem']);
         ?>
 
         <table class="table table-striped">
@@ -44,14 +44,14 @@
                             <a href="/usuarios/<?= $user['id_usuario'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
 
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarFisico(<?= $user['id_usuario'] ?>)"
-                                    title="Excluir" type="button">
+                                onclick="deletarFisico(<?= $user['id_usuario'] ?>)"
+                                title="Excluir" type="button">
                                 Deletar
                             </button>
 
                             <button class="btn btn-danger btn-sm btn-action"
-                                    onclick="deletarLogico(<?= $user['id_usuario'] ?>)"
-                                    title="Excluir" type="button">
+                                onclick="deletarLogico(<?= $user['id_usuario'] ?>)"
+                                title="Excluir" type="button">
                                 Desativar
                             </button>
                         </td>

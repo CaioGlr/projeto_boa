@@ -17,7 +17,7 @@ INSERT INTO
         tipo,
         created_at,
         updated_at,
-        delete_at
+        deleted_at
     )
 VALUES
     (

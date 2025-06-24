@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   tipo ENUM('Administrador', 'Funcionário', 'Cliente') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL
+  deleted_at TIMESTAMP NULL DEFAULT NULL
 );
 
 -- Tabela de Produtos/Serviços
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS produtos (
   estoque INT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL
+  deleted_at TIMESTAMP NULL DEFAULT NULL
 );
 
 -- Tabela de Vendas
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS vendas (
   forma_pagamento ENUM('Pix', 'Dinheiro', 'Débito', 'Crédito') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL,
+  deleted_at TIMESTAMP NULL DEFAULT NULL,
 
 -- Chaves estrangeiras
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
@@ -67,25 +67,6 @@ CREATE TABLE IF NOT EXISTS suporte (
   mensagem TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP NULL DEFAULT NULL
+  deleted_at TIMESTAMP NULL DEFAULT NULL
 );
 
--- Consulta de vendas
-SELECT
-   vendas.id_venda,
-    
-    usuarios.nome AS nome_usuario,
-    produtos.nome AS nome_produto,
-    produtos.preco AS preco_produto,
-
-    vendas.quantidade,
-    (produtos.preco * vendas.quantidade) AS total,
-    
-    vendas.data_venda,
-    vendas.forma_pagamento
-
-FROM vendas
-INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario
-INNER JOIN produtos ON vendas.produto_id = produtos.id_produto
-WHERE vendas.delete_at IS NULL
-ORDER BY vendas.data_venda DESC

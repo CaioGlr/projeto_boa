@@ -10,12 +10,14 @@ use App\Core\Database;
 use PDO;
 use PDOException;
 
-class Auth{
-    public static function login($usuario, $senha){
-         // Inicia a conexão com o BD
+class Auth
+{
+    public static function login($usuario, $senha)
+    {
+        // Inicia a conexão com o BD
         $pdo = Database::conectar();
 
-        $sql = "SELECT * FROM usuarios WHERE delete_at IS NULL AND email = :email LIMIT 1";
+        $sql = "SELECT * FROM usuarios WHERE deleted_at IS NULL AND email = :email LIMIT 1";
 
         $stmt = $pdo->prepare($sql);
 
@@ -25,22 +27,20 @@ class Auth{
 
         $usuario = $stmt->fetch();
 
-       
 
-        if($usuario && password_verify($senha, $usuario['senha'])) {
-            if(session_status() === PHP_SESSION_NONE) {
+        if ($usuario && password_verify($senha, $usuario['senha'])) {
+            // Verifica se a sessão já está iniciada
+            if (session_status() === PHP_SESSION_NONE) {
+                // Inicia a sessão se ainda não estiver iniciada    
                 session_start();
             }
             $_SESSION['usuario_id'] = $usuario['id_usuario'];
-            $_SESSION['usuario_nome'] = $usuario['nome'];  
+            $_SESSION['usuario_nome'] = $usuario['nome'];
             $_SESSION['usuario_email'] = $usuario['email'];
             $_SESSION['usuario_tipo'] = $usuario['tipo'];
             return true; // Login bem-sucedido
-            
+
         }
         return false; // Login falhou
     }
 }
-
-    
-    
