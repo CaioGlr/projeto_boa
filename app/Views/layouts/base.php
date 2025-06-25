@@ -12,7 +12,6 @@
     <style>
         /* Estilos para impressão - Oculta elementos indesejados */
         @media print {
-
             /* Oculta a barra de navegação superior */
             nav.navbar,
             /* Oculta o botão que abre o sidebar */
@@ -25,9 +24,13 @@
             footer.footer,
             /* Oculta botões de ação (como o de imprimir e de voltar) */
             button.btn-dark,
-            /* Oculta links de navegação */
             a.btn-secondary,
-            /* Ajustes para a tabela */
+            /* Oculta qualquer container fora do conteúdo central */
+            .content-titulo .d-flex,
+            .content-titulo .btn {
+                display: none !important;
+            }
+
             table {
                 width: 100% !important;
                 margin: 0 !important;
@@ -59,6 +62,7 @@
                 </li>
                 <li class="nav-item"><a class="nav-link text-center" href="/home"><i class="fas fa-home"></i> Página Inicial</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/cardapio"><i class="fas fa-utensils"></i> Cardápio</a></li>
+                <li class="nav-item"><a class="nav-link text-center" href="/sobre"><i class="fas fa-headphones"></i> Entre em Contato</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/entrar"><i class="fas fa-sign-in-alt"></i> Login</a></li>
             </ul>
         </div>
@@ -81,8 +85,8 @@
 
                 <!-- Página Inicial e Dashboard -->
                 <li class="nav-item d-flex flex-column">
-                    <a class="nav-link" href="/home">
-                        <i class="fas fa-home me-2"></i> Página Inicial
+                    <a class="nav-link" href="/sair">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
                     </a>
                     <a class="nav-link" href="/dashboard">
                         <i class="fas fa-chart-line me-2"></i> Dashboard
@@ -131,16 +135,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/vendas">
                         <i class="fas fa-receipt me-2"></i> Lista de Vendas
-                    </a>
-                </li>
-
-                <!-- Outros -->
-                <div class="bg-black text-white p-2 ps-3 fw-bold">
-                    <i class="fas fa-cogs me-2"></i>OUTROS
-                </div>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sobre">
-                        <i class="fas fa-headset me-2"></i> Contato e Suporte
                     </a>
                 </li>
             </ul>

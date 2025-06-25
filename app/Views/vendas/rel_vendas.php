@@ -18,8 +18,6 @@
                     <th>Usuário</th>
                     <th>Produto</th>
                     <th>Quantidade</th>
-                    <th>Valor Unitário</th>
-                    <th>Valor Total</th>
                     <th>Data da Venda</th>
                     <th>Forma de Pagamento</th>
                 </tr>
@@ -31,11 +29,6 @@
                         <td><?= $venda['nome_usuario'] ?></td>
                         <td><?= $venda['nome_produto'] ?></td>
                         <td><?= $venda['quantidade'] ?></td>
-                        <!-- Formata o valor unitário do produto -->
-                        <td>R$<?= number_format($venda['preco_produto'], 2, ',', '.') ?></td>
-                        <!-- Formata o valor total da venda -->
-                        <td>R$<?= number_format($venda['total'], 2, ',', '.') ?></td>
-                        <!-- strtotime converte a data para o formato d/m/y -->
                         <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
                         <td><?= $venda['forma_pagamento'] ?></td>
                     </tr>

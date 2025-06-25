@@ -39,10 +39,10 @@
                         <td><?= $prod['nome'] ?></td>
                         <td><?= $prod['tipo'] ?></td>
                         <!-- number_format formata o preço para o padrão brasileiro -->
-                        <td>R$<?= number_format($prod['preco'], 2, ',', '.') ?></td>
+                        <td>R$<?= $prod['preco'] ?></td>
                         <td><?= $prod['estoque'] ?></td>
                         <td>
-                            <a href="/produtos/<?= $prod['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="/produtos/<?= $prod['id_produto'] ?>/editar" class="btn btn-warning btn-sm">Edit</a>
                             <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarFisico(<?= $prod['id_produto'] ?>)"
                                 title="Excluir" type="button">

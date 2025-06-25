@@ -30,6 +30,8 @@ class AuthController
         }
 
         if (Auth::login($usuario, $senha)) {
+            $_SESSION['mensagem'] = "Logado com sucesso: {$_SESSION['usuario_nome']} ({$_SESSION['usuario_tipo']})";
+            $_SESSION['tipo_mensagem'] = "success";
             header('Location: /dashboard');
             exit;
         } else {

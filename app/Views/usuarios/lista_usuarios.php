@@ -41,7 +41,7 @@
                         <td><?= $user['celular'] ?></td>
                         <td><?= $user['tipo'] ?></td>
                         <td>
-                            <a href="/usuarios/<?= $user['id_usuario'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="/usuarios/<?= $user['id_usuario'] ?>/editar" class="btn btn-warning btn-sm">Edit</a>
 
                             <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarFisico(<?= $user['id_usuario'] ?>)"

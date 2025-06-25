@@ -217,6 +217,9 @@ if (isset($_SESSION['erros'])):
 
     <!-- Botões -->
     <div class="container mt-4">
+        <div class="d-flex justify-content-between">
+            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
         <div class="d-flex justify-content-center">
             <!-- Botão de Submeter -->
             <button type="submit" class="btn btn-primary">Cadastrar o Usuário</button>

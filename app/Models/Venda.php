@@ -1,55 +1,37 @@
 <?php
 
-// Informa em qual área da memória vai ficar alocado
 namespace App\Models;
 
-// Importa o Arquivo de BD para ser utilizado nesta classe
 use App\Core\Database;
-
-// Importa a classe de BD do PHP
 use PDO;
 use PDOException;
 
 class Venda
 {
-    // Busca todas as vendas com os nomes de usuário e produto
+    // Busca todas as vendas com nomes de usuário e produto
     public static function buscarTodos()
     {
-        // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
 
-        // Monta o Script SQL de consulta
-        // Inclui os nomes dos usuários e produtos para melhor legibilidade
-        // Utiliza INNER JOIN para unir as tabelas vendas, usuarios e produtos
-        // Filtra apenas as vendas que não foram deletadas (deleted_at IS NULL)
+        $sql = "SELECT vendas.*, produtos.nome AS nome_produto, usuarios.nome AS nome_usuario 
+                FROM vendas 
+                INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario 
+                INNER JOIN produtos ON vendas.produto_id = produtos.id_produto 
+                WHERE vendas.deleted_at IS NULL";
 
-        $sql = "SELECT vendas.*, produtos.nome, usuarios.nome FROM vendas ";
-        $sql .= "INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario ";
-        $sql .= "INNER JOIN produtos ON vendas.produto_id = produtos.id_produto ";
-        $sql .= "WHERE deleted_at IS NULL";
-
-        // Retorna o resultado do SQL
-        return $pdo->query($sql)->fetchAll();
+        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Busca uma venda específica
+    // Busca uma venda específica pelo ID
     public static function buscarUm($id)
     {
-        // Inicia a conexão com o banco de dados
         $pdo = Database::conectar();
-        // Monta o Script SQL de consulta
-        // Inclui os nomes dos usuários e produtos
-        $sql = "
-            SELECT
-                id_venda,
-                usuario_id,
-                produto_id,
-                quantidade,
-                data_venda,
-                forma_pagamento
-            FROM vendas
-            WHERE deleted_at IS NULL AND id_venda = :id
-        ";
+
+        $sql = "SELECT vendas.*, produtos.nome AS nome_produto, usuarios.nome AS nome_usuario 
+                FROM vendas 
+                INNER JOIN usuarios ON vendas.usuario_id = usuarios.id_usuario 
+                INNER JOIN produtos ON vendas.produto_id = produtos.id_produto 
+                WHERE vendas.deleted_at IS NULL AND vendas.id_venda = :id";
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -58,27 +40,14 @@ class Venda
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Salvar nova venda
+    // Salva uma nova venda
     public static function salvar($dados)
     {
         try {
             $pdo = Database::conectar();
 
-            $sql = "
-                INSERT INTO vendas (
-                    usuario_id,
-                    produto_id,
-                    quantidade,
-                    data_venda,
-                    forma_pagamento
-                ) VALUES (
-                    :usuario_id,
-                    :produto_id,
-                    :quantidade,
-                    :data_venda,
-                    :forma_pagamento
-                )
-            ";
+            $sql = "INSERT INTO vendas (usuario_id, produto_id, quantidade, data_venda, forma_pagamento) 
+                    VALUES (:usuario_id, :produto_id, :quantidade, :data_venda, :forma_pagamento)";
 
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':usuario_id', $dados['usuario_id'], PDO::PARAM_INT);
@@ -95,21 +64,19 @@ class Venda
         }
     }
 
-    // Atualizar venda existente
+    // Atualiza os dados de uma venda existente
     public static function atualizar($dados)
     {
         try {
             $pdo = Database::conectar();
 
-            $sql = "
-                UPDATE vendas SET
-                    usuario_id = :usuario_id,
-                    produto_id = :produto_id,
-                    quantidade = :quantidade,
-                    data_venda = :data_venda,
-                    forma_pagamento = :forma_pagamento
-                WHERE id_venda = :id_venda
-            ";
+            $sql = "UPDATE vendas 
+                    SET usuario_id = :usuario_id, 
+                        produto_id = :produto_id, 
+                        quantidade = :quantidade, 
+                        data_venda = :data_venda, 
+                        forma_pagamento = :forma_pagamento 
+                    WHERE id_venda = :id_venda AND deleted_at IS NULL";
 
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':usuario_id', $dados['usuario_id'], PDO::PARAM_INT);
@@ -126,23 +93,29 @@ class Venda
         }
     }
 
-    // Exclusão lógica
+    // Realiza exclusão lógica de uma venda
     public static function deletarLogico($id)
     {
         $pdo = Database::conectar();
+
         $sql = "UPDATE vendas SET deleted_at = NOW() WHERE id_venda = :id";
+
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
         return $stmt->execute();
     }
 
-    // Exclusão física
+    // Realiza exclusão física de uma venda
     public static function deletarFisico($id)
     {
         $pdo = Database::conectar();
+
         $sql = "DELETE FROM vendas WHERE id_venda = :id";
+
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
         return $stmt->execute();
     }
 }

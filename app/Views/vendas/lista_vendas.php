@@ -44,7 +44,7 @@
                         <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
                         <td><?= $venda['forma_pagamento'] ?></td>
                         <td>
-                            <a href="/vendas/<?= $venda['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="/vendas/<?= $venda['id_venda'] ?>/editar" class="btn btn-warning btn-sm">Edit</a>
                             <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarFisico(<?= $venda['id_venda'] ?>)"
                                 title="Excluir" type="button">

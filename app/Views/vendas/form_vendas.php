@@ -47,11 +47,10 @@ if (isset($_SESSION['erros'])):
                 <select class="form-select" id="usuario_id" name="usuario_id" required>
                     <option value="">Selecione o usuário</option>
                     <?php foreach ($usuarios as $user): ?>
-
                         <option value="<?= $user['id_usuario'] ?>"
                             <?= isset($dados['usuario_id']) && $dados['usuario_id'] == $user['id_usuario'] ? 'selected' : null ?>>
                             <!-- Exibe o nome do usuário -->
-                            <?= $usuario['nome'] ?>
+                            <?= $user['nome'] ?>
                         </option>
 
                     <?php endforeach; ?>
@@ -66,54 +65,52 @@ if (isset($_SESSION['erros'])):
                     <?php foreach ($produtos as $prod): ?>
                         <option value="<?= $prod['id_produto'] ?>"
                             <?= isset($dados['produto_id']) && $dados['produto_id'] == $prod['id_produto'] ? 'selected' : '' ?>>
-                            <?= $prod['id_produto'] ?> - <?= $prod['nome'] ?> (R$ <?= number_format($prod['preco'], 2, ',', '.') ?>)
+                            <?= $prod['nome'] ?> - R$ <?= number_format($prod['preco'], 2, ',', '.') ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-        </div>
 
-        <div class="row d-flex justify-content-evenly">
-            <!-- Quantidade -->
-            <div class="col-md-5 mb-3">
-                <label for="quantidade" class="form-label">Quantidade</label>
-                <input type="number" class="form-control" id="quantidade" name="quantidade"
-                    value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>"
-                    min="1" required>
+            <div class="row d-flex justify-content-evenly">
+                <!-- Quantidade -->
+                <div class="col-md-5 mb-3">
+                    <label for="quantidade" class="form-label">Quantidade</label>
+                    <input type="number" class="form-control" id="quantidade" name="quantidade"
+                        value="<?= isset($dados['quantidade']) ? $dados['quantidade'] : 1 ?>"
+                        min="1" required>
+                </div>
+
+                <!-- Forma de Pagamento -->
+                <div class="col-md-5 mb-3">
+                    <label for="forma_pagamento" class="form-label">Forma de Pagamento</label>
+                    <select class="form-select" id="forma_pagamento" name="forma_pagamento" required>
+                        <option value="">Selecione a forma de pagamento</option>
+                        <?php $formas_pagamento = ['Dinheiro', 'Crédito', 'Débito', 'Pix', 'Transferência']; ?>
+                        <?php foreach ($formas_pagamento as $forma): ?>
+                            <option value="<?= $forma ?>"
+                                <?= isset($dados['forma_pagamento']) && $dados['forma_pagamento'] === $forma ? 'selected' : '' ?>>
+                                <?= $forma ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
 
-            <!-- Forma de Pagamento -->
-            <div class="col-md-5 mb-3">
-                <label for="forma_pagamento" class="form-label">Forma de Pagamento</label>
-                <select class="form-select" id="forma_pagamento" name="forma_pagamento" required>
-                    <option value="">Selecione a forma de pagamento</option>
-                    <?php $formas_pagamento = ['Dinheiro', 'Crédito', 'Débito', 'Pix', 'Transferência']; ?>
-                    <?php foreach ($formas_pagamento as $forma): ?>
-                        <option value="<?= $forma ?>"
-                            <?= isset($dados['forma_pagamento']) && $dados['forma_pagamento'] === $forma ? 'selected' : '' ?>>
-                            <?= $forma ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <!-- Data da Venda -->
+            <div class="row d-flex justify-content-evenly">
+                <div class="col-md-5 mb-3">
+                    <label for="data_venda" class="form-label">Data da Venda</label>
+                    <input type="date" class="form-control" id="data_venda" name="data_venda"
+                        value="<?= isset($dados['data_venda']) ? $dados['data_venda'] : date('Y-m-d') ?>" required>
+                </div>
             </div>
-        </div>
-
-        <!-- Data da Venda -->
-        <div class="row d-flex justify-content-evenly">
-            <div class="col-md-5 mb-3">
-                <label for="data_venda" class="form-label">Data da Venda</label>
-                <input type="date" class="form-control" id="data_venda" name="data_venda"
-                    value="<?= isset($dados['data_venda']) ? $dados['data_venda'] : date('Y-m-d') ?>" required>
+            <div class="d-flex justify-content-between">
+                <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
             </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
-        </div>
-        <!-- Botão de Submeter -->
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">
-                <?= isset($dados['id_venda']) ? 'Atualizar Venda' : 'Registrar Venda' ?>
-            </button>
+            <!-- Botão de Submeter -->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Registrar a Venda</button>
+            </div>
         </div>
     </div>
 </form>

@@ -86,9 +86,7 @@ if (isset($_SESSION['erros'])):
         </div>
         <!-- Botão de Submeter -->
         <div class="d-flex justify-content-center mt-3">
-            <button type="submit" class="btn btn-primary">
-                <?= isset($dados['id_produto']) ? 'Atualizar Produto' : 'Cadastrar o Produto' ?>
-            </button>
+            <button type="submit" class="btn btn-primary">Cadastrar o Produto</button>
         </div>
     </div>
 </form>

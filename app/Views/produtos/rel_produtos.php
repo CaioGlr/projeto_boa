@@ -30,7 +30,7 @@
                         <td><?= $prod['id_produto'] ?></td>
                         <td><?= $prod['nome'] ?></td>
                         <td><?= $prod['tipo'] ?></td>
-                        <td>R$<?= number_format($prod['preco'], 2, ',', '.') ?></td>
+                        <td>R$<?= $prod['preco'] ?></td>
                         <td><?= $prod['estoque'] ?></td>
                     </tr>
                 <?php endforeach ?>
