@@ -1,20 +1,25 @@
 <?php
+// Formulário de Usuários - Para cadastrar ou editar usuários
+
+// Recupera dados da sessão se existirem (para preencher formulário em caso de erro)
 if (isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
+// Define a rota do formulário baseado se é edição ou cadastro
 if (isset($dados['id_usuario'])) {
     $rota = "/usuarios/" . $dados['id_usuario'] . "/atualizar";
 } else {
     $rota = "/usuarios/salvar";
 }
 
-// Exibe erros APENAS UMA VEZ, no topo
+// Exibe erros APENAS UMA VEZ, no topo da página
 if (isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
     unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
+    <!-- Alerta de erros -->
     <div class="alert alert-danger row py-5" role="alert">
         <h4 class="alert-heading">Erro no formulário!</h4>
         <p>Verifique os itens abaixo antes de tentar novamente:</p>
@@ -26,8 +31,7 @@ if (isset($_SESSION['erros'])):
     </div>
 <?php endif; ?>
 
-<!-- Conteúdo Principal -->
-
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -36,7 +40,7 @@ if (isset($_SESSION['erros'])):
     </header>
 </div>
 
-<!-- Formulário -->
+<!-- Formulário principal -->
 <form action="<?= $rota ?>" method="POST">
     <!-- Seção Dados Pessoais -->
     <div class="container mt box">
@@ -44,14 +48,14 @@ if (isset($_SESSION['erros'])):
             DADOS PESSOAIS
         </div>
         <div class="row d-flex justify-content-evenly">
-            <!-- Nome Completo -->
+            <!-- Campo Nome Completo -->
             <div class="col-md-5 mb-3">
                 <label for="nome" class="form-label">Nome Completo</label>
                 <input type="text" class="form-control" value="<?= isset($dados['nome']) ? $dados['nome'] : null ?>"
                     id="nome" name="nome" placeholder="Digite seu nome completo" required>
             </div>
 
-            <!-- CPF -->
+            <!-- Campo CPF -->
             <div class="col-md-5 mb-3">
                 <label for="cpf" class="form-label">CPF</label>
                 <input type="text" class="form-control" value="<?= isset($dados['cpf']) ? $dados['cpf'] : null ?>"
@@ -60,14 +64,14 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Data de Nascimento -->
+            <!-- Campo Data de Nascimento -->
             <div class="col-md-5 mb-3">
                 <label for="data-nascimento" class="form-label">Data de Nascimento</label>
                 <input type="date" class="form-control" value="<?= isset($dados['data_nascimento']) ? $dados['data_nascimento'] : null ?>"
                     id="data-nascimento" name="data_nascimento" required>
             </div>
 
-            <!-- Celular -->
+            <!-- Campo Celular -->
             <div class="col-md-5 mb-3">
                 <label for="celular" class="form-label">Celular</label>
                 <input type="tel" class="form-control" value="<?= isset($dados['celular']) ? $dados['celular'] : null ?>"
@@ -82,14 +86,14 @@ if (isset($_SESSION['erros'])):
             ENDEREÇO
         </div>
         <div class="row d-flex justify-content-evenly">
-            <!-- CEP -->
+            <!-- Campo CEP -->
             <div class="col-md-5 mb-3">
                 <label for="cep" class="form-label">CEP</label>
                 <input type="text" class="form-control" value="<?= isset($dados['cep']) ? $dados['cep'] : null ?>"
                     id="cep" name="cep" placeholder="Digite seu CEP" required>
             </div>
 
-            <!-- Rua -->
+            <!-- Campo Rua -->
             <div class="col-md-5 mb-3">
                 <label for="rua" class="form-label">Rua</label>
                 <input type="text" class="form-control" value="<?= isset($dados['rua']) ? $dados['rua'] : null ?>"
@@ -98,14 +102,14 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Número -->
+            <!-- Campo Número -->
             <div class="col-md-5 mb-3">
                 <label for="numero" class="form-label">Número</label>
                 <input type="text" class="form-control" value="<?= isset($dados['numero']) ? $dados['numero'] : null ?>"
                     id="numero" name="numero" placeholder="Digite seu numero" required>
             </div>
 
-            <!-- Complemento -->
+            <!-- Campo Complemento -->
             <div class="col-md-5 mb-3">
                 <label for="complemento" class="form-label">Complemento</label>
                 <input type="text" class="form-control" value="<?= isset($dados['complemento']) ? $dados['complemento'] : null ?>"
@@ -114,14 +118,14 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Bairro -->
+            <!-- Campo Bairro -->
             <div class="col-md-5 mb-3">
                 <label for="bairro" class="form-label">Bairro</label>
                 <input type="text" class="form-control" value="<?= isset($dados['bairro']) ? $dados['bairro'] : null ?>"
                     id="bairro" name="bairro" placeholder="Digite seu bairro" required>
             </div>
 
-            <!-- Cidade -->
+            <!-- Campo Cidade -->
             <div class="col-md-5 mb-3">
                 <label for="cidade" class="form-label">Cidade</label>
                 <input type="text" class="form-control" value="<?= isset($dados['cidade']) ? $dados['cidade'] : null ?>"
@@ -130,11 +134,12 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Estado -->
+            <!-- Campo Estado -->
             <div class="col-md-5 mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select class="form-select" id="estado" name="estado" required>
                     <option disabled selected value=""> Selecione...</option>
+                    <!-- Lista de todos os estados brasileiros -->
                     <option <?= isset($dados['estado']) && $dados['estado'] == "AC" ? "selected" : "" ?> value="AC">Acre</option>
                     <option <?= isset($dados['estado']) && $dados['estado'] == "AL" ? "selected" : "" ?> value="AL">Alagoas</option>
                     <option <?= isset($dados['estado']) && $dados['estado'] == "AP" ? "selected" : "" ?> value="AP">Amapá</option>
@@ -173,7 +178,7 @@ if (isset($_SESSION['erros'])):
             SEGURANÇA DE ACESSO
         </div>
         <div class="row d-flex justify-content-evenly">
-            <!-- E-mail -->
+            <!-- Campo E-mail -->
             <div class="col-md-5 mb-3">
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" value="<?= isset($dados['email']) ? $dados['email'] : null ?>"
@@ -182,13 +187,13 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Senha -->
+            <!-- Campo Senha -->
             <div class="col-md-5 mb-3">
                 <label for="senha" class="form-label">Senha</label>
                 <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
             </div>
 
-            <!-- Confirmar Senha -->
+            <!-- Campo Confirmar Senha -->
             <div class="col-md-5 mb-3">
                 <label for="confirmar-senha" class="form-label">Confirmar Senha</label>
                 <input type="password" class="form-control" id="confirmar-senha" name="confirmar_senha" placeholder="Confirme sua senha" required>
@@ -202,7 +207,7 @@ if (isset($_SESSION['erros'])):
             PERFIL DE ACESSO
         </div>
         <div class="row d-flex justify-content-evenly">
-            <!-- Tipo de Usuário -->
+            <!-- Campo Tipo de Usuário -->
             <div class="col-md-5 mb-3">
                 <label for="tipo-usuario" class="form-label">Tipo de Usuário</label>
                 <select class="form-select" id="tipo-usuario" required name="tipo">
@@ -215,13 +220,14 @@ if (isset($_SESSION['erros'])):
         </div>
     </div>
 
-    <!-- Botões -->
+    <!-- Botões de ação -->
     <div class="container mt-4">
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>
+        <!-- Botão de submeter -->
         <div class="d-flex justify-content-center">
-            <!-- Botão de Submeter -->
             <button type="submit" class="btn btn-primary">Cadastrar o Usuário</button>
         </div>
     </div>

@@ -1,20 +1,25 @@
 <?php
+// Formulário de Produtos - Para cadastrar ou editar produtos
+
+// Recupera dados da sessão se existirem (para preencher formulário em caso de erro)
 if (isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
+// Define a rota do formulário baseado se é edição ou cadastro
 if (isset($dados['id_produto'])) {
     $rota = "/produtos/" . $dados['id_produto'] . "/atualizar";
 } else {
     $rota = "/produtos/salvar";
 }
 
-// Exibe erros APENAS UMA VEZ, no topo
+// Exibe erros APENAS UMA VEZ, no topo da página
 if (isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
     unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
+    <!-- Alerta de erros -->
     <div class="alert alert-danger row py-5" role="alert">
         <h4 class="alert-heading">Erro no formulário!</h4>
         <p>Verifique os itens abaixo antes de tentar novamente:</p>
@@ -25,7 +30,8 @@ if (isset($_SESSION['erros'])):
         </ul>
     </div>
 <?php endif; ?>
-<!-- Conteúdo Principal -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -34,15 +40,16 @@ if (isset($_SESSION['erros'])):
     </header>
 </div>
 
-<!-- Formulário -->
+<!-- Formulário principal -->
 <form action="<?= $rota ?>" method="POST">
     <div class="container mt-2 box">
+        <!-- Título da seção -->
         <div class="section-header bg-white text-dark p-2 mb-3 fw-bold border-bottom">
             PREENCHA OS DADOS DO PRODUTO
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Nome do Produto -->
+            <!-- Campo Nome do Produto -->
             <div class="col-md-5 mb-3">
                 <label for="nome" class="form-label">Nome do Produto</label>
                 <input type="text" class="form-control" id="nome" name="nome"
@@ -50,7 +57,7 @@ if (isset($_SESSION['erros'])):
                     placeholder="Digite o nome do produto" required>
             </div>
 
-            <!-- Preço do Produto -->
+            <!-- Campo Preço do Produto -->
             <div class="col-md-5 mb-3">
                 <label for="preco" class="form-label">Preço</label>
                 <input type="number" step="0.01" class="form-control" id="preco" name="preco"
@@ -60,7 +67,7 @@ if (isset($_SESSION['erros'])):
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Tipo de Produto -->
+            <!-- Campo Tipo de Produto -->
             <div class="col-md-5 mb-3">
                 <label for="tipo" class="form-label">Tipo de Produto</label>
                 <select class="form-select" id="tipo" name="tipo" required>
@@ -73,7 +80,7 @@ if (isset($_SESSION['erros'])):
                 </select>
             </div>
 
-            <!-- Estoque -->
+            <!-- Campo Estoque -->
             <div class="col-md-5 mb-3">
                 <label for="estoque" class="form-label">Quantidade em Estoque</label>
                 <input type="number" class="form-control" id="estoque" name="estoque"
@@ -81,10 +88,13 @@ if (isset($_SESSION['erros'])):
                     placeholder="Digite a quantidade em estoque" required>
             </div>
         </div>
+        
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>
-        <!-- Botão de Submeter -->
+        
+        <!-- Botão de submeter -->
         <div class="d-flex justify-content-center mt-3">
             <button type="submit" class="btn btn-primary">Cadastrar o Produto</button>
         </div>

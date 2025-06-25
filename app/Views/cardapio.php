@@ -1,3 +1,6 @@
+<!-- Página do Cardápio - Exibe todos os produtos organizados por categoria -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -6,11 +9,13 @@
     </header>
 </div>
 
+<!-- Container principal do cardápio -->
 <div id="cardapio" class="container my-5 text-white text-center">
 
     <!-- Seção: Café da Manhã -->
     <h3 class="fw-bold mt-4 text-dark">☕ Café da Manhã</h3>
     <div class="row">
+        <!-- Card do Donut com Café -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/delicious-donut-coffee-cup.jpg" class="card-img-top" alt="Donut com Café">
@@ -20,6 +25,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Pão com Manteiga -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/Captura de tela 2025-03-03 191302.png" class="card-img-top" alt="Pão com Manteiga com Café">
@@ -29,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Pão com Leite -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/bread-with-butter.jpg" class="card-img-top" alt="Pão com Leite">
@@ -43,6 +50,7 @@
     <!-- Seção: Almoço -->
     <h3 class="fw-bold mt-4 text-dark">🍽️ Almoço</h3>
     <div class="row">
+        <!-- Card do Farfalle com Almôndegas -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/farfalle-pasta-with-meatballs-spinach-sauce-with-fried-chickpeas.jpg" class="card-img-top" alt="Farfalle com Almôndegas">
@@ -52,6 +60,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Penne Pasta -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/penne-pasta.jpg" class="card-img-top" alt="Penne Pasta">
@@ -61,6 +70,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Bife Grelhado -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/plate-grilled-steak-meat-with-vegetables-white-background-photo-menu.jpg" class="card-img-top" alt="Bife Grelhado com Legumes">
@@ -75,6 +85,7 @@
     <!-- Seção: Jantar -->
     <h3 class="fw-bold mt-4 text-dark">🌙 Jantar</h3>
     <div class="row">
+        <!-- Card do Hambúrguer Natural -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/hamburger-with-cheese-lettuce-tomatoes.jpg" class="card-img-top" alt="Hambúrguer Natural">
@@ -84,6 +95,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card da Pizza de Queijo -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/pizza-with-cheese-tomato-isolated-white-background-pizza-margarita-top-view-photo-menu.jpg" class="card-img-top" alt="Pizza de Queijo">
@@ -93,6 +105,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Risoto de Camarão -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/close-up-seafood-risotto-plate-with-tomato-sauce-garnished-with-shrimp.jpg" class="card-img-top" alt="Risoto de Camarão">
@@ -107,6 +120,7 @@
     <!-- Seção: Sobremesas -->
     <h3 class="fw-bold mt-4 text-dark">🍰 Sobremesas</h3>
     <div class="row">
+        <!-- Card do Pudim de Leite -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/cheesecake-with-caramel-nuts-it.jpg" class="card-img-top" alt="Pudim de Leite">
@@ -116,6 +130,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Brownie com Sorvete -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/chocolate-brownie-portion-isolated-white-background.jpg" class="card-img-top" alt="Brownie com Sorvete">
@@ -125,6 +140,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card da Torta de Limão -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/Torta de Limão.png" class="card-img-top" alt="Torta de Limão">
@@ -139,6 +155,7 @@
     <!-- Seção: Refrigerantes -->
     <h3 class="fw-bold mt-4 text-dark">🥤 Refrigerantes</h3>
     <div class="row">
+        <!-- Card do Refrigerante Lata -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/RefrigeranteLata.png" class="card-img-top" alt="Refrigerante Lata 600ml">
@@ -148,6 +165,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card do Suco de Laranja -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/sucolaranja.jpg" class="card-img-top" alt="Suco de Laranja">
@@ -157,6 +175,7 @@
                 </div>
             </div>
         </div>
+        <!-- Card da Garrafa de Água -->
         <div class="col-md-4 mb-3">
             <div class="card text-center shadow-sm p-2">
                 <img src="../img/Cardápio/Garrafaagua.png" class="card-img-top" alt="Garrafa de Água 500ml">

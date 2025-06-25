@@ -1,3 +1,6 @@
+<!-- Relatório de Produtos - Exibe todos os produtos para impressão -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -14,7 +17,9 @@
             </button>
         </div>
 
+        <!-- Tabela de produtos para o relatório -->
         <table class="table table-striped">
+            <!-- Cabeçalho da tabela -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,6 +29,7 @@
                     <th>Estoque</th>
                 </tr>
             </thead>
+            <!-- Corpo da tabela -->
             <tbody id="prodTable">
                 <?php foreach ($produtos as $prod): ?>
                     <tr>
@@ -37,6 +43,7 @@
             </tbody>
         </table>
 
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Voltar

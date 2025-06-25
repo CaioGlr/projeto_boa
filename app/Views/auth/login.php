@@ -14,7 +14,7 @@ $dados = $_SESSION['dados'] ?? [];
 <div class="row py-5">
     <div class="col-12 d-flex flex-column align-items-center">
 
-        <!-- ALERTA DE ERROS -->
+        <!-- Alerta de Erros -->
         <?php if (!empty($erros)): ?>
             <div class="alert alert-danger col-md-6" role="alert">
                 <h4 class="alert-heading">Erro ao entrar!</h4>
@@ -26,7 +26,7 @@ $dados = $_SESSION['dados'] ?? [];
             </div>
         <?php endif; ?>
 
-        <!-- CONTAINER DE LOGIN -->
+        <!-- Container do Login -->
         <div class="login-container col-md-6">
 
             <div class="login-header text-center">
@@ -34,30 +34,19 @@ $dados = $_SESSION['dados'] ?? [];
                 <p>Bem-vindo de volta ao Comida Boa!</p>
             </div>
 
+            <!-- Formulário de Login -->
             <form action="/entrar" method="POST">
                 <div class="mb-3">
+                    <!-- Campo de E-mail -->
                     <label for="email" class="form-label">E-mail</label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Digite seu e-mail"
-                        value="<?= htmlspecialchars($dados['email'] ?? '') ?>"
-                        required
-                    >
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" value="<?= $dados['email'] ?? null ?>" required>
                 </div>
+                <!-- Campo de Senha -->
                 <div class="mb-3">
                     <label for="senha" class="form-label">Senha</label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="senha" 
-                        name="senha" 
-                        placeholder="Digite sua senha" 
-                        required
-                    >
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
                 </div>
+                <!-- Botões de Ação -->
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-danger">Entrar</button>
                     <a href="/dashboard" class="mx-auto">

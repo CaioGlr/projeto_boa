@@ -1,3 +1,6 @@
+<!-- Relatório de Vendas - Exibe todas as vendas para impressão -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <h1 class="display-3 fw-bold">Relatório das Vendas</h1>
@@ -11,7 +14,9 @@
             </button>
         </div>
 
+        <!-- Tabela de vendas para o relatório -->
         <table class="table table-striped">
+            <!-- Cabeçalho da tabela -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -22,6 +27,7 @@
                     <th>Forma de Pagamento</th>
                 </tr>
             </thead>
+            <!-- Corpo da tabela -->
             <tbody id="vendaTable">
                 <?php foreach ($vendas as $venda): ?>
                     <tr>
@@ -29,6 +35,7 @@
                         <td><?= $venda['nome_usuario'] ?></td>
                         <td><?= $venda['nome_produto'] ?></td>
                         <td><?= $venda['quantidade'] ?></td>
+                        <!-- Converte a data para o formato brasileiro -->
                         <td><?= date('d/m/Y', strtotime($venda['data_venda'])) ?></td>
                         <td><?= $venda['forma_pagamento'] ?></td>
                     </tr>
@@ -36,6 +43,7 @@
             </tbody>
         </table>
 
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>

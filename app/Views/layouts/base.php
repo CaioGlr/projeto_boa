@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
+<!-- Base.php é o layout base utilizado para todas as páginas do sistema, incluindo o painel administrativo. -->
 <head>
     <meta charset="pt-BR">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
     <!-- Ajustes para impressão -->
     <style>
         /* Estilos para impressão - Oculta elementos indesejados */
+        /* @media é utilizado para aplicar estilos específicos quando a página é impressa */
+        /* print é o tipo de mídia que indica que os estilos são para impressão */
         @media print {
             /* Oculta a barra de navegação superior */
             nav.navbar,
@@ -28,9 +30,10 @@
             /* Oculta qualquer container fora do conteúdo central */
             .content-titulo .d-flex,
             .content-titulo .btn {
+            /* !important é usado para garantir que esses estilos sejam aplicados*/
                 display: none !important;
             }
-
+            /* Ajusta do table da página */
             table {
                 width: 100% !important;
                 margin: 0 !important;
@@ -60,6 +63,7 @@
                 <li class="nav-item text-cartoon fs-4 fw-bold mb-7 text-center" style="color:rgb(255, 255, 255); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
                     Comida Boa!!
                 </li>
+                <!-- Links de Navegação -->
                 <li class="nav-item"><a class="nav-link text-center" href="/home"><i class="fas fa-home"></i> Página Inicial</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/cardapio"><i class="fas fa-utensils"></i> Cardápio</a></li>
                 <li class="nav-item"><a class="nav-link text-center" href="/sobre"><i class="fas fa-headphones"></i> Entre em Contato</a></li>
@@ -79,7 +83,7 @@
                 <h5 class="mb-0 fw-bold">Menu de Navegação</h5>
             </div>
         </div>
-
+        <!-- Corpo do Sidebar -->
         <div class="offcanvas-body p-0">
             <ul class="nav_bar ms-auto flex-column list-unstyled">
 

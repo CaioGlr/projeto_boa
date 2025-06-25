@@ -1,3 +1,6 @@
+<!-- Lista de Usuários - Exibe todos os usuários registrados -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
@@ -6,8 +9,10 @@
     </header>
 
     <div class="container mt-4 box">
+        <!-- Botão para cadastrar novo usuário -->
         <a href="/usuarios/novo" class="btn btn-primary mb-3">Cadastrar um <b>Novo Usuário</b></a>
 
+        <!-- Exibe mensagens de sucesso se existirem -->
         <?php
         if (isset($_SESSION['mensagem'])):
         ?>
@@ -17,11 +22,14 @@
             </div>
         <?php
         endif;
+        // Remove as mensagens da sessão após exibi-las
         unset($_SESSION['mensagem']);
         unset($_SESSION['tipo_mensagem']);
         ?>
 
+        <!-- Tabela de usuários -->
         <table class="table table-striped">
+            <!-- Cabeçalho da tabela -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -32,6 +40,7 @@
                     <th>Ações</th>
                 </tr>
             </thead>
+            <!-- Corpo da tabela -->
             <tbody id="userTable">
                 <?php foreach ($usuarios as $user): ?>
                     <tr>
@@ -41,14 +50,17 @@
                         <td><?= $user['celular'] ?></td>
                         <td><?= $user['tipo'] ?></td>
                         <td>
+                            <!-- Botão de editar -->
                             <a href="/usuarios/<?= $user['id_usuario'] ?>/editar" class="btn btn-warning btn-sm">Edit</a>
 
+                            <!-- Botão de deletar fisicamente -->
                             <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarFisico(<?= $user['id_usuario'] ?>)"
                                 title="Excluir" type="button">
                                 Deletar
                             </button>
 
+                            <!-- Botão de desativar (deletar logicamente) -->
                             <button class="btn btn-danger btn-sm btn-action"
                                 onclick="deletarLogico(<?= $user['id_usuario'] ?>)"
                                 title="Excluir" type="button">
@@ -60,13 +72,16 @@
             </tbody>
         </table>
 
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>
     </div>
 </div>
 
+<!-- Scripts JavaScript para as ações de deletar -->
 <script>
+    // Função para deletar fisicamente um usuário
     function deletarFisico(id) {
         if (confirm("Deseja deletar PERMANENTEMENTE este usuário? Esta ação não poderá ser desfeita!")) {
             window.location.href = `/usuarios/${id}/del-fisico`;
@@ -75,6 +90,7 @@
         }
     }
 
+    // Função para deletar logicamente um usuário (desativar)
     function deletarLogico(id) {
         if (confirm("Deseja DESATIVAR este usuário?")) {
             window.location.href = `/usuarios/${id}/del-logico`;

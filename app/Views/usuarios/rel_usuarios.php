@@ -1,10 +1,14 @@
+<!-- Relatório de Usuários - Exibe todos os usuários para impressão -->
+
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <div>
             <h1 class="display-3 fw-bold">Relatório de Usuários</h1>
         </div>
     </header>
-    <!-- Filtro de busca -->
+    
+    <!-- Container do relatório -->
     <div class="container mt-4 box">
 
         <!-- Botão de Imprimir -->
@@ -14,7 +18,9 @@
             </button>
         </div>
 
+        <!-- Tabela de usuários para o relatório -->
         <table class="table table-striped">
+            <!-- Cabeçalho da tabela -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -25,6 +31,7 @@
                     <th>Tipo</th>
                 </tr>
             </thead>
+            <!-- Corpo da tabela -->
             <tbody id="userTable">
                 <?php foreach ($usuarios as $user): ?>
                     <tr>
@@ -38,6 +45,8 @@
                 <?php endforeach ?>
             </tbody>
         </table>
+        
+        <!-- Botão de voltar -->
         <div class="d-flex justify-content-between">
             <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
         </div>

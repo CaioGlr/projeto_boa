@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
+<!-- Base publico é utilizado para páginas públicas, como a página inicial, cardápio e contato. -->
 <head>
     <meta charset="pt-BR">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,12 +30,11 @@
             </ul>
         </div>
     </nav>
-
+    <!-- Conteúdo principal -->
     <?php
     echo $content;
     ?>
-    
-        <!--Seção de Contato-->
+    <!--Seção de Contato-->
     <div id="contato" class="content border border-radius 10px bg-dark text-white my-5 text-center p-4">
         <div class="container">
             <div class="row">

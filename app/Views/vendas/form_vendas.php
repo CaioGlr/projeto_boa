@@ -1,20 +1,25 @@
 <?php
+// Formulário de Vendas - Para cadastrar ou editar vendas
+
+// Recupera dados da sessão se existirem (para preencher formulário em caso de erro)
 if (isset($_SESSION['dados'])) {
     $dados = $_SESSION['dados'];
     unset($_SESSION['dados']);
 }
 
+// Define a rota do formulário baseado se é edição ou cadastro
 if (isset($dados['id_venda'])) {
     $rota = "/vendas/" . $dados['id_venda'] . "/atualizar";
 } else {
     $rota = "/vendas/salvar";
 }
 
-// Exibe erros APENAS UMA VEZ, no topo
+// Exibe erros APENAS UMA VEZ, no topo da página
 if (isset($_SESSION['erros'])):
     $erros = $_SESSION['erros'];
     unset($_SESSION['erros']); // LIMPA OS ERROS IMEDIATAMENTE
 ?>
+    <!-- Alerta de erros -->
     <div class="alert alert-danger row py-5" role="alert">
         <h4 class="alert-heading">Erro no registro!</h4>
         <p>Verifique os itens abaixo antes de tentar novamente:</p>
@@ -26,7 +31,7 @@ if (isset($_SESSION['erros'])):
     </div>
 <?php endif; ?>
 
-<!-- Conteúdo Principal -->
+<!-- Cabeçalho da página -->
 <div class="content-titulo">
     <header class="text-center">
         <h1 class="display-3 fw-bold">Registro de Venda</h1>
@@ -36,12 +41,13 @@ if (isset($_SESSION['erros'])):
 <!-- Formulário de Venda -->
 <form action="<?= $rota ?>" method="POST">
     <div class="container mt-2 box">
+        <!-- Título da seção -->
         <div class="section-header bg-white text-dark p-2 mb-3 fw-bold border-bottom">
             DADOS DA VENDA
         </div>
 
         <div class="row d-flex justify-content-evenly">
-            <!-- Usuário -->
+            <!-- Campo de seleção do usuário -->
             <div class="col-md-5 mb-3">
                 <label for="usuario_id" class="form-label">Usuário</label>
                 <select class="form-select" id="usuario_id" name="usuario_id" required>
@@ -52,12 +58,11 @@ if (isset($_SESSION['erros'])):
                             <!-- Exibe o nome do usuário -->
                             <?= $user['nome'] ?>
                         </option>
-
                     <?php endforeach; ?>
                 </select>
             </div>
 
-            <!-- Produto -->
+            <!-- Campo de seleção do produto -->
             <div class="col-md-5 mb-3">
                 <label for="produto_id" class="form-label">Produto</label>
                 <select class="form-select" id="produto_id" name="produto_id" required>
@@ -72,7 +77,7 @@ if (isset($_SESSION['erros'])):
             </div>
 
             <div class="row d-flex justify-content-evenly">
-                <!-- Quantidade -->
+                <!-- Campo de quantidade -->
                 <div class="col-md-5 mb-3">
                     <label for="quantidade" class="form-label">Quantidade</label>
                     <input type="number" class="form-control" id="quantidade" name="quantidade"
@@ -80,12 +85,12 @@ if (isset($_SESSION['erros'])):
                         min="1" required>
                 </div>
 
-                <!-- Forma de Pagamento -->
+                <!-- Campo de forma de pagamento -->
                 <div class="col-md-5 mb-3">
                     <label for="forma_pagamento" class="form-label">Forma de Pagamento</label>
                     <select class="form-select" id="forma_pagamento" name="forma_pagamento" required>
                         <option value="">Selecione a forma de pagamento</option>
-                        <?php $formas_pagamento = ['Dinheiro', 'Crédito', 'Débito', 'Pix', 'Transferência']; ?>
+                        <?php $formas_pagamento = ['Dinheiro', 'Crédito', 'Débito', 'Pix']; ?>
                         <?php foreach ($formas_pagamento as $forma): ?>
                             <option value="<?= $forma ?>"
                                 <?= isset($dados['forma_pagamento']) && $dados['forma_pagamento'] === $forma ? 'selected' : '' ?>>
@@ -96,7 +101,7 @@ if (isset($_SESSION['erros'])):
                 </div>
             </div>
 
-            <!-- Data da Venda -->
+            <!-- Campo de data da venda -->
             <div class="row d-flex justify-content-evenly">
                 <div class="col-md-5 mb-3">
                     <label for="data_venda" class="form-label">Data da Venda</label>
@@ -104,10 +109,13 @@ if (isset($_SESSION['erros'])):
                         value="<?= isset($dados['data_venda']) ? $dados['data_venda'] : date('Y-m-d') ?>" required>
                 </div>
             </div>
+            
+            <!-- Botão de voltar -->
             <div class="d-flex justify-content-between">
                 <a href="/dashboard" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
             </div>
-            <!-- Botão de Submeter -->
+            
+            <!-- Botão de submeter -->
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Registrar a Venda</button>
             </div>
